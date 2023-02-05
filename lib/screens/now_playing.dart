@@ -113,7 +113,7 @@ class _NowPlayingState extends State<NowPlaying> {
         if (event != null) {
           currentindex = event;
         }
-        context.read<SongModelProvider>().setid(widget.songModel[currentindex].id);
+        context.read<SongmodelProvider>().setid(widget.songModel[currentindex].id);
       });
     });
   }

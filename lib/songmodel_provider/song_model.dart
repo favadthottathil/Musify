@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SongModelProvider with ChangeNotifier {
+class SongmodelProvider with ChangeNotifier {
   int _id = 0;
 
   int get id {

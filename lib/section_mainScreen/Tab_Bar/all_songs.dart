@@ -52,12 +52,12 @@ class _AllSongsState extends State<AllSongs> {
     }
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    audioPlayer.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   audioPlayer.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
