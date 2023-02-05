@@ -3,36 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-import 'package:music_application/provider/songmodel_provider.dart';
-import 'package:music_application/section_mainScreen/Tab_Bar/all_songs.dart';
-import 'package:music_application/section_nowplaying/image.dart';
 import 'package:music_application/songmodel_provider/song_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
 class NowPlaying extends StatefulWidget {
-  NowPlaying({super.key, required this.songModel, required this.audioPlayer});
+  const NowPlaying({super.key, required this.songModel, required this.audioPlayer});
 
   // add songmodel variable
 
   final List<SongModel> songModel;
   final AudioPlayer audioPlayer;
-
-  // void playNextSong() {
-  //   if (currentSongIndex + 1 >= songlist.length) {
-  //     currentSongIndex = 0;
-  //   } else {
-  //     currentSongIndex++;
-  //   }
-  // }
-
-  // void playPreviousSong() {
-  //   if (currentSongIndex - 1 < 0) {
-  //     currentSongIndex = songlist.length - 1;
-  //   } else {
-  //     currentSongIndex--;
-  //   }
-  // }
 
   @override
   State<NowPlaying> createState() => _NowPlayingState();
@@ -50,26 +31,15 @@ class _NowPlayingState extends State<NowPlaying> {
 
   @override
   void initState() {
-    super.initState();
     playsong();
+    super.initState();
   }
 
   void playsong() {
     try {
-      // widget.audioPlayer.setAudioSource(
-      //   AudioSource.uri(
-      //     Uri.parse(
-      //       widget.songModel.uri!,
-      //     ),
-      //     tag: MediaItem(
-      //       id: "${widget.songModel.id}",
-      //       title: widget.songModel.displayNameWOExt,
-      //       album: '${widget.songModel.album}',
-      //       artUri: Uri.parse('https://example.com/albumart.jpg'),
-      //     )));
-
       for (var element in widget.songModel) {
-        songList.add(AudioSource.uri(
+        songList.add(
+          AudioSource.uri(
             Uri.parse(
               element.uri!,
             ),
@@ -77,8 +47,9 @@ class _NowPlayingState extends State<NowPlaying> {
               id: "${element.id}",
               title: element.displayNameWOExt,
               album: '${element.album}',
-              artUri: Uri.parse(element.id.toString()),
-            )));
+            ),
+          ),
+        );
       }
 
       widget.audioPlayer.setAudioSource(ConcatenatingAudioSource(
@@ -189,7 +160,7 @@ class _NowPlayingState extends State<NowPlaying> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      _position.toString().split(".")[0],
+                      _position.toString().split(".").first,
                       style: const TextStyle(color: Colors.white38),
                     ),
                     Text(
@@ -288,7 +259,7 @@ class ArtWorkWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return QueryArtworkWidget(
-      id: context.watch<SongmModelProvider>().id,
+      id: context.watch<SongmodelProvider>().id,
       type: ArtworkType.AUDIO,
       artworkHeight: 200,
       artworkWidth: 300,

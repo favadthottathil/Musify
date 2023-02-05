@@ -48,9 +48,9 @@ class Search extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                const SizedBox(
+                SizedBox(
                   height: 800,
-                  child: AllSongs(),
+                  child: Container(),
                 )
               ],
             ),

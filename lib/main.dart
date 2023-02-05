@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
+import 'package:music_application/songmodel_provider/song_model.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -12,7 +13,7 @@ Future<void> main() async {
   );
   runApp(
     ChangeNotifierProvider(
-      create: (context) => SongmModelProvider(),
+      create: (context) => SongmodelProvider(),
       child: const MyApp(),
     ),
   );

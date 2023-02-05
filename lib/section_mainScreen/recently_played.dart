@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:music_application/screens/now_playing.dart';
+List<String> name = [
+  'Good 4 U',
+  'Kiss Me More',
+  'Butter'
+];
+
+List<dynamic> images = [
+  'Assets/img/butter.jpg',
+  'Assets/img/good for you.jpg',
+  'Assets/img/Kiss me more.jpg',
+  'Assets/img/butter.jpg',
+];
 
 class RecentlyPlayed extends StatelessWidget {
   const RecentlyPlayed({super.key});
@@ -9,7 +20,7 @@ class RecentlyPlayed extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 8,
+      itemCount: 3,
       itemBuilder: (BuildContext context, int index) {
         return Column(
           children: [
@@ -26,12 +37,17 @@ class RecentlyPlayed extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(image: NetworkImage('https://images.unsplash.com/photo-1596300919357-77dbd158c7b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'), fit: BoxFit.cover),
+                  image: DecorationImage(image: AssetImage(images[index]), fit: BoxFit.cover),
                 ),
               ),
             ),
             const SizedBox(height: 10),
-            const Text('Good 4 U', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
+            Text(name[index],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                )),
             const SizedBox(height: 4),
             const Text(
               'Olivia Rodrigo',

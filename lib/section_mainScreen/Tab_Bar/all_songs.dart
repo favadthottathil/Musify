@@ -1,12 +1,13 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_application/provider/songmodel_provider.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_application/screens/now_playing.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+
+import '../../songmodel_provider/song_model.dart';
 
 class AllSongs extends StatefulWidget {
   const AllSongs({super.key});
@@ -25,6 +26,8 @@ class _AllSongsState extends State<AllSongs> {
   final AudioPlayer audioPlayer = AudioPlayer();
 
   List<SongModel> allsongs = [];
+
+  int songindex = 0;
   @override
   void initState() {
     super.initState();
@@ -35,22 +38,20 @@ class _AllSongsState extends State<AllSongs> {
     Permission.storage.request();
   }
 
-  List<SongModel> songs = <SongModel>[];
-
   int currentIndex = 0;
 
-  playSong(String? uri) {
-    try {
-      audioPlayer.setAudioSource(
-        AudioSource.uri(
-          Uri.parse(uri!),
-        ),
-      );
-      audioPlayer.play();
-    } on Exception {
-      log("Error song" as num);
-    }
-  }
+  // playSong(String? uri) {
+  //   try {
+  //     audioPlayer.setAudioSource(
+  //       AudioSource.uri(
+  //         Uri.parse(uri!),
+  //       ),
+  //     );
+  //     audioPlayer.play();
+  //   } on Exception {
+  //     log("Error song" as num);
+  //   }
+  // }
 
   // @override
   // void dispose() {
@@ -113,115 +114,25 @@ class _AllSongsState extends State<AllSongs> {
                 onTap: () {
                   // playSong(items.data![index].uri);
 
-                  context.read<SongmModelProvider>().setId(items.data![index].id);
+                  context.read<SongmodelProvider>().setid(items.data![index].id);
 
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => NowPlaying(
                           audioPlayer: audioPlayer,
-                          songModel: allsongs,
+                          songModel: [
+                            allsongs[index]
+                          ],
                         ),
                       ));
                 },
               );
             },
+            controller: ScrollController(keepScrollOffset: true),
           );
         },
       ),
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
-// import 'package:on_audio_query/on_audio_query.dart';
-// import 'package:permission_handler/permission_handler.dart';
-
-// class AllSongs extends StatefulWidget {
-//   const AllSongs({super.key});
-
-//   @override
-//   State<AllSongs> createState() => _AllSongsState();
-// }
-
-// class _AllSongsState extends State<AllSongs> {
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     requestPermission();
-//   }
-
-//   void requestPermission() {
-//     Permission.storage.request();
-//   }
-
-//   final audioQuery = OnAudioQuery();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<List<SongModel>>(
-//       future: audioQuery.querySongs(
-//         sortType: null,
-//         orderType: OrderType.ASC_OR_SMALLER,
-//         uriType: UriType.EXTERNAL,
-//         ignoreCase: true,
-//       ),
-//       builder: (context, items) {
-//         if (items.data == null) {
-//           return const Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         }
-//         if (items.data!.isEmpty) {
-//           return const Center(
-//             child: Text(
-//               'NO Songs found!!',
-//               style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-//             ),
-//           );
-//         }
-//         return ListView.builder(
-//           itemCount: 100,
-//           itemBuilder: (context, index) {
-//             return ListTile(
-//               // leading: QueryArtworkWidget(
-//               //   id: items.data![index].id,
-//               //   type: ArtworkType.AUDIO,
-//               //   nullArtworkWidget: const Icon(Icons.music_note),
-//               // ),
-//               title: Text(
-//                 items.data![index].displayNameWOExt,
-//                 style: const TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//               subtitle: Text(
-//                 '${items.data![index].artist}',
-//                 style: const TextStyle(color: Colors.white54),
-//               ),
-//               trailing: const Icon(
-//                 Icons.more_horiz,
-//                 color: Colors.white,
-//               ),
-//               onTap: () {
-//                 // playSong(items.data![index].uri);
-//                 // Navigator.push(
-//                 //     context,
-//                 //     MaterialPageRoute(
-//                 //       builder: (context) => NowPlaying(
-//                 //         audioPlayer: _audioPlayer,
-//                 //         songModelList: allSongs,
-//                 //       ),
-//                 //     ));
-//               },
-//             );
-//           },
-//         );
-//       },
-//     );
-//   }
-// }

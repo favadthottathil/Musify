@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:music_application/screens/favorites.dart';
 import 'package:music_application/screens/search.dart';
 import 'package:music_application/section_mainScreen/Tab_Bar/all_songs.dart';
 import 'package:music_application/section_mainScreen/Tab_Bar/for_you.dart';
 
-import 'package:music_application/section_mainScreen/playlist_main.dart';
+import 'package:music_application/section_foryou/playlist_main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,7 +24,11 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.deepPurple[700],
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Favourites(),
+                ));
+              },
               icon: const Icon(Icons.favorite_border),
             ),
             IconButton(
@@ -97,22 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    // InkWell(
-                    //   onTap: () {},
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    //     child: Row(
-                    //       children: const [
-                    //         Icon(Icons.repeat, color: Colors.white),
-                    //         SizedBox(width: 8),
-                    //         Text(
-                    //           'Repeat All',
-                    //           style: TextStyle(color: Colors.white),
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ),
-                    // )
                   ],
                 ),
                 Container(

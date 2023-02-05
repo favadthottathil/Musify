@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:music_application/section_mainScreen/last_added.dart';
-import 'package:music_application/section_mainScreen/most_played.dart';
+import 'package:music_application/section_foryou/last_added.dart';
+import 'package:music_application/section_foryou/most_played.dart';
 import 'package:music_application/section_mainScreen/recently_played.dart';
 
 class ForYou extends StatelessWidget {
