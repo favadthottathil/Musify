@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
-import 'package:music_application/songmodel_provider/song_model.dart';
+import 'package:music_application/splash/screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -13,7 +13,7 @@ Future<void> main() async {
   );
   runApp(
     ChangeNotifierProvider(
-      create: (context) => SongmodelProvider(),
+      create: (context) => SongModelProvider(),
       child: const MyApp(),
     ),
   );
@@ -26,37 +26,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(
+        fontFamily: 'Itim',
+      ),
       home: const HomeScreen(),
     );
   }
 }
-
-
-// ListView.builder(
-//           itemCount: item.data!.length,
-//           itemBuilder: (context, index) {
-//             return ListTile(
-//               leading: Container(
-//                 height: 80,
-//                 width: 60,
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(10),
-//                   color: Colors.black,
-//                 ),
-//               ),
-//               title: Text(
-//                 item.data![index].displayNameWOExt,
-//                 style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-//               ),
-//               subtitle: Text(
-//                 '${item.data![index].artist}',
-//                 style: const TextStyle(color: Colors.white54),
-//               ),
-//               trailing: const Icon(
-//                 Icons.more_horiz,
-//                 color: Colors.white,
-//               ),
-//             );
-//           },
-//         );

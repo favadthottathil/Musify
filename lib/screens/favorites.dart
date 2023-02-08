@@ -30,7 +30,7 @@ class Favourites extends StatelessWidget {
                         Navigator.pop(context);
                       },
                     ),
-                    Text(
+                    const Text(
                       'Favorites',
                       style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
                     )
@@ -81,10 +81,10 @@ class Favourites extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 250,
                 ),
-                Center(
+                const Center(
                     child: Text(
                   'No Songs Found',
                   style: TextStyle(color: Colors.white, fontSize: 30),
