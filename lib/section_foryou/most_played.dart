@@ -22,7 +22,6 @@ class MostPlayed extends StatelessWidget {
                 Container(
                   width: 90,
                   height: 90,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.black, image: DecorationImage(image: AssetImage(images[index]), fit: BoxFit.cover)),
                 ),
                 const SizedBox(height: 18),
                 const Text(

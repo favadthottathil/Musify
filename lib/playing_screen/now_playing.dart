@@ -110,10 +110,11 @@ class _NowPlayingState extends State<NowPlaying> {
                 child: QueryArtworkWidget(
                   id: widget.songModel[currentindex].id,
                   type: ArtworkType.AUDIO,
+                  keepOldArtwork: true,
                   artworkHeight: 250,
                   artworkWidth: 250,
-                  artworkBorder: BorderRadius.circular(200),
-                  artworkFit: BoxFit.fill,
+                  artworkBorder: BorderRadius.circular(1),
+                  artworkFit: BoxFit.cover,
                   nullArtworkWidget: const Icon(
                     Icons.music_note,
                     size: 200,

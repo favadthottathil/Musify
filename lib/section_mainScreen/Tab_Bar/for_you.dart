@@ -1,59 +1,98 @@
 import 'package:flutter/material.dart';
+import 'package:music_application/most_played/most_played.dart';
 
 import 'package:music_application/section_foryou/last_added.dart';
 import 'package:music_application/section_foryou/most_played.dart';
 import 'package:music_application/section_mainScreen/recently_played.dart';
+import 'package:music_application/section_recently/recentlyplayed_all.dart';
+import 'package:music_application/widgets/mainscreen_widgets/name_button.dart';
 
 class ForYou extends StatelessWidget {
   const ForYou({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'Recently Played',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            height: 30,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const NameHome(name: 'Recently Played'),
+                OutLineButton(
+                  onpressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RecentlyPlayedAll(),
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
           ),
-          SizedBox(height: 20),
-          SizedBox(
-            height: 145,
-            child: RecentlyPlayed(),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'Most Played',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+        ),
+        const SizedBox(height: 20),
+        const SizedBox(
+          height: 145,
+          child: RecentlyPlayed(),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            height: 30,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const NameHome(name: 'Mostly Played'),
+                OutLineButton(
+                  onpressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MostPlayedList(),
+                      ),
+                    );
+                  },
+                )
+              ],
             ),
           ),
-          SizedBox(height: 20),
-          SizedBox(
-            height: 200,
-            child: MostPlayed(),
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: EdgeInsets.only(left: 20),
-            child: Text(
-              'Last Added',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+        ),
+        const SizedBox(height: 20),
+        const SizedBox(
+          height: 200,
+          child: MostPlayed(),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            height: 30,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const NameHome(name: 'Last Added'),
+                OutLineButton(
+                  onpressed: () {},
+                )
+              ],
             ),
           ),
-          SizedBox(height: 20),
-          SizedBox(
-            height: 145,
-            child: LastAdded(),
-          ),
-          SizedBox(height: 20),
-        ],
-      ),
+        ),
+        const SizedBox(height: 20),
+        const SizedBox(
+          height: 145,
+          child: LastAdded(),
+        ),
+        const SizedBox(height: 20),
+      ],
     );
   }
 }

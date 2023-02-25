@@ -1,99 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:music_application/DB/favouritesDB.dart';
+import 'package:music_application/allsongs_screen/listitle.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
-class Favourites extends StatelessWidget {
+class Favourites extends StatefulWidget {
   const Favourites({super.key});
 
   @override
+  State<Favourites> createState() => _FavouritesState();
+}
+
+class _FavouritesState extends State<Favourites> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.deepPurple[700],
-        width: double.infinity,
-        height: double.infinity,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
+    return ValueListenableBuilder(
+      valueListenable: FavoriteDb.favoriteSongs,
+      builder: (context, List<SongModel> favoriteData, Widget? child) {
+        return Scaffold(
+          backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+          body: SafeArea(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 10),
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                      ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        size: 40,
+                        color: Colors.white,
+                      ),
                     ),
+                    const SizedBox(width: 10),
                     const Text(
-                      'Favorites',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
-                    )
+                      'Favorits',
+                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 20),
-                InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {},
-                          child: Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.shuffle,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                'Shuffle',
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  height: 600,
+                  child: ValueListenableBuilder(
+                    valueListenable: FavoriteDb.favoriteSongs,
+                    builder: (ctx, List<SongModel> favoriteData, Widget? child) {
+                      if (favoriteData.isEmpty) {
+                        return const Center(
+                          child: Text(
+                            'No Favorite Data',
+                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 30, color: Colors.white),
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {},
-                          child: Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.repeat,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                'Repeat',
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                        );
+                      } else {
+                        final temp = favoriteData.reversed.toList();
+                        favoriteData = temp.toSet().toList();
+                        return Listtiles(songModel: favoriteData);
+                      }
+                    },
                   ),
                 ),
-                const SizedBox(
-                  height: 250,
-                ),
-                const Center(
-                    child: Text(
-                  'No Songs Found',
-                  style: TextStyle(color: Colors.white, fontSize: 30),
-                )),
               ],
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

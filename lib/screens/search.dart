@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/allsongs_screen/all_songs.dart';
+import 'package:music_application/allsongs_screen/listitle.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 
-class Search extends StatelessWidget {
+class Search extends StatefulWidget {
   const Search({super.key});
+
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+List<SongModel> allsongs = [];
+List<SongModel> foundSongs = [];
+final AudioQuery = OnAudioQuery();
+
+class _SearchState extends State<Search> {
+  @override
+  void initState() {
+    songsLoading();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +46,6 @@ class Search extends StatelessWidget {
                   style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 const SizedBox(height: 20),
-                // TextFormField(
-                //   decoration: const InputDecoration(
-                //     filled: true,
-                //     fillColor: Colors.white,
-                //     hintText: 'Search',
-                //     hintStyle: TextStyle(
-                //       color: Colors.black54,
-                //       fontWeight: FontWeight.w500,
-                //     ),
-                //     prefixIcon: Icon(Icons.search),
-                //     border: OutlineInputBorder(
-                //         borderRadius: BorderRadius.all(
-                //           Radius.circular(15),
-                //         ),
-                //         borderSide: BorderSide.none),
-                //   ),
-                // ),
-
                 Container(
                   height: 50,
                   width: 300,
@@ -63,6 +62,8 @@ class Search extends StatelessWidget {
                           height: 40,
                           width: 200,
                           child: TextFormField(
+                            style: const TextStyle(color: Colors.white),
+                            onChanged: (value) => updateList(value),
                             decoration: InputDecoration(
                               filled: true,
                               hintText: 'Search the music',
@@ -89,11 +90,10 @@ class Search extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 30),
-                const SizedBox(
+                SizedBox(
                   height: 800,
-                  child: AllSongs(),
+                  child: Listtiles(songModel: foundSongs),
                 )
               ],
             ),
@@ -101,6 +101,28 @@ class Search extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void songsLoading() async {
+    allsongs = await AudioQuery.querySongs(
+      sortType: null,
+      orderType: OrderType.ASC_OR_SMALLER,
+      uriType: UriType.EXTERNAL,
+      ignoreCase: true,
+    );
+    foundSongs = allsongs;
+  }
+
+  void updateList(String enteredText) {
+    List<SongModel> results = [];
+    if (enteredText.isEmpty) {
+      results = allsongs;
+    } else {
+      results = allsongs.where((element) => element.displayNameWOExt.toLowerCase().contains(enteredText.toLowerCase())).toList();
+    }
+    setState(() {
+      foundSongs = results;
+    });
   }
 }
 

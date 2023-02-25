@@ -1,64 +1,99 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-import 'package:music_application/screens/playlist.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:music_application/DB/model_db.dart';
+
+import 'package:music_application/playlist/playlist_single_3.dart';
 import 'package:music_application/section_mainScreen/recently_played.dart';
 
-List playlistImg = [
-  'Assets/img/butter.jpg',
-  'Assets/img/austin-neill-hgO1wFPXl3I-unsplash.jpg',
-  'Assets/img/tijs-van-leur-Qnlp3FCO2vc-unsplash.jpg',
-  'Assets/img/butter.jpg'
-];
-
-class PlayListMain extends StatelessWidget {
+class PlayListMain extends StatefulWidget {
   const PlayListMain({super.key});
 
   @override
+  State<PlayListMain> createState() => _PlayListMainState();
+}
+
+class _PlayListMainState extends State<PlayListMain> {
+  bool isrecent = true;
+  dynamic recetlength;
+
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 4,
-      itemBuilder: (BuildContext context, int index) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const Playlist(),
-                ));
-              },
-              child: Container(
-                margin: const EdgeInsets.all(10),
-                height: 140,
-                width: 140,
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(playlistImg[index]), fit: BoxFit.fitHeight),
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30),
+    int playlistImage1 = 1;
+
+    return ValueListenableBuilder(
+      valueListenable: Hive.box<SongsDB>('playlist').listenable(),
+      builder: (context, value, child) {
+        return Container(
+          child: Hive.box<SongsDB>('playlist').isEmpty
+              ? const Center(
+                  child: Text(
+                    'No Playlist',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
+                )
+              : ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: isrecent
+                      ? value.length > 5
+                          ? 5
+                          : value.length
+                      : value.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final data = value.values.toList()[index];
+                    playlistImage1 = Random().nextInt(5) + 1;
+                    return ValueListenableBuilder(
+                      valueListenable: Hive.box<SongsDB>('playlist').listenable(),
+                      builder: (context, musiclist, child) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Playlist(playlist: data, index: index,name:'Assets/img/playlist$playlistImage1.jpg' ),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(10),
+                                height: 140,
+                                width: 140,
+                                decoration:  const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage('Assets/img/favad.jpg'),
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(30),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(left: 45),
+                              child: Center(
+                                child: Text(
+                                  data.name,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'clear mind',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Instrumental',
-                    style: TextStyle(color: Colors.white54, fontWeight: FontWeight.normal),
-                  )
-                ],
-              ),
-            )
-          ],
         );
       },
     );

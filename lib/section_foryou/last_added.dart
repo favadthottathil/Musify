@@ -22,7 +22,6 @@ class LastAdded extends StatelessWidget {
               margin: const EdgeInsets.only(left: 10),
               height: 100,
               width: 100,
-              decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(20), image: DecorationImage(image: AssetImage(images[index]), fit: BoxFit.cover)),
             ),
             const SizedBox(height: 10),
             const Text('Good 4 U', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),

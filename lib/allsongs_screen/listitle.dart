@@ -1,26 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:music_application/DB/favouritesDB.dart';
+import 'package:music_application/controller/most_played.dart';
+import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
+import 'package:music_application/playlist/playlist_allsngAdd.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
-
 import '../playing_screen/now_playing.dart';
 
 class Listtiles extends StatefulWidget {
-  const Listtiles({super.key, required this.songModel});
+  const Listtiles({super.key, required this.songModel, this.recentLength, this.isRecent = false});
 
   final List<SongModel> songModel;
+  final dynamic recentLength;
+  final bool isRecent;
 
   @override
   State<Listtiles> createState() => _ListtileState();
 }
 
+final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
+TextEditingController namecontroller1 = TextEditingController();
+
 class _ListtileState extends State<Listtiles> {
   List<SongModel> allsongs = [];
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: widget.songModel.length,
+      shrinkWrap: true,
+      itemCount: widget.isRecent ? widget.recentLength : widget.songModel.length,
       itemBuilder: (context, index) {
         allsongs.addAll(widget.songModel);
         return Padding(
@@ -34,7 +45,14 @@ class _ListtileState extends State<Listtiles> {
               leading: QueryArtworkWidget(
                 id: widget.songModel[index].id,
                 type: ArtworkType.AUDIO,
-                nullArtworkWidget: const Icon(Icons.music_note),
+                nullArtworkWidget: const Padding(
+                  padding: EdgeInsets.only(left: 7, top: 6),
+                  child: Icon(
+                    Icons.music_note,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
               ),
               title: Text(
                 widget.songModel[index].displayNameWOExt,
@@ -70,85 +88,85 @@ class _ListtileState extends State<Listtiles> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.close,
-                                  size: 25,
-                                  color: Colors.white,
-                                )),
-                            InkWell(
-                              onTap: () {},
-                              child: ListTile(
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    color: Colors.white30,
-                                    child: const Icon(
-                                      Icons.playlist_add,
-                                      size: 25,
-                                      color: Colors.red,
-                                    ),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.close,
+                                size: 25,
+                                color: Colors.white,
+                              ),
+                            ),
+                            ListTile(
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Container(
+                                  width: 50,
+                                  height: 50,
+                                  color: Colors.white30,
+                                  child: const Icon(
+                                    Icons.playlist_add,
+                                    size: 25,
+                                    color: Colors.red,
                                   ),
                                 ),
-                                title: const Text(
-                                  'Add Playlist',
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
-                                ),
                               ),
+                              title: const Text(
+                                'Add Playlist',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+                              ),
+                              onTap: () {
+                                modelsheet(context, widget.songModel[index], formkey);
+                              },
                             ),
                             const SizedBox(
                               height: 30,
                             ),
-                            InkWell(
-                              onTap: () {},
-                              child: ListTile(
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    color: Colors.white30,
-                                    child: const Icon(
-                                      Icons.delete,
-                                      size: 25,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                title: const Text(
-                                  'Delete From Device',
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: ListTile(
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    color: Colors.white30,
-                                    child: const Icon(
-                                      Icons.favorite,
-                                      size: 25,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                title: const Text(
-                                  'Add to Favourite',
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
-                                ),
-                              ),
+                            ValueListenableBuilder(
+                              valueListenable: FavoriteDb.favoriteSongs,
+                              builder: (context, List<SongModel> favouritedata, child) {
+                                return ValueListenableBuilder(
+                                    valueListenable: FavoriteDb.favoriteSongs,
+                                    builder: (context, List<SongModel> data, child) {
+                                      return ListTile(
+                                        onTap: () {
+                                          if (FavoriteDb.isFavor(widget.songModel[index])) {
+                                            FavoriteDb.delete(widget.songModel[index].id);
+                                            const remove = SnackBar(
+                                              content: Text('Song Removed'),
+                                              duration: Duration(seconds: 1),
+                                            );
+                                            ScaffoldMessenger.of(context).showSnackBar(remove);
+                                          } else {
+                                            FavoriteDb.add(widget.songModel[index]);
+                                            const addfav = SnackBar(
+                                              content: Text('Song Added'),
+                                              duration: Duration(seconds: 1),
+                                            );
+                                            ScaffoldMessenger.of(context).showSnackBar(addfav);
+                                          }
+                                          FavoriteDb.favoriteSongs.notifyListeners();
+                                        },
+                                        leading: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Container(
+                                            width: 50,
+                                            height: 50,
+                                            color: Colors.white30,
+                                            child: const Icon(
+                                              Icons.favorite,
+                                              size: 25,
+                                              color: Colors.red,
+                                            ),
+                                          ),
+                                        ),
+                                        title: const Text(
+                                          'Add to Favourite',
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+                                        ),
+                                      );
+                                    });
+                              },
                             ),
                             const SizedBox(
                               height: 30,
@@ -187,6 +205,13 @@ class _ListtileState extends State<Listtiles> {
                   GetAllSongController.createSongList(widget.songModel),
                   initialIndex: index,
                 );
+
+                RecentController.addRecent(widget.songModel[index].id);
+
+                MostlyPlayedfunctions.addplayCount(widget.songModel[index]);
+
+                // MostlyPlayedfunctions.addplayCount(widget.songModel[index].id);
+
                 context.read<SongModelProvider>().setId(widget.songModel[index].id);
                 Navigator.push(
                   context,

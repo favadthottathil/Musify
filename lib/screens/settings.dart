@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:music_application/section_settings/settings_tile.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -21,138 +23,30 @@ class Settings extends StatelessWidget {
       ),
       body: Container(
         color: const Color.fromARGB(218, 3, 16, 56),
+        width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 60,
-                    height: 80,
-                    color: Colors.black45,
-                    child: const Icon(
-                      Icons.scanner,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                title: const Text(
-                  'Scan music',
-                  style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ),
-              ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 60,
-                    height: 80,
-                    color: Colors.black45,
-                    child: const Icon(
-                      Icons.alarm,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                title: const Text(
-                  'Sleep timer',
-                  style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ),
-              ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 60,
-                    height: 80,
-                    color: Colors.black45,
-                    child: const Icon(
-                      Icons.language,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                title: const Text(
-                  'Language',
-                  style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ),
-              ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 60,
-                    height: 80,
-                    color: Colors.black45,
-                    child: const Icon(
-                      Icons.feedback,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                title: const Text(
-                  'Feedback',
-                  style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ),
-              ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 60,
-                    height: 80,
-                    color: Colors.black45,
-                    child: const Icon(
-                      Icons.policy,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                title: const Text(
-                  'Privacy policy',
-                  style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ),
-              ListTile(
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Container(
-                    width: 60,
-                    height: 80,
-                    color: Colors.black45,
-                    child: const Icon(
-                      Icons.edit_document,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                  ),
-                ),
-                title: const Text(
-                  'Term of use',
-                  style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500),
-                ),
-              ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              SizedBox(height: 10),
+              SettingsTile(name: 'Account', icon: Ionicons.person),
+              SizedBox(height: 30),
+              SettingsTile(name: 'Scan Music', icon: Ionicons.shield_checkmark_outline),
+              SizedBox(height: 10),
+              SettingsTile(name: 'Sleep Timer', icon: Ionicons.timer),
+              SizedBox(height: 10),
+              SettingsTile(name: 'Language', icon: Ionicons.language),
+              SizedBox(height: 30),
+              SettingsTile(name: 'Feedback', icon: Icons.feedback),
+              SizedBox(height: 10),
+              SettingsTile(name: 'Privacy and Policy', icon: Icons.privacy_tip),
+              SizedBox(height: 10),
+              SettingsTile(name: 'About Us', icon: Icons.emoji_emotions),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class Setting extends StatelessWidget {
-  const Setting({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

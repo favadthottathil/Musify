@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:music_application/DB/favouritesDB.dart';
 import 'package:music_application/allsongs_screen/listitle.dart';
+import 'package:music_application/controller/song_controller.dart';
+import 'package:music_application/screens/favorites.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -13,16 +17,19 @@ class AllSongs extends StatefulWidget {
   State<AllSongs> createState() => _AllSongsState();
 }
 
+List<SongModel> startSongs = [];
+
 class _AllSongsState extends State<AllSongs> {
   final OnAudioQuery audioQuery = OnAudioQuery();
 
   final AudioPlayer audioPlayer = AudioPlayer();
 
-  List<SongModel> allsongs = [];
+  // List<SongModel> allsongs = [];
 
   @override
   void initState() {
     super.initState();
+
     requestper();
   }
 
@@ -52,13 +59,14 @@ class _AllSongsState extends State<AllSongs> {
           );
         }
         if (items.data!.isEmpty) {
-          return const Center(
-            child: Text(
-              'NO Songs found!!',
-              style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          );
+          return const Center(child: Text("No Songs Found!!"));
         }
+        startSongs = items.data!;
+        // if (!FavoriteDb.isInitialized) {
+        //   FavoriteDb.initialize(items.data!);
+        // }
+
+        GetAllSongController.songscopy = items.data!;
 
         return Listtiles(songModel: items.data!);
       },
