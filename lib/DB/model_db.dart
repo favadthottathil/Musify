@@ -3,13 +3,16 @@ part 'model_db.g.dart';
 
 @HiveType(typeId: 1)
 class SongsDB extends HiveObject {
-  SongsDB({required this.name, required this.songid});
+  SongsDB({required this.name, required this.songid,this.count});
 
   @HiveField(0)
   String name;
 
   @HiveField(1)
   List<int> songid;
+
+  @HiveField(2)
+  int? count;
 
   add(int id) async {
     if (!songid.contains(id)) {

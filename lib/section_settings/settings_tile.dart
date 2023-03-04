@@ -6,16 +6,19 @@ class SettingsTile extends StatelessWidget {
     super.key,
     required this.name,
     required this.icon,
+    required this.ontap,
   });
 
   final String name;
 
   final IconData icon;
 
+  final void Function() ontap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: ontap,
       child: Row(
         children: [
           ClipRRect(

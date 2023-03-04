@@ -1,35 +1,41 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'model_db.dart';
+part of 'user_db.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class SongsDBAdapter extends TypeAdapter<SongsDB> {
+class UserDBAdapter extends TypeAdapter<UserDB> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
-  SongsDB read(BinaryReader reader) {
+  UserDB read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return SongsDB(
-      name: fields[0] as String,
-      songid: (fields[1] as List).cast<int>(),
+    return UserDB(
+      name: fields[1] as String,
+      email: fields[2] as String,
+      photo: fields[3] as String?,
+      key: fields[0] as int?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, SongsDB obj) {
+  void write(BinaryWriter writer, UserDB obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.key)
       ..writeByte(1)
-      ..write(obj.songid);
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.email)
+      ..writeByte(3)
+      ..write(obj.photo);
   }
 
   @override
@@ -38,7 +44,7 @@ class SongsDBAdapter extends TypeAdapter<SongsDB> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is SongsDBAdapter &&
+      other is UserDBAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

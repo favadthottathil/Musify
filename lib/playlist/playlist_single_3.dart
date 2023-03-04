@@ -10,14 +10,17 @@ import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
-String? GlobalName;
+// String?globalName;
 
 class Playlist extends StatelessWidget {
-  Playlist({super.key, required this.playlist, required this.index, this.name = ''});
+  const Playlist({
+    super.key,
+    required this.playlist,
+    required this.index,
+  });
 
   final SongsDB playlist;
   final int index;
-  String name;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class Playlist extends StatelessWidget {
       valueListenable: Hive.box<SongsDB>('playlist').listenable(),
       builder: (BuildContext context, Box<SongsDB> music, child) {
         songPlaylist = listplaylist(music.values.toList()[index].songid);
-        print('findex $index');
+        // print('findex $index');
         return Container(
           width: double.infinity,
           height: double.infinity,
@@ -230,7 +233,7 @@ class Playlist extends StatelessWidget {
                                       onTap: () {
                                         GetAllSongController.audioPlayer.setAudioSource(GetAllSongController.createSongList(songPlaylist), initialIndex: index);
 
-                                        context.read<SongModelProvider>().setId(songPlaylist[index].id);
+                                        // context.read<SongModelProvider>().setId(songPlaylist[index].id);
 
                                         Navigator.push(
                                           context,

@@ -28,7 +28,6 @@ class _PlaylistListviewState extends State<PlaylistListview> {
 
   @override
   void initState() {
-    // nameeditcontroller0.text = widget.musicList.name;
     super.initState();
   }
 
@@ -49,13 +48,14 @@ class _PlaylistListviewState extends State<PlaylistListview> {
               child: InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Playlist(
-                          playlist: data,
-                          index: index,
-                        ),
-                      ));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Playlist(
+                        playlist: data,
+                        index: index,
+                      ),
+                    ),
+                  );
                 },
                 child: Row(
                   children: [
@@ -110,7 +110,7 @@ class _PlaylistListviewState extends State<PlaylistListview> {
                               thirpress: () {
                                 Navigator.of(context).pop();
 
-                                showdialog(context, musiclist, index);
+                                deletePlaylist(context, musiclist, index);
                               },
                               forIcon: Icons.share,
                               forText: 'Share',
@@ -232,7 +232,7 @@ class _PlaylistListviewState extends State<PlaylistListview> {
     }
   }
 
-  Future<dynamic> showdialog(context, musicList, index) {
+  Future<dynamic> deletePlaylist(context, musicList, index) {
     return showDialog(
       context: context,
       builder: (context) {

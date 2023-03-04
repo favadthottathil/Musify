@@ -94,9 +94,6 @@ class _NowPlayingState extends State<NowPlaying> {
               Icons.arrow_back_ios_new_sharp,
             ),
           ),
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
-          ],
         ),
         body: SafeArea(
           child: Container(
@@ -160,7 +157,7 @@ class _NowPlayingState extends State<NowPlaying> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      _position.toString().split(".").first,
+                      _position.toString().split(".")[0],
                       style: const TextStyle(color: Colors.white38),
                     ),
                     Text(

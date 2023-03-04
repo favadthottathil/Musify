@@ -175,11 +175,11 @@ Future newplaylist(BuildContext context, formkey) {
 
 Future<void> addButtonPressed(context) async {
   final name = namecontroller1.text.trim();
-  final playlit = SongsDB(name: name, songid: []);
+  final playlist = SongsDB(name: name, songid: []);
   final datas = PlaylistDb.playlist.values.map((e) => e.name.trim()).toList();
   if (name.isEmpty) {
     return;
-  } else if (datas.contains(playlit.name)) {
+  } else if (datas.contains(playlist.name)) {
     final snackbar3 = SnackBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
@@ -196,7 +196,7 @@ Future<void> addButtonPressed(context) async {
     ScaffoldMessenger.of(context).showSnackBar(snackbar3);
     Navigator.of(context).pop();
   } else {
-    PlaylistDb.addPlaylist(playlit);
+    PlaylistDb.addPlaylist(playlist);
     final snackbar4 = SnackBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),

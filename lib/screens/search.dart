@@ -18,6 +18,7 @@ class _SearchState extends State<Search> {
   @override
   void initState() {
     songsLoading();
+
     super.initState();
   }
 
@@ -118,7 +119,7 @@ class _SearchState extends State<Search> {
     if (enteredText.isEmpty) {
       results = allsongs;
     } else {
-      results = allsongs.where((element) => element.displayNameWOExt.toLowerCase().contains(enteredText.toLowerCase())).toList();
+      results = allsongs.where((element) => element.displayNameWOExt.trim().contains(enteredText.trim())).toList();
     }
     setState(() {
       foundSongs = results;

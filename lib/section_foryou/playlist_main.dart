@@ -20,8 +20,6 @@ class _PlayListMainState extends State<PlayListMain> {
 
   @override
   Widget build(BuildContext context) {
-    int playlistImage1 = 1;
-
     return ValueListenableBuilder(
       valueListenable: Hive.box<SongsDB>('playlist').listenable(),
       builder: (context, value, child) {
@@ -42,7 +40,7 @@ class _PlayListMainState extends State<PlayListMain> {
                       : value.length,
                   itemBuilder: (BuildContext context, int index) {
                     final data = value.values.toList()[index];
-                    playlistImage1 = Random().nextInt(5) + 1;
+
                     return ValueListenableBuilder(
                       valueListenable: Hive.box<SongsDB>('playlist').listenable(),
                       builder: (context, musiclist, child) {
@@ -54,7 +52,7 @@ class _PlayListMainState extends State<PlayListMain> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Playlist(playlist: data, index: index,name:'Assets/img/playlist$playlistImage1.jpg' ),
+                                    builder: (context) => Playlist(playlist: data, index: index),
                                   ),
                                 );
                               },
@@ -62,7 +60,7 @@ class _PlayListMainState extends State<PlayListMain> {
                                 margin: const EdgeInsets.all(10),
                                 height: 140,
                                 width: 140,
-                                decoration:  const BoxDecoration(
+                                decoration: const BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage('Assets/img/favad.jpg'),
                                     fit: BoxFit.fitHeight,
@@ -75,7 +73,7 @@ class _PlayListMainState extends State<PlayListMain> {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 45),
+                              margin: const EdgeInsets.only(left: 30),
                               child: Center(
                                 child: Text(
                                   data.name,

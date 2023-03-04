@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/most_played/most_played.dart';
+import 'package:music_application/screens/las_added.dart';
 
 import 'package:music_application/section_foryou/last_added.dart';
 import 'package:music_application/section_foryou/most_played.dart';
@@ -56,7 +57,7 @@ class ForYou extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MostPlayedList(),
+                        builder: (context) => const MostlyPlayedAll(),
                       ),
                     );
                   },
@@ -80,7 +81,13 @@ class ForYou extends StatelessWidget {
               children: [
                 const NameHome(name: 'Last Added'),
                 OutLineButton(
-                  onpressed: () {},
+                  onpressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LastAddedSongs(),
+                        ));
+                  },
                 )
               ],
             ),

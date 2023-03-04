@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/DB/playlist_db.dart';
 import 'package:music_application/controller/song_controller.dart';
-import 'package:music_application/playlist/playlist_single_3.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class PlaylistAdd extends StatefulWidget {
@@ -106,7 +103,6 @@ class _PlaylistAddState extends State<PlaylistAdd> {
                                   GetAllSongController.songscopy = item.data!;
                                   setState(() {
                                     playlistNotifier.addListener(() {});
-
                                     songAddToPlaylist(item.data![index]);
                                     PlaylistDb.playlistNotifier.notifyListeners();
                                   });
@@ -117,10 +113,11 @@ class _PlaylistAddState extends State<PlaylistAdd> {
                                 ))
                             : IconButton(
                                 onPressed: () {
-                                  setState(() {
-                                    songdeleteFromPlaylist(item.data![index]);
-                                    
-                                  });
+                                  setState(
+                                    () {
+                                      songdeleteFromPlaylist(item.data![index]);
+                                    },
+                                  );
                                 },
                                 icon: const Icon(
                                   Icons.remove,
@@ -142,7 +139,7 @@ class _PlaylistAddState extends State<PlaylistAdd> {
 
   void songAddToPlaylist(SongModel data) {
     widget.playlist.add(data.id);
-    print('songs added to playlsit === ${data.id}');
+    // print('songs added to playlsit === ${data.id}');
     final addedToPlaylist = SnackBar(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25),

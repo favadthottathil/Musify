@@ -108,7 +108,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
                                   if (GetAllSongController.audioPlayer.hasPrevious) {
                                     await GetAllSongController.audioPlayer.seekToPrevious();
-                                    await GetAllSongController.audioPlayer.play();
                                   } else {
                                     await GetAllSongController.audioPlayer.play();
                                   }

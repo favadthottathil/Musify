@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music_application/DB/model_db.dart';
-import 'package:music_application/allsongs_screen/listitle.dart';
 import 'package:music_application/playlist/all_playlist%20_1.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -77,7 +76,6 @@ modelsheet(BuildContext context, SongModel songModel, formkey) {
                               ),
                               trailing: IconButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
                                   songAddedToPlaylist(context, songModel, data, data.name);
                                 },
                                 icon: const Icon(Icons.playlist_add),
@@ -96,19 +94,38 @@ modelsheet(BuildContext context, SongModel songModel, formkey) {
   );
 }
 
-songAddedToPlaylist(BuildContext context, SongModel song, datas, String name) {
+songAddedToPlaylist(BuildContext context, SongModel song, SongsDB datas, String name) {
   if (!datas.isvalue(song.id)) {
     datas.add(song.id);
-    final snackbar1 = SnackBar(
-      duration: const Duration(seconds: 1),
-      backgroundColor: Colors.black,
-      content: Text(
-        'Song added to $name',
-        textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white),
+    // final snackbar1 = SnackBar(
+    //   duration: const Duration(seconds: 1),
+    //   backgroundColor: Colors.black,
+    //   content: Text(
+    //     'Song added to $name',
+    //     textAlign: TextAlign.center,
+    //     style: const TextStyle(color: Colors.white),
+    //   ),
+    // );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Center(
+            child: Text(
+              'Song Added to $name ',
+              maxLines: 1,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+        duration: const Duration(seconds: 1),
+        margin: const EdgeInsets.only(bottom: 60, left: 90, right: 75),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
       ),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackbar1);
     Navigator.pop(context);
   } else {
     final snackbar2 = SnackBar(
@@ -116,7 +133,26 @@ songAddedToPlaylist(BuildContext context, SongModel song, datas, String name) {
       backgroundColor: Colors.black,
       content: Text('Song already exists in $name'),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackbar2);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Center(
+            child: Text(
+              'Song Already in $name',
+              maxLines: 1,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
+        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+        duration: const Duration(seconds: 1),
+        margin: const EdgeInsets.only(bottom: 60, left: 90, right: 75),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      ),
+    );
     Navigator.pop(context);
   }
 }

@@ -1,62 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive/hive.dart';
 import 'package:music_application/allsongs_screen/all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class MostlyPlayedfunctions extends ChangeNotifier {
-  static final mostplayedNotifier = ValueNotifier<List<SongModel>>([]);
-  static List<dynamic> playCounts = [];
+class Mostlycontroller extends ChangeNotifier {
+  static ValueNotifier<List<SongModel>> mostPlayedSongsNotifier = ValueNotifier([]);
+  static List<dynamic> mostlyPlayed = [];
 
-  static Future<void> addplayCount(SongModel item) async {
-    final mostPlayeddatabase = await Hive.openBox('mostPlayedSongsNotifier');
-    int? playCount = mostPlayeddatabase.get(item.id);
+  static Future<void> addMostlyPlayed(item) async {
+    final recentDb = await Hive.openBox('MostSongNotifier');
+    await recentDb.add(item);
+    getMostlyPlayed();
+    mostPlayedSongsNotifier.notifyListeners();
+  }
 
-    if (playCount == null) {
-      playCount = 0;
+  static Future<void> getMostlyPlayed() async {
+    final recentDb = await Hive.openBox('MostSongNotifier');
+    mostlyPlayed = recentDb.values.toList();
+    displayRecents();
+    mostPlayedSongsNotifier.notifyListeners();
+  }
+
+  static Future<List> displayRecents() async {
+    final recentDb = await Hive.openBox('MostSongNotifier');
+    final mostlySongs = recentDb.values.toList();
+    mostPlayedSongsNotifier.value.clear();
+    mostlyPlayed.clear();
+    int counter = 0;
+
+    for (var i = 0; i < mostlySongs.length; i++) {
+      for (var k = 0; k < mostlySongs.length; k++) {
+        if (mostlySongs[i] == mostlySongs[k]) {
+          counter++;
+        }
+      }
+      if (counter > 3) {
+        for (var l = 0; l < allsongs.length; l++) {
+          if (mostlySongs[i] == allsongs[l].id) {
+            mostPlayedSongsNotifier.value.add(allsongs[l]);
+            mostlyPlayed.add(allsongs[l]);
+          }
+        }
+        counter = 0;
+      }
     }
 
-    playCount++;
-
-    mostPlayeddatabase.put(item.id, playCount);
-
-    getMostd();
+    return mostlyPlayed;
   }
-
-  static Future<void> getMostd() async {
-    final mostplayeddatabase = await Hive.openBox('mostPlayedSongsNotifier');
-    final songItems = startSongs.where(
-      (song) => mostplayeddatabase.containsKey(song.id),
-    );
-
-    final tempMostPlayed = songItems.toList();
-
-    tempMostPlayed.sort((a, b) {
-      final aPlaycount = mostplayeddatabase.get(a.id) as int;
-
-      final bPlaycount = mostplayeddatabase.get(b.id) as int;
-
-      return bPlaycount.compareTo(aPlaycount);
-    });
-    mostplayedNotifier.value = List.from(tempMostPlayed);
-  }
-
-  // static Future<void> showMostPlayed() async {
-  //   final mostplayedDatabase = await Hive.openBox('mostPlayedSongsNotifier');
-  //   final mostplayedSongItems = mostplayedDatabase.toMap().entries.toList();
-  //   final tempMostPlayed = <Map<String, dynamic>>[];
-  //   for (final song in mostplayedSongItems) {
-  //     if (tempMostPlayed.length >= 10) {
-  //       break;
-  //     }
-  //     for (final startsong in startSongs) {
-  //       if (song.key == startsong.id) {
-  //         // tempMostPlayed.add('song':startsong, 'playCount': song.value['playCount']);
-
-  //         break;
-  //       }
-  //     }
-  //   }
-
-  //   mostplayedNotifier.value = List.from(tempMostPlayed);
-  // }
 }

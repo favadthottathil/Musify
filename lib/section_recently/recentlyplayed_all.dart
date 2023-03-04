@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/DB/favouritesDB.dart';
+import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/allsongs_screen/listitle.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -28,8 +28,6 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
 
   @override
   Widget build(BuildContext context) {
-    FavoriteDb.favoriteSongs;
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(218, 3, 16, 56),
       body: SafeArea(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/DB/favouritesDB.dart';
+import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/controller/most_played.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
@@ -26,6 +26,8 @@ TextEditingController namecontroller1 = TextEditingController();
 
 class _ListtileState extends State<Listtiles> {
   List<SongModel> allsongs = [];
+
+  int count = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -124,48 +126,78 @@ class _ListtileState extends State<Listtiles> {
                             ),
                             ValueListenableBuilder(
                               valueListenable: FavoriteDb.favoriteSongs,
-                              builder: (context, List<SongModel> favouritedata, child) {
-                                return ValueListenableBuilder(
-                                    valueListenable: FavoriteDb.favoriteSongs,
-                                    builder: (context, List<SongModel> data, child) {
-                                      return ListTile(
-                                        onTap: () {
-                                          if (FavoriteDb.isFavor(widget.songModel[index])) {
-                                            FavoriteDb.delete(widget.songModel[index].id);
-                                            const remove = SnackBar(
-                                              content: Text('Song Removed'),
-                                              duration: Duration(seconds: 1),
-                                            );
-                                            ScaffoldMessenger.of(context).showSnackBar(remove);
-                                          } else {
-                                            FavoriteDb.add(widget.songModel[index]);
-                                            const addfav = SnackBar(
-                                              content: Text('Song Added'),
-                                              duration: Duration(seconds: 1),
-                                            );
-                                            ScaffoldMessenger.of(context).showSnackBar(addfav);
-                                          }
-                                          FavoriteDb.favoriteSongs.notifyListeners();
-                                        },
-                                        leading: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Container(
-                                            width: 50,
-                                            height: 50,
-                                            color: Colors.white30,
-                                            child: const Icon(
-                                              Icons.favorite,
-                                              size: 25,
-                                              color: Colors.red,
-                                            ),
+                              builder: (context, List<SongModel> data, child) {
+                                return ListTile(
+                                  onTap: () {
+                                    if (FavoriteDb.isFavor(widget.songModel[index])) {
+                                      FavoriteDb.delete(widget.songModel[index].id);
+                                      // const remove = SnackBar(
+                                      //   content: Text('Song Removed'),
+                                      //   duration: Duration(seconds: 1),
+
+                                      // );
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                        content: const Center(
+                                          child: Text(
+                                            'Song Removed from Favourite',
+                                            maxLines: 1,
+                                            style: TextStyle(fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                        title: const Text(
-                                          'Add to Favourite',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+                                        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+                                        duration: const Duration(seconds: 1),
+                                        margin: const EdgeInsets.symmetric(horizontal: 84, vertical: 40),
+                                        behavior: SnackBarBehavior.floating,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                      ));
+                                    } else {
+                                      FavoriteDb.add(widget.songModel[index]);
+                                      // const addfav = SnackBar(
+                                      //   content: Text('Song Added'),
+                                      //   duration: Duration(seconds: 1),
+                                      // );
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: const Center(
+                                            child: Text(
+                                              'Song Added To Favourite',
+                                              maxLines: 1,
+                                              style: TextStyle(fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+                                          duration: const Duration(seconds: 1),
+                                          margin: const EdgeInsets.symmetric(horizontal: 84, vertical: 40),
+                                          behavior: SnackBarBehavior.floating,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(5),
+                                          ),
                                         ),
                                       );
-                                    });
+                                    }
+                                    FavoriteDb.favoriteSongs.notifyListeners();
+                                    Navigator.pop(context);
+                                  },
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Container(
+                                      width: 50,
+                                      height: 50,
+                                      color: Colors.white30,
+                                      child: const Icon(
+                                        Icons.favorite,
+                                        size: 25,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                  title: const Text(
+                                    'Add to Favourite',
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+                                  ),
+                                );
                               },
                             ),
                             const SizedBox(
@@ -208,9 +240,9 @@ class _ListtileState extends State<Listtiles> {
 
                 RecentController.addRecent(widget.songModel[index].id);
 
-                MostlyPlayedfunctions.addplayCount(widget.songModel[index]);
-
-                // MostlyPlayedfunctions.addplayCount(widget.songModel[index].id);
+                Mostlycontroller.addMostlyPlayed(
+                  widget.songModel[index].id,
+                );
 
                 context.read<SongModelProvider>().setId(widget.songModel[index].id);
                 Navigator.push(

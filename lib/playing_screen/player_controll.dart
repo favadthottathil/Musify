@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_application/DB/favouritesDB.dart';
+import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playlist/all_playlist%20_1.dart';
 import 'package:music_application/playlist/playlist_allsngAdd.dart';
@@ -56,25 +56,64 @@ class _PlayingControllsState extends State<PlayingControlls> {
                 iconData: Icons.playlist_add,
                 buttonAction: () {
                   modelsheet(context, widget.favsongmodel, formkey);
+                  // Navigator.pop(context);
                 },
                 color: Colors.white),
             AppBarButton(
-                iconData: Icons.favorite_border,
+                iconData: FavoriteDb.isFavor(widget.favsongmodel) ? Icons.favorite : Icons.favorite_border,
                 buttonAction: () {
                   if (FavoriteDb.isFavor(widget.favsongmodel)) {
                     FavoriteDb.delete(widget.favsongmodel.id);
-                    const remove = SnackBar(
-                      content: Text('Song Removed'),
-                      duration: Duration(seconds: 1),
+                    // const remove = SnackBar(
+                    //   content: Text('Song Removed'),
+                    //   duration: Duration(seconds: 1),
+                    // );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Center(
+                          child: Center(
+                            child: Text(
+                              'Song Removed From Favourite',
+                              maxLines: 1,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+                        duration: const Duration(seconds: 1),
+                        margin: const EdgeInsets.only(bottom: 650, left: 90, right: 75),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(remove);
                   } else {
                     FavoriteDb.add(widget.favsongmodel);
-                    const addfav = SnackBar(
-                      content: Text('Song Added'),
-                      duration: Duration(seconds: 1),
+                    // const addfav = SnackBar(
+                    //   content: Text('Song Added'),
+                    //   duration: Duration(seconds: 1),
+                    // );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Center(
+                          child: Center(
+                            child: Text(
+                              'Song Added To Favourite',
+                              maxLines: 1,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+                        duration: const Duration(seconds: 1),
+                        margin: const EdgeInsets.only(bottom: 650, left: 90, right: 75),
+                        behavior: SnackBarBehavior.floating,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(addfav);
                   }
                   FavoriteDb.favoriteSongs.notifyListeners();
                 },
@@ -117,12 +156,12 @@ class _PlayingControllsState extends State<PlayingControlls> {
                   if (shuffle!) {
                     return const Icon(
                       Icons.shuffle_rounded,
-                      color: Colors.white60,
+                      color: Colors.white,
                     );
                   } else {
                     return const Icon(
                       Icons.shuffle_rounded,
-                      color: Colors.white,
+                      color: Colors.white60,
                     );
                   }
                 },
