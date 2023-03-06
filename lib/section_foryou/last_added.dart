@@ -63,10 +63,11 @@ class _LastAddedState extends State<LastAdded> {
                   nullArtworkWidget: const Icon(
                     Icons.music_note,
                     size: 70,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 10),
-                Container(
+                SizedBox(
                   height: 20,
                   width: 100,
                   child: Text(
@@ -79,12 +80,12 @@ class _LastAddedState extends State<LastAdded> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Container(
+                SizedBox(
                   height: 15,
                   width: 70,
                   child: Text(
                     song.artist.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white30,
                       fontSize: 10,
                     ),

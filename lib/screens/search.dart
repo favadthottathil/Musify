@@ -111,7 +111,9 @@ class _SearchState extends State<Search> {
       uriType: UriType.EXTERNAL,
       ignoreCase: true,
     );
-    foundSongs = allsongs;
+    setState(() {
+      foundSongs = allsongs;
+    });
   }
 
   void updateList(String enteredText) {
@@ -119,7 +121,11 @@ class _SearchState extends State<Search> {
     if (enteredText.isEmpty) {
       results = allsongs;
     } else {
-      results = allsongs.where((element) => element.displayNameWOExt.trim().contains(enteredText.trim())).toList();
+      results = allsongs
+          .where(
+            (element) => element.displayNameWOExt.trim().contains(enteredText.trim()),
+          )
+          .toList();
     }
     setState(() {
       foundSongs = results;

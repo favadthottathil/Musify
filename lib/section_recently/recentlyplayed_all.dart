@@ -52,7 +52,7 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
                   ),
                 ],
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               FutureBuilder(
                 future: RecentController.getRecent(),
                 builder: (context, item) {

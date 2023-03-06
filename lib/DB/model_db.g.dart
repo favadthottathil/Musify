@@ -19,17 +19,20 @@ class SongsDBAdapter extends TypeAdapter<SongsDB> {
     return SongsDB(
       name: fields[0] as String,
       songid: (fields[1] as List).cast<int>(),
+      count: fields[2] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, SongsDB obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.songid);
+      ..write(obj.songid)
+      ..writeByte(2)
+      ..write(obj.count);
   }
 
   @override

@@ -63,7 +63,7 @@ class _UserDetailState extends State<UserDetail> {
                         print('${user!.key}');
 
                         if (user?.key != null) {
-                          deleteUser(user!.key);
+                          // deleteUser(user!.key);
                         } else {
                           print('failed to delete user');
                         }

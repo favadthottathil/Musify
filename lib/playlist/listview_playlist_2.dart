@@ -7,6 +7,7 @@ import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/DB/playlist_db.dart';
 import 'package:music_application/playlist/playlist_single_3.dart';
 import 'package:music_application/section_foryou/last_added.dart';
+import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
 import 'package:music_application/widgets/playlist_widgets/custombottom_sheet.dart';
 
 class PlaylistListview extends StatefulWidget {
@@ -94,27 +95,54 @@ class _PlaylistListviewState extends State<PlaylistListview> {
                           backgroundColor: const Color.fromARGB(218, 2, 12, 42),
                           context: context,
                           builder: (context) {
-                            return CustomModelSheet(
-                              firIcon: Ionicons.play_circle,
-                              firText: 'Play',
-                              firpress: () {},
-                              secIcon: Icons.edit,
-                              secText: 'Rename',
-                              secpress: () {
-                                Navigator.of(context).pop();
+                            // return CustomModelSheet(
+                            //   firIcon: Ionicons.play_circle,
+                            //   firText: 'Play',
+                            //   firpress: () {},
+                            //   secIcon: Icons.edit,
+                            //   secText: 'Rename',
+                            //   secpress: () {
+                            //     Navigator.of(context).pop();
 
-                                editPlaylist(index, context, formkey, nameeditcontroller0, data);
-                              },
-                              thirIcon: Icons.delete,
-                              thirText: 'Delete Playlist',
-                              thirpress: () {
-                                Navigator.of(context).pop();
+                            //     editPlaylist(index, context, formkey, nameeditcontroller0, data);
+                            //   },
+                            //   thirIcon: Icons.delete,
+                            //   thirText: 'Delete Playlist',
+                            //   thirpress: () {
+                            //     Navigator.of(context).pop();
 
-                                deletePlaylist(context, musiclist, index);
-                              },
-                              forIcon: Icons.share,
-                              forText: 'Share',
-                              forpress: () {},
+                            //     deletePlaylist(context, musiclist, index);
+                            //   },
+                            //   forIcon: Icons.share,
+                            //   forText: 'Share',
+                            //   forpress: () {},
+                            // );
+                            return FractionallySizedBox(
+                              heightFactor: 0.3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  bottomsheetlist(
+                                    icon: Icons.edit,
+                                    title: 'Rename',
+                                    buttonpress: () {
+                                      Navigator.of(context).pop();
+
+                                      editPlaylist(index, context, formkey, nameeditcontroller0, data);
+                                    },
+                                  ),
+                                  const SizedBox(height: 20),
+                                  bottomsheetlist(
+                                    title: 'Delete Playlist',
+                                    icon: Icons.delete,
+                                    buttonpress: () {
+                                      Navigator.of(context).pop();
+
+                                      deletePlaylist(context, musiclist, index);
+                                    },
+                                  ),
+                                ],
+                              ),
                             );
                           },
                         );

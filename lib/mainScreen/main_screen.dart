@@ -174,8 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              top: 570,
-              left: 15,
+              bottom: 0,
               child: Column(
                 children: [
                   if (GetAllSongController.audioPlayer.currentIndex != null)

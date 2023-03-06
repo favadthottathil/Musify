@@ -80,6 +80,8 @@ flutter:
     - animation/99946-searching.json
     - animation/1708-success.json
     - Assets/img/UserAvathar.jpg
+    - animation/89662-music.json
+    - Assets/img/splash(2)(1).jpg
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

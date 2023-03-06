@@ -48,7 +48,7 @@ class _MostlyPlayedAllState extends State<MostlyPlayedAll> {
                   ),
                   const SizedBox(width: 10),
                   const Text(
-                    'Recently played',
+                    'Mostly played',
                     style: TextStyle(fontSize: 35, color: Colors.white),
                   ),
                 ],
@@ -63,7 +63,7 @@ class _MostlyPlayedAllState extends State<MostlyPlayedAll> {
                       if (mostly.isEmpty) {
                         return const Center(
                           child: Text(
-                            'No Recent Songs?',
+                            'No Mostly Songs?',
                             style: TextStyle(fontSize: 30, color: Colors.white),
                           ),
                         );
@@ -86,7 +86,7 @@ class _MostlyPlayedAllState extends State<MostlyPlayedAll> {
                             if (item.data!.isEmpty) {
                               return const Center(
                                 child: Text(
-                                  'No Recently Songs!!!',
+                                  'No Mostly Songs!!!',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               );

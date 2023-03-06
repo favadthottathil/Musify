@@ -40,7 +40,7 @@ class _MostPlayedState extends State<MostPlayed> {
             if (mostly.isEmpty) {
               return const Center(
                 child: Text(
-                  'No Recent Songs?',
+                  'No Mostly Songs?',
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
               );
@@ -63,7 +63,7 @@ class _MostPlayedState extends State<MostPlayed> {
                   if (item.data!.isEmpty) {
                     return const Center(
                       child: Text(
-                        'No Recently Songs!!!',
+                        'No Mostly Songs!!!',
                         style: TextStyle(color: Colors.white),
                       ),
                     );
@@ -96,7 +96,7 @@ class _MostPlayedState extends State<MostPlayed> {
                                   child: Icon(
                                     Icons.music_note,
                                     color: Colors.white,
-                                    size: 15,
+                                    size: 85,
                                   ),
                                 ),
                               ),
@@ -105,31 +105,16 @@ class _MostPlayedState extends State<MostPlayed> {
                               //   height: 90,
                               // ),
                               const SizedBox(height: 18),
-                              Container(
+                              SizedBox(
                                 height: 15,
                                 width: 100,
                                 child: Text(
                                   mostlySongs[index].displayNameWOExt,
                                   maxLines: 1,
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.white),
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.white),
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(
-                                    Icons.headphones_outlined,
-                                    color: Colors.white54,
-                                    size: 20,
-                                  ),
-                                  SizedBox(width: 3),
-                                  // Text(
-                                  //   '5',
-                                  //   style: TextStyle(color: Colors.white54),
-                                  // )
-                                ],
-                              )
                             ],
                           ),
                         ),

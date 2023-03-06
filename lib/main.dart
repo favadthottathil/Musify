@@ -7,6 +7,7 @@ import 'package:music_application/DB/user_db.dart';
 
 import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
+import 'package:music_application/splash/screen.dart';
 
 import 'package:provider/provider.dart';
 
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Itim',
       ),
-      home: const HomeScreen(),
+      home: const Splash(),
     );
   }
 }

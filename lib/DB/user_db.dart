@@ -13,7 +13,7 @@ class UserDB {
   final String email;
 
   @HiveField(3)
-  final String? photo;
+  final String photo;
 
   UserDB({
     required this.name,

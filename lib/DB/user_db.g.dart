@@ -19,7 +19,7 @@ class UserDBAdapter extends TypeAdapter<UserDB> {
     return UserDB(
       name: fields[1] as String,
       email: fields[2] as String,
-      photo: fields[3] as String?,
+      photo: fields[3] as String,
       key: fields[0] as int?,
     );
   }

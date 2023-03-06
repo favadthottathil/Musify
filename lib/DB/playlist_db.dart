@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music_application/DB/model_db.dart';
+import 'package:music_application/controller/favourites_con.dart';
+import 'package:music_application/splash/screen.dart';
 
 class PlaylistDb extends ChangeNotifier {
   static ValueNotifier<List<SongsDB>> playlistNotifier = ValueNotifier([]);
@@ -31,5 +33,27 @@ class PlaylistDb extends ChangeNotifier {
     final playlistDb = Hive.box<SongsDB>('playlist');
     await playlistDb.putAt(index, value);
     getplaylist();
+  }
+
+  static Future<void> reset(context) async {
+    final playlistdb = Hive.box<SongsDB>('playlist');
+
+    final favorites = Hive.box<int>('Favorite');
+
+    final recent = Hive.box('recentSongNotifier');
+
+    final mostly = Hive.box('MostSongNotifier');
+
+    await playlistdb.clear();
+
+    await favorites.clear();
+
+    await recent.clear();
+
+    await mostly.clear();
+
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => const Splash(),
+    ));
   }
 }

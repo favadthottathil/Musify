@@ -1,14 +1,26 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:music_application/DB/playlist_db.dart';
+import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
-import 'package:music_application/section_settings/Account%20_main.dart';
-import 'package:music_application/section_settings/Account.dart';
+import 'package:music_application/section_settings/about_us.dart';
 import 'package:music_application/section_settings/feedback_form.dart';
+import 'package:music_application/section_settings/privacy&policy.dart';
 import 'package:music_application/section_settings/scan_music.dart';
 import 'package:music_application/section_settings/settings_tile.dart';
+import 'package:music_application/section_settings/termofuse.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  Timer? _timer;
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +46,7 @@ class Settings extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              SettingsTile(
-                name: 'Account',
-                icon: Ionicons.person,
-                ontap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const UserLogin(),
-                      ));
-                },
-              ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
               SettingsTile(
                 name: 'Scan Music',
                 icon: Ionicons.shield_checkmark_outline,
@@ -59,22 +59,85 @@ class Settings extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 10),
-              SettingsTile(name: 'Sleep Timer', icon: Ionicons.timer, ontap: () {}),
+              SettingsTile(
+                name: 'Reset',
+                icon: Icons.restore,
+                ontap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.black,
+                        title: const Text(
+                          'Reset',
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        content: const Text(
+                          'reset all data',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('NO')),
+                          ElevatedButton(
+                              onPressed: () {
+                                PlaylistDb.reset(context);
+                              },
+                              child: const Text('Yes'))
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
               const SizedBox(height: 40),
               SettingsTile(
                   name: 'Feedback',
                   icon: Icons.feedback,
                   ontap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const FeedbackForm(),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FeedbackForm(),
+                        ));
                   }),
               const SizedBox(height: 10),
-              SettingsTile(name: 'Privacy and Policy', icon: Icons.privacy_tip, ontap: () {}),
+              SettingsTile(
+                  name: 'Privacy and Policy',
+                  icon: Icons.privacy_tip,
+                  ontap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const PrivacyAndPolicy(),
+                        ));
+                  }),
               const SizedBox(height: 10),
-              SettingsTile(name: 'About Us', icon: Icons.emoji_emotions, ontap: () {}),
+              SettingsTile(
+                  name: 'Terms of use',
+                  icon: Ionicons.document,
+                  ontap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TermOfUse(),
+                        ));
+                  }),
+              const SizedBox(height: 10),
+              SettingsTile(
+                  name: 'About Us',
+                  icon: Icons.emoji_emotions_sharp,
+                  ontap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AboutScreen(),
+                        ));
+                  }),
             ],
           ),
         ),

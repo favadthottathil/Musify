@@ -193,9 +193,9 @@ class _ListtileState extends State<Listtiles> {
                                       ),
                                     ),
                                   ),
-                                  title: const Text(
-                                    'Add to Favourite',
-                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+                                  title: Text(
+                                    FavoriteDb.isFavor(widget.songModel[index]) ? 'remove from favourite' : 'add to favorite',
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
                                   ),
                                 );
                               },
@@ -203,28 +203,6 @@ class _ListtileState extends State<Listtiles> {
                             const SizedBox(
                               height: 30,
                             ),
-                            InkWell(
-                              onTap: () {},
-                              child: ListTile(
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    color: Colors.white30,
-                                    child: const Icon(
-                                      Icons.details,
-                                      size: 25,
-                                      color: Colors.red,
-                                    ),
-                                  ),
-                                ),
-                                title: const Text(
-                                  'Details',
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
-                                ),
-                              ),
-                            )
                           ],
                         ),
                       );

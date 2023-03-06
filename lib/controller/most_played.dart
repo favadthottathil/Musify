@@ -17,13 +17,13 @@ class Mostlycontroller extends ChangeNotifier {
   static Future<void> getMostlyPlayed() async {
     final recentDb = await Hive.openBox('MostSongNotifier');
     mostlyPlayed = recentDb.values.toList();
-    displayRecents();
+    displaymostly();
     mostPlayedSongsNotifier.notifyListeners();
   }
 
-  static Future<List> displayRecents() async {
-    final recentDb = await Hive.openBox('MostSongNotifier');
-    final mostlySongs = recentDb.values.toList();
+  static Future<List> displaymostly() async {
+    final mostlydb = await Hive.openBox('MostSongNotifier');
+    final mostlySongs = mostlydb.values.toList();
     mostPlayedSongsNotifier.value.clear();
     mostlyPlayed.clear();
     int counter = 0;
@@ -34,7 +34,7 @@ class Mostlycontroller extends ChangeNotifier {
           counter++;
         }
       }
-      if (counter > 3) {
+      if (counter > 2) {
         for (var l = 0; l < allsongs.length; l++) {
           if (mostlySongs[i] == allsongs[l].id) {
             mostPlayedSongsNotifier.value.add(allsongs[l]);

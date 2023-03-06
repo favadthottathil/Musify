@@ -42,132 +42,134 @@ class _MiniPlayerState extends State<MiniPlayer> {
           ),
         );
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          height: 90,
-          width: 350,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.black87,
-          ),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: StreamBuilder(
-                  stream: GetAllSongController.audioPlayer.playingStream,
-                  builder: (context, snapshot) {
-                    bool? playingstage = snapshot.data;
+      child: Container(
+        height: 90,
+        width: 400,
+        decoration: BoxDecoration(
+          color: Colors.black87,
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: StreamBuilder(
+                stream: GetAllSongController.audioPlayer.playingStream,
+                builder: (context, snapshot) {
+                  bool? playingstage = snapshot.data;
 
-                    return QueryArtworkWidget(
-                      id: GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id,
-                      type: ArtworkType.AUDIO,
-                      keepOldArtwork: true,
-                      artworkHeight: 60,
-                      artworkWidth: 60,
-                      artworkBorder: BorderRadius.circular(70),
-                      artworkFit: BoxFit.fill,
-                      nullArtworkWidget: const Icon(
-                        Icons.music_note,
-                        size: 20,
-                      ),
-                    );
-                  },
-                ),
+                  return QueryArtworkWidget(
+                    id: GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id,
+                    type: ArtworkType.AUDIO,
+                    keepOldArtwork: true,
+                    artworkHeight: 60,
+                    artworkWidth: 60,
+                    artworkBorder: BorderRadius.circular(70),
+                    artworkFit: BoxFit.fill,
+                    nullArtworkWidget: const Icon(
+                      Icons.music_note,
+                      size: 60,
+                      color: Colors.white,
+                    ),
+                  );
+                },
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    StreamBuilder<bool>(
-                      stream: GetAllSongController.audioPlayer.playingStream,
-                      builder: (context, snapshot) {
-                        bool? playingstate = snapshot.data;
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StreamBuilder<bool>(
+                    stream: GetAllSongController.audioPlayer.playingStream,
+                    builder: (context, snapshot) {
+                      bool? playingstate = snapshot.data;
 
-                        return Text(
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 40),
+                        child: Text(
                           GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].displayNameWOExt,
                           style: const TextStyle(color: Colors.white),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 5),
-                    Wrap(
-                      children: [
-                        firstSong
-                            ? const IconButton(
-                                onPressed: null,
-                                icon: Icon(Icons.skip_previous),
-                                color: Colors.white,
-                                iconSize: 35,
-                              )
-                            : IconButton(
-                                onPressed: () async {
-                                  RecentController.addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    height: 55,
+                    width: 250,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Center(
+                        child: Wrap(
+                          children: [
+                            IconButton(
+                              onPressed: () async {
+                                RecentController.addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
 
-                                  if (GetAllSongController.audioPlayer.hasPrevious) {
-                                    await GetAllSongController.audioPlayer.seekToPrevious();
+                                if (GetAllSongController.audioPlayer.hasPrevious) {
+                                  await GetAllSongController.audioPlayer.seekToPrevious();
+                                } else {
+                                  await GetAllSongController.audioPlayer.play();
+                                }
+                              },
+                              icon: const Icon(Icons.skip_previous),
+                              color: Colors.white,
+                              iconSize: 35,
+                            ),
+                            const SizedBox(width: 10),
+                            IconButton(
+                              onPressed: () async {
+                                setState(() {
+                                  isPlaying = !isPlaying;
+                                });
+
+                                if (GetAllSongController.audioPlayer.playing) {
+                                  await GetAllSongController.audioPlayer.pause();
+                                  setState(() {});
+                                } else {
+                                  await GetAllSongController.audioPlayer.play();
+                                  setState(() {});
+                                }
+                              },
+                              icon: StreamBuilder<bool>(
+                                stream: GetAllSongController.audioPlayer.playingStream,
+                                builder: (context, snapshot) {
+                                  bool? playingstage = snapshot.data;
+                                  if (playingstage != null && playingstage) {
+                                    return const Icon(Icons.pause_circle);
                                   } else {
-                                    await GetAllSongController.audioPlayer.play();
+                                    return const Icon(Icons.play_circle);
                                   }
                                 },
-                                icon: const Icon(Icons.skip_previous),
-                                color: Colors.white,
-                                iconSize: 35,
                               ),
-                        const SizedBox(width: 10),
-                        IconButton(
-                          onPressed: () async {
-                            setState(() {
-                              isPlaying = !isPlaying;
-                            });
+                              color: Colors.white,
+                              iconSize: 35,
+                            ),
+                            const SizedBox(width: 10),
+                            IconButton(
+                              onPressed: () async {
+                                RecentController.addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
 
-                            if (GetAllSongController.audioPlayer.playing) {
-                              await GetAllSongController.audioPlayer.pause();
-                              setState(() {});
-                            } else {
-                              await GetAllSongController.audioPlayer.play();
-                              setState(() {});
-                            }
-                          },
-                          icon: StreamBuilder<bool>(
-                            stream: GetAllSongController.audioPlayer.playingStream,
-                            builder: (context, snapshot) {
-                              bool? playingstage = snapshot.data;
-                              if (playingstage != null && playingstage) {
-                                return const Icon(Icons.pause_circle);
-                              } else {
-                                return const Icon(Icons.play_circle);
-                              }
-                            },
-                          ),
-                          color: Colors.white,
-                          iconSize: 35,
+                                if (GetAllSongController.audioPlayer.hasNext) {
+                                  await GetAllSongController.audioPlayer.seekToNext();
+                                  await GetAllSongController.audioPlayer.play();
+                                } else {
+                                  await GetAllSongController.audioPlayer.play();
+                                }
+                              },
+                              icon: const Icon(Icons.skip_next),
+                              color: Colors.white,
+                              iconSize: 35,
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 10),
-                        IconButton(
-                          onPressed: () async {
-                            RecentController.addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
-
-                            if (GetAllSongController.audioPlayer.hasNext) {
-                              await GetAllSongController.audioPlayer.seekToNext();
-                              await GetAllSongController.audioPlayer.play();
-                            } else {
-                              await GetAllSongController.audioPlayer.play();
-                            }
-                          },
-                          icon: const Icon(Icons.skip_next),
-                          color: Colors.white,
-                          iconSize: 35,
-                        ),
-                      ],
+                      ),
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
