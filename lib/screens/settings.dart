@@ -10,6 +10,7 @@ import 'package:music_application/section_settings/feedback_form.dart';
 import 'package:music_application/section_settings/privacy&policy.dart';
 import 'package:music_application/section_settings/scan_music.dart';
 import 'package:music_application/section_settings/settings_tile.dart';
+import 'package:music_application/section_settings/sleep_tiimer.dart';
 import 'package:music_application/section_settings/termofuse.dart';
 
 class Settings extends StatefulWidget {
@@ -94,6 +95,16 @@ class _SettingsState extends State<Settings> {
                 },
               ),
               const SizedBox(height: 10),
+              SettingsTile(
+                name: 'Sleep Timer',
+                icon: Ionicons.timer,
+                ontap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SleepTimer(),
+                  );
+                },
+              ),
               const SizedBox(height: 40),
               SettingsTile(
                   name: 'Feedback',

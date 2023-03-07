@@ -28,13 +28,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animated_text_kit: ^4.2.2
   cupertino_icons: ^1.0.2
   dialogs: ^0.0.7
   dio: ^5.0.1
   feedback: ^2.5.0
   flutter:
     sdk: flutter
-  
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^0.13.5
@@ -82,6 +82,7 @@ flutter:
     - Assets/img/UserAvathar.jpg
     - animation/89662-music.json
     - Assets/img/splash(2)(1).jpg
+    - animation/102416-music-animation-lottie.json
 
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

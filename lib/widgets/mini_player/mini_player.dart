@@ -46,7 +46,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
         height: 90,
         width: 400,
         decoration: BoxDecoration(
-          color: Colors.black87,
+          color: const Color.fromARGB(218, 3, 16, 56),
         ),
         child: Row(
           children: [

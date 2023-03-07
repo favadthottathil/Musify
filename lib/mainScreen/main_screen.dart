@@ -1,25 +1,14 @@
-import 'dart:developer';
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
-import 'package:music_application/playing_screen/now_playing.dart';
-
+import 'package:music_application/mainScreen/first_main.dart';
 import 'package:music_application/screens/favorites.dart';
 import 'package:music_application/screens/search.dart';
 import 'package:music_application/screens/settings.dart';
 import 'package:music_application/allsongs_screen/all_songs.dart';
 import 'package:music_application/section_mainScreen/Tab_Bar/for_you.dart';
-
-import 'package:music_application/section_foryou/playlist_main.dart';
 import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
 import 'package:music_application/widgets/mini_player/mini_player.dart';
-import 'package:on_audio_query/on_audio_query.dart';
-
-import '../playlist/all_playlist _1.dart';
-import '../widgets/mainscreen_widgets/name_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
         appBar: AppBar(
           leadingWidth: 50,
           elevation: 0,
@@ -82,95 +72,41 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: Stack(
           children: [
-            Container(
-              width: double.infinity,
-              color: const Color.fromARGB(218, 3, 16, 56),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        'Musicly',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: 25,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const NameHome(name: 'Playlist'),
-                            OutLineButton(
-                              onpressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const AllPlaylist(),
-                                    ));
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const SizedBox(
-                      height: 200,
-                      child: PlayListMain(),
-                    ),
-                    const SizedBox(height: 20),
-                    Center(
-                      child: SizedBox(
-                        height: 50,
-                        width: 300,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.black45,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: TabBar(
-                              // isScrollable: true,
-                              labelStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                              tabs: [
-                                Tab(text: 'All Songs'),
-                                Tab(text: 'For You')
-                              ],
-                              indicator: BoxDecoration(
-                                color: Colors.deepPurple,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(30),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const SizedBox(
-                      width: double.infinity,
-                      height: 800,
-                      child: TabBarView(
-                        children: [
-                          AllSongs(),
-                          ForYou(),
+            NestedScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              floatHeaderSlivers: true,
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return <Widget>[
+                  const SliverAppBar(
+                    backgroundColor: Colors.transparent,
+                    collapsedHeight: 305,
+                    expandedHeight: 305,
+                    flexibleSpace: MainFirst(),
+                  ),
+                  SliverPersistentHeader(
+                    delegate: MyDelegate(
+                      const TabBar(
+                        tabs: [
+                          Tab(text: 'All Songs'),
+                          Tab(text: 'For You')
                         ],
+                        indicator: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                    floating: true,
+                  )
+                ];
+              },
+              body: const TabBarView(
+                children: [
+                  AllSongs(),
+                  ForYou(),
+                ],
               ),
             ),
             Positioned(
@@ -195,18 +131,28 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+class MyDelegate extends SliverPersistentHeaderDelegate {
+  MyDelegate(this.tabBar);
 
+  final TabBar tabBar;
 
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      color: const Color.fromARGB(218, 3, 16, 56),
+      child: tabBar,
+    );
+  }
 
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
 
+  @override
+  double get minExtent => tabBar.preferredSize.height;
 
-
-//  Wrap(
-//                       children: [
-//                         IconButton(onPressed: () {}, icon: const Icon(Icons.skip_previous), color: Colors.white, iconSize: 35),
-//                         const SizedBox(width: 10),
-//                         IconButton(onPressed: () {}, icon: const Icon(Icons.play_circle), color: Colors.white, iconSize: 35),
-//                         const SizedBox(width: 10),
-//                         IconButton(onPressed: () {}, icon: const Icon(Icons.skip_next), color: Colors.white, iconSize: 35),
-//                       ],
-//                     ),
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
+}

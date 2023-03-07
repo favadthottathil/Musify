@@ -81,22 +81,25 @@ class _MostPlayedState extends State<MostPlayed> {
                         margin: const EdgeInsets.only(left: 10),
                         height: 100,
                         width: 130,
-                        decoration: BoxDecoration(color: Colors.black38, borderRadius: BorderRadius.circular(10)),
+                        decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(10)),
                         child: Padding(
                           padding: const EdgeInsets.all(13),
                           child: Column(
                             children: [
-                              QueryArtworkWidget(
-                                id: mostlySongs[index].id,
-                                type: ArtworkType.AUDIO,
-                                artworkHeight: 90,
-                                artworkWidth: 90,
-                                nullArtworkWidget: const Padding(
-                                  padding: EdgeInsets.only(left: 7, top: 6),
-                                  child: Icon(
-                                    Icons.music_note,
-                                    color: Colors.white,
-                                    size: 85,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: QueryArtworkWidget(
+                                  id: mostlySongs[index].id,
+                                  type: ArtworkType.AUDIO,
+                                  artworkHeight: 90,
+                                  artworkWidth: 90,
+                                  nullArtworkWidget: const Padding(
+                                    padding: EdgeInsets.only(left: 7, top: 6),
+                                    child: Icon(
+                                      Icons.music_note,
+                                      color: Colors.white,
+                                      size: 85,
+                                    ),
                                   ),
                                 ),
                               ),

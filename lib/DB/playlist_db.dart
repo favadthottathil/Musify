@@ -18,7 +18,7 @@ class PlaylistDb extends ChangeNotifier {
   static Future<void> getplaylist() async {
     final playlistDb = Hive.box<SongsDB>('playlist');
     playlistNotifier.value.clear();
-    // playlistNotifier.value.addAll(playlistDb.values);
+    playlistNotifier.value.addAll(playlistDb.values);
 
     playlistNotifier.notifyListeners();
   }

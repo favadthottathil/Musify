@@ -41,7 +41,7 @@ class _ListtileState extends State<Listtiles> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
-              color: Colors.black54,
+              color: Colors.white10,
             ),
             child: ListTile(
               leading: QueryArtworkWidget(
@@ -237,7 +237,6 @@ class _ListtileState extends State<Listtiles> {
           ),
         );
       },
-      controller: ScrollController(keepScrollOffset: true),
     );
   }
 }

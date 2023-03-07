@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -21,7 +22,7 @@ class _SplashState extends State<Splash> {
     super.initState();
 
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 4),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -41,15 +42,24 @@ class _SplashState extends State<Splash> {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Ionicons.musical_note,
-                size: 100,
-                color: Color.fromARGB(218, 3, 16, 56),
+            children: [
+              SizedBox(
+                height: 200,
+                width: 250,
+                child: Lottie.asset('animation/102416-music-animation-lottie.json', fit: BoxFit.cover),
               ),
-              Text(
-                'Musicly',
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Color.fromARGB(218, 3, 16, 56)),
+              AnimatedTextKit(
+                animatedTexts: [
+                  TypewriterAnimatedText(
+                    'Musicly..',
+                    textStyle: const TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(218, 3, 16, 56),
+                    ),
+                    speed: const Duration(milliseconds: 400),
+                  )
+                ],
               )
             ],
           ),
