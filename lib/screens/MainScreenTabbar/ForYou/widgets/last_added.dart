@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/allsongs_screen/all_songs.dart';
+import 'package:music_application/screens/MainScreenTabbar/AllSongs/all_songs.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playing_screen/now_playing.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
-import 'package:music_application/section_mainScreen/recently_played.dart';
+import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/recently_played.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
-
-List<String> name = [
-  'Good 4 U',
-  'Kiss Me More',
-  'Butter'
-];
 
 class LastAdded extends StatefulWidget {
   const LastAdded({super.key});

@@ -4,11 +4,13 @@ import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/mainScreen/first_main.dart';
 import 'package:music_application/screens/favorites.dart';
 import 'package:music_application/screens/search.dart';
-import 'package:music_application/screens/settings.dart';
-import 'package:music_application/allsongs_screen/all_songs.dart';
-import 'package:music_application/section_mainScreen/Tab_Bar/for_you.dart';
+import 'package:music_application/screens/settings/settings.dart';
+import 'package:music_application/screens/MainScreenTabbar/AllSongs/all_songs.dart';
+import 'package:music_application/screens/MainScreenTabbar/ForYou/for_you.dart';
 import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
-import 'package:music_application/widgets/mini_player/mini_player.dart';
+import 'package:music_application/screens/mini_player.dart';
+
+Color mainColor = const Color.fromARGB(218, 3, 16, 56);
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,14 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+        backgroundColor: mainColor,
         appBar: AppBar(
           leadingWidth: 50,
           elevation: 0,
-          backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+          backgroundColor: mainColor,
           leading: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: InkWell(
@@ -44,21 +47,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             AppBarButton(
-                color: Colors.white,
-                iconData: Icons.favorite_border,
-                buttonAction: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+              color: Colors.white,
+              iconData: Icons.favorite_border,
+              buttonAction: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (context) => const Favourites(),
-                  ));
-                }),
-            // AppBarButton(
-            //   iconData: Icons.settings,
-            //   buttonAction: () {
-            //     Navigator.of(context).push(MaterialPageRoute(
-            //       builder: (context) => const Settings(),
-            //     ));
-            //   },
-            // ),
+                  ),
+                );
+              },
+            ),
             AppBarButton(
               color: Colors.white,
               iconData: Icons.search,
@@ -77,11 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
               floatHeaderSlivers: true,
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return <Widget>[
-                  const SliverAppBar(
+                  SliverAppBar(
                     backgroundColor: Colors.transparent,
-                    collapsedHeight: 305,
-                    expandedHeight: 305,
-                    flexibleSpace: MainFirst(),
+                    collapsedHeight: mediaQuery.size.height * 0.4,
+                    expandedHeight: 200,
+                    flexibleSpace: const MainFirst(),
                   ),
                   SliverPersistentHeader(
                     delegate: MyDelegate(
@@ -111,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Positioned(
               bottom: 0,
+              left: 12,
               child: Column(
                 children: [
                   if (GetAllSongController.audioPlayer.currentIndex != null)

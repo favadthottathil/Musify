@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_application/controller/favourites_con.dart';
-import 'package:music_application/allsongs_screen/listitle.dart';
+import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
 import 'package:music_application/controller/song_controller.dart';
-import 'package:music_application/screens/favorites.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -24,8 +22,6 @@ class _AllSongsState extends State<AllSongs> {
 
   final AudioPlayer audioPlayer = AudioPlayer();
 
-  // List<SongModel> allsongs = [];
-
   @override
   void initState() {
     super.initState();
@@ -34,7 +30,6 @@ class _AllSongsState extends State<AllSongs> {
   }
 
   void requestper() async {
-    // Permission.storage.request();
     bool permissionStatus = await audioQuery.permissionsStatus();
     if (!permissionStatus) {
       await audioQuery.permissionsRequest();

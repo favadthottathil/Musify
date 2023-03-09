@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/controller/song_controller.dart';
+import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/playing_screen/player_controll.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 class NowPlaying extends StatefulWidget {
   const NowPlaying({
@@ -68,23 +70,14 @@ class _NowPlayingState extends State<NowPlaying> {
     });
   }
 
-  // void listenTosongIndex() {
-  //   widget.audioPlayer.currentIndexStream.listen((event) {
-  //     setState(() {
-  //       if (event != null) {
-  //         currentindex = event;
-  //       }
-  //       context.read<SongmodelProvider>().setid(widget.songModel[currentindex].id);
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return Scaffold(
+        backgroundColor: mainColor,
         appBar: AppBar(
-          toolbarHeight: 100,
-          backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+          toolbarHeight: mediaQuery.size.height * 0.1,
+          backgroundColor: mainColor,
           elevation: 0,
           leading: InkWell(
             onTap: () {
@@ -103,14 +96,13 @@ class _NowPlayingState extends State<NowPlaying> {
             child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               const SizedBox(height: 20),
               SizedBox(
-                height: 250,
+                height: mediaQuery.size.height * 0.3,
                 child: QueryArtworkWidget(
                   id: widget.songModel[currentindex].id,
                   type: ArtworkType.AUDIO,
                   keepOldArtwork: true,
-                  artworkHeight: 250,
-                  artworkWidth: 250,
-                  artworkBorder: BorderRadius.circular(1),
+                  artworkWidth: mediaQuery.size.width * 0.6,
+                  artworkBorder: BorderRadius.circular(15),
                   artworkFit: BoxFit.cover,
                   nullArtworkWidget: const Icon(
                     Icons.music_note,
@@ -119,12 +111,17 @@ class _NowPlayingState extends State<NowPlaying> {
                 ),
               ),
               const SizedBox(height: 35),
-              Text(
-                widget.songModel[currentindex].displayNameWOExt,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 18,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 60),
+                child: TextScroll(
+                  widget.songModel[currentindex].displayNameWOExt,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
+                  mode: TextScrollMode.endless,
                 ),
               ),
               const SizedBox(height: 5),
@@ -167,7 +164,7 @@ class _NowPlayingState extends State<NowPlaying> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: mediaQuery.size.height * 0.1),
               PlayingControlls(count: widget.count, firstsong: firstsong, lastsong: lastsong, favsongmodel: widget.songModel[currentindex]),
             ]),
           ),
@@ -179,25 +176,3 @@ class _NowPlayingState extends State<NowPlaying> {
     GetAllSongController.audioPlayer.seek(duration);
   }
 }
-
-// class ArtWorkWidget extends StatelessWidget {
-//   const ArtWorkWidget({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return QueryArtworkWidget(
-//       id: Widget.songmodel,
-//       type: ArtworkType.AUDIO,
-//       artworkHeight: 200,
-//       artworkWidth: 300,
-//       artworkBorder: BorderRadius.circular(4),
-//       artworkFit: BoxFit.fill,
-//       nullArtworkWidget: const Icon(
-//         Icons.music_note,
-//         size: 200,
-//       ),
-//     );
-//   }
-// }

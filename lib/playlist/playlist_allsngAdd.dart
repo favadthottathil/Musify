@@ -5,6 +5,7 @@ import 'package:music_application/playlist/all_playlist%20_1.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 modelsheet(BuildContext context, SongModel songModel, formkey) {
+  var mediaQuery = MediaQuery.of(context);
   return showModalBottomSheet(
     backgroundColor: const Color.fromARGB(218, 3, 16, 56),
     context: context,
@@ -95,17 +96,9 @@ modelsheet(BuildContext context, SongModel songModel, formkey) {
 }
 
 songAddedToPlaylist(BuildContext context, SongModel song, SongsDB datas, String name) {
+  var mediaQuery = MediaQuery.of(context);
   if (!datas.isvalue(song.id)) {
     datas.add(song.id);
-    // final snackbar1 = SnackBar(
-    //   duration: const Duration(seconds: 1),
-    //   backgroundColor: Colors.black,
-    //   content: Text(
-    //     'Song added to $name',
-    //     textAlign: TextAlign.center,
-    //     style: const TextStyle(color: Colors.white),
-    //   ),
-    // );
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Center(
@@ -119,7 +112,7 @@ songAddedToPlaylist(BuildContext context, SongModel song, SongsDB datas, String 
         ),
         backgroundColor: const Color.fromARGB(218, 3, 16, 56),
         duration: const Duration(seconds: 1),
-        margin: const EdgeInsets.only(bottom: 60, left: 90, right: 75),
+        margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
@@ -128,11 +121,6 @@ songAddedToPlaylist(BuildContext context, SongModel song, SongsDB datas, String 
     );
     Navigator.pop(context);
   } else {
-    final snackbar2 = SnackBar(
-      duration: const Duration(seconds: 1),
-      backgroundColor: Colors.black,
-      content: Text('Song already exists in $name'),
-    );
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Center(
@@ -146,7 +134,7 @@ songAddedToPlaylist(BuildContext context, SongModel song, SongsDB datas, String 
         ),
         backgroundColor: const Color.fromARGB(218, 3, 16, 56),
         duration: const Duration(seconds: 1),
-        margin: const EdgeInsets.only(bottom: 60, left: 90, right: 75),
+        margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),

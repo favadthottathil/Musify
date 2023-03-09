@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/DB/user_db.dart';
-
-import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
-import 'package:music_application/splash/screen.dart';
-
+import 'package:music_application/screens/settings/settings.dart';
+import 'package:music_application/screens/splash/screen.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -47,6 +44,9 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Itim',
       ),
       home: const Splash(),
+      routes: {
+        "settings": (context) => const Settings(),
+      },
     );
   }
 }

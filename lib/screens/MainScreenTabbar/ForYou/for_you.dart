@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/most_played/most_played.dart';
-import 'package:music_application/screens/las_added.dart';
+import 'package:music_application/screens/last_added.dart';
 
-import 'package:music_application/section_foryou/last_added.dart';
-import 'package:music_application/section_foryou/most_played.dart';
-import 'package:music_application/section_mainScreen/recently_played.dart';
-import 'package:music_application/section_recently/recentlyplayed_all.dart';
+import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/last_added.dart';
+import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/most_played.dart';
+import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/recently_played.dart';
+import 'package:music_application/screens/recentlyplayed_all.dart';
 import 'package:music_application/widgets/mainscreen_widgets/name_button.dart';
 
 class ForYou extends StatelessWidget {
@@ -13,6 +13,8 @@ class ForYou extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,9 +42,9 @@ class ForYou extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const SizedBox(
-            height: 145,
-            child: RecentlyPlayed(),
+          SizedBox(
+            height: mediaQuery.size.height * 0.2,
+            child: const RecentlyPlayed(),
           ),
           const SizedBox(height: 20),
           Padding(
@@ -95,9 +97,9 @@ class ForYou extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          const SizedBox(
-            height: 145,
-            child: LastAdded(),
+          SizedBox(
+            height: mediaQuery.size.height * 0.2,
+            child: const LastAdded(),
           ),
           const SizedBox(height: 20),
         ],

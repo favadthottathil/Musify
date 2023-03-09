@@ -5,9 +5,10 @@ import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playlist/playlist_allsngAdd.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
+import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
-import '../playing_screen/now_playing.dart';
+import '../../../playing_screen/now_playing.dart';
 
 class Listtiles extends StatefulWidget {
   const Listtiles({super.key, required this.songModel, this.recentLength, this.isRecent = false});
@@ -26,8 +27,6 @@ TextEditingController namecontroller1 = TextEditingController();
 
 class _ListtileState extends State<Listtiles> {
   List<SongModel> allsongs = [];
-
-  int count = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -81,61 +80,31 @@ class _ListtileState extends State<Listtiles> {
                 ),
                 onPressed: () {
                   showModalBottomSheet(
-                    backgroundColor: Colors.black45,
+                    backgroundColor: const Color.fromARGB(218, 2, 12, 42),
                     context: context,
                     builder: (context) {
-                      return Padding(
-                        padding: const EdgeInsets.all(20),
+                      return FractionallySizedBox(
+                        heightFactor: 0.3,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.close,
-                                size: 25,
-                                color: Colors.white,
-                              ),
-                            ),
-                            ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  width: 50,
-                                  height: 50,
-                                  color: Colors.white30,
-                                  child: const Icon(
-                                    Icons.playlist_add,
-                                    size: 25,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              ),
-                              title: const Text(
-                                'Add Playlist',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
-                              ),
-                              onTap: () {
+                            bottomsheetlist(
+                              icon: Icons.playlist_add,
+                              title: 'Add to Playlist',
+                              buttonpress: () {
                                 modelsheet(context, widget.songModel[index], formkey);
                               },
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                            const SizedBox(height: 20),
                             ValueListenableBuilder(
                               valueListenable: FavoriteDb.favoriteSongs,
-                              builder: (context, List<SongModel> data, child) {
-                                return ListTile(
-                                  onTap: () {
+                              builder: (context, data, child) {
+                                return bottomsheetlist(
+                                  title: FavoriteDb.isFavor(widget.songModel[index]) ? 'remove from favourite' : 'add to favorite',
+                                  icon: Icons.favorite,
+                                  buttonpress: () {
                                     if (FavoriteDb.isFavor(widget.songModel[index])) {
                                       FavoriteDb.delete(widget.songModel[index].id);
-                                      // const remove = SnackBar(
-                                      //   content: Text('Song Removed'),
-                                      //   duration: Duration(seconds: 1),
-
-                                      // );
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                         content: const Center(
                                           child: Text(
@@ -154,10 +123,6 @@ class _ListtileState extends State<Listtiles> {
                                       ));
                                     } else {
                                       FavoriteDb.add(widget.songModel[index]);
-                                      // const addfav = SnackBar(
-                                      //   content: Text('Song Added'),
-                                      //   duration: Duration(seconds: 1),
-                                      // );
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
                                           content: const Center(
@@ -180,28 +145,8 @@ class _ListtileState extends State<Listtiles> {
                                     FavoriteDb.favoriteSongs.notifyListeners();
                                     Navigator.pop(context);
                                   },
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Container(
-                                      width: 50,
-                                      height: 50,
-                                      color: Colors.white30,
-                                      child: const Icon(
-                                        Icons.favorite,
-                                        size: 25,
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
-                                  title: Text(
-                                    FavoriteDb.isFavor(widget.songModel[index]) ? 'remove from favourite' : 'add to favorite',
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
-                                  ),
                                 );
                               },
-                            ),
-                            const SizedBox(
-                              height: 30,
                             ),
                           ],
                         ),

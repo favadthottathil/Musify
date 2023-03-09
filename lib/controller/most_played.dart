@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:music_application/allsongs_screen/all_songs.dart';
+import 'package:music_application/screens/MainScreenTabbar/AllSongs/all_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Mostlycontroller extends ChangeNotifier {

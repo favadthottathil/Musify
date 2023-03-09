@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:music_application/playlist/all_playlist%20_1.dart';
-import 'package:music_application/section_foryou/playlist_main.dart';
+import 'package:music_application/mainScreen/playlist_main.dart';
 
 import '../widgets/mainscreen_widgets/name_button.dart';
 
@@ -53,7 +51,6 @@ class MainFirst extends StatelessWidget {
           height: 200,
           child: PlayListMain(),
         ),
-        const SizedBox(height: 20),
       ],
     );
   }

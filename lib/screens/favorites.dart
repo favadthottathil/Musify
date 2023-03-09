@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/controller/favourites_con.dart';
-import 'package:music_application/allsongs_screen/listitle.dart';
+import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Favourites extends StatefulWidget {

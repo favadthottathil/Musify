@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/controller/favourites_con.dart';
-import 'package:music_application/splash/screen.dart';
+import 'package:music_application/screens/splash/screen.dart';
 
 class PlaylistDb extends ChangeNotifier {
   static ValueNotifier<List<SongsDB>> playlistNotifier = ValueNotifier([]);

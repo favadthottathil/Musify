@@ -25,6 +25,7 @@ class _PlayingControllsState extends State<PlayingControlls> {
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
     return Column(
       children: [
         Row(
@@ -64,10 +65,7 @@ class _PlayingControllsState extends State<PlayingControlls> {
                 buttonAction: () {
                   if (FavoriteDb.isFavor(widget.favsongmodel)) {
                     FavoriteDb.delete(widget.favsongmodel.id);
-                    // const remove = SnackBar(
-                    //   content: Text('Song Removed'),
-                    //   duration: Duration(seconds: 1),
-                    // );
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: const Center(
@@ -81,7 +79,7 @@ class _PlayingControllsState extends State<PlayingControlls> {
                         ),
                         backgroundColor: const Color.fromARGB(218, 3, 16, 56),
                         duration: const Duration(seconds: 1),
-                        margin: const EdgeInsets.only(bottom: 650, left: 90, right: 75),
+                        margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
                         behavior: SnackBarBehavior.floating,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
@@ -107,7 +105,7 @@ class _PlayingControllsState extends State<PlayingControlls> {
                         ),
                         backgroundColor: const Color.fromARGB(218, 3, 16, 56),
                         duration: const Duration(seconds: 1),
-                        margin: const EdgeInsets.only(bottom: 650, left: 90, right: 75),
+                        margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
                         behavior: SnackBarBehavior.floating,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
@@ -118,30 +116,6 @@ class _PlayingControllsState extends State<PlayingControlls> {
                   FavoriteDb.favoriteSongs.notifyListeners();
                 },
                 color: Colors.white),
-            // AppBarButton(
-            //     iconData: StreamBuilder<bool>(
-            //       stream: GetAllSongController.audioPlayer.shuffleModeEnabledStream,
-            //       builder: (BuildContext context, AsyncSnapshot data) {
-            //         if (data.hasData) {
-            //           shuffle = data.data;
-            //         }
-            //         if (shuffle) {
-            //           return const Icon(
-            //             Icons.shuffle_rounded,
-            //             color: Colors.white54,
-            //           );
-            //         } else {
-            //           return const Icon(
-            //             Icons.shuffle_rounded,
-            //             color: Colors.white,
-            //           );
-            //         }
-            //       },
-            //     ),
-            //     buttonAction: () {
-            //       shuffle == false ? GetAllSongController.audioPlayer.setShuffleModeEnabled(true) : GetAllSongController.audioPlayer.setShuffleModeEnabled(false);
-            //     },
-            //     color: Colors.white)
             IconButton(
               onPressed: () {
                 setState(() {
@@ -173,12 +147,6 @@ class _PlayingControllsState extends State<PlayingControlls> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // const Icon(
-            //   Icons.repeat,
-            //   color: Colors.white54,
-            //   size: 30,
-            // ),
-
             widget.firstsong
                 ? const IconButton(
                     onPressed: null,

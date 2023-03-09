@@ -5,7 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:music_application/DB/model_db.dart';
 
 import 'package:music_application/playlist/playlist_single_3.dart';
-import 'package:music_application/section_mainScreen/recently_played.dart';
+import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/recently_played.dart';
 
 class PlayListMain extends StatefulWidget {
   const PlayListMain({super.key});
