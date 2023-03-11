@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
-import 'package:music_application/playlist/playlist_single_3.dart';
+import 'package:music_application/screens/playlist/playlist_single_3.dart';
 import 'package:music_application/widgets/playlist_widgets/custombottom_sheet.dart';
 import 'package:music_application/widgets/playlist_widgets/play_list_customWidget.dart';
 

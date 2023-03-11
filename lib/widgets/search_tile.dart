@@ -3,12 +3,12 @@ import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/controller/most_played.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
-import 'package:music_application/playlist/playlist_allsngAdd.dart';
+import 'package:music_application/screens/playlist/playlist_allsngAdd.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
 import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
-import '../../../playing_screen/now_playing.dart';
+import '../screens/playing_screen/now_playing.dart';
 
 class SearchTile extends StatefulWidget {
   const SearchTile({super.key, required this.songModel, this.recentLength, this.isRecent = false});

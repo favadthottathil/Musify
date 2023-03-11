@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music_application/DB/model_db.dart';
-import 'package:music_application/playlist/all_playlist%20_1.dart';
+import 'package:music_application/screens/playlist/all_playlist%20_1.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 modelsheet(BuildContext context, SongModel songModel, formkey) {

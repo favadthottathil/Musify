@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/controller/song_controller.dart';
-import 'package:music_application/playlist/all_playlist%20_1.dart';
-import 'package:music_application/playlist/playlist_allsngAdd.dart';
+import 'package:music_application/screens/playlist/all_playlist%20_1.dart';
+import 'package:music_application/screens/playlist/playlist_allsngAdd.dart';
 import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -88,10 +88,6 @@ class _PlayingControllsState extends State<PlayingControlls> {
                     );
                   } else {
                     FavoriteDb.add(widget.favsongmodel);
-                    // const addfav = SnackBar(
-                    //   content: Text('Song Added'),
-                    //   duration: Duration(seconds: 1),
-                    // );
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: const Center(

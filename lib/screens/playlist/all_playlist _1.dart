@@ -3,7 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/DB/playlist_db.dart';
-import 'package:music_application/playlist/listview_playlist_2.dart';
+import 'package:music_application/screens/playlist/listview_playlist_2.dart';
 
 class AllPlaylist extends StatefulWidget {
   const AllPlaylist({super.key});

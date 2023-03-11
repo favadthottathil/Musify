@@ -20,6 +20,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double sliverAppBarHeight = 0;
+  double tabbarHeight = 0;
+  double miniPlayerHeight = 0;
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: mainColor,
         appBar: AppBar(
-          leadingWidth: 50,
+          leadingWidth: mediaQuery.size.width * 0.1,
           elevation: 0,
           backgroundColor: mainColor,
           leading: Padding(
@@ -78,20 +82,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   SliverAppBar(
                     backgroundColor: Colors.transparent,
                     collapsedHeight: mediaQuery.size.height * 0.4,
-                    expandedHeight: 200,
+                    expandedHeight: mediaQuery.size.height * 0.4,
                     flexibleSpace: const MainFirst(),
                   ),
                   SliverPersistentHeader(
                     delegate: MyDelegate(
-                      const TabBar(
-                        tabs: [
+                      TabBar(
+                        tabs: const [
                           Tab(text: 'All Songs'),
                           Tab(text: 'For You')
                         ],
                         indicator: BoxDecoration(
                           color: Colors.deepPurple,
                           borderRadius: BorderRadius.all(
-                            Radius.circular(10),
+                            Radius.circular(mediaQuery.size.width * 0.02),
                           ),
                         ),
                       ),

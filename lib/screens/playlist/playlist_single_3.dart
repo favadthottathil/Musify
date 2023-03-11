@@ -3,10 +3,9 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/controller/song_controller.dart';
-import 'package:music_application/playing_screen/now_playing.dart';
-import 'package:music_application/playlist/playlist_addsongs.dart';
+import 'package:music_application/screens/playing_screen/now_playing.dart';
+import 'package:music_application/screens/playlist/playlist_addsongs.dart';
 import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
-import 'package:music_application/widgets/playlist_widgets/shuffle_button.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class Playlist extends StatefulWidget {

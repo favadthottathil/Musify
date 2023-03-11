@@ -100,7 +100,14 @@ class _SearchState extends State<Search> {
                   ],
                 ),
               ),
-              SearchTile(songModel: foundSongs)
+              foundSongs.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'No Songs found',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    )
+                  : SearchTile(songModel: foundSongs)
             ],
           ),
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/most_played/most_played.dart';
+import 'package:music_application/screens/most_played/most_played.dart';
 import 'package:music_application/screens/last_added.dart';
 
 import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/last_added.dart';

@@ -5,7 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/DB/playlist_db.dart';
-import 'package:music_application/playlist/playlist_single_3.dart';
+import 'package:music_application/screens/playlist/playlist_single_3.dart';
 import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/last_added.dart';
 import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
 import 'package:music_application/widgets/playlist_widgets/custombottom_sheet.dart';
@@ -82,10 +82,6 @@ class _PlaylistListviewState extends State<PlaylistListview> {
                           style: const TextStyle(fontSize: 25, color: Colors.white),
                         ),
                         const SizedBox(height: 10),
-                        // const Text(
-                        //   'Instrumental',
-                        //   style: TextStyle(fontSize: 15, color: Colors.white),
-                        // ),
                       ],
                     ),
                     const Spacer(),
@@ -100,24 +96,40 @@ class _PlaylistListviewState extends State<PlaylistListview> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  bottomsheetlist(
-                                    icon: Icons.edit,
-                                    title: 'Rename',
-                                    buttonpress: () {
+                                  InkWell(
+                                    onTap: () {
                                       Navigator.of(context).pop();
 
                                       editPlaylist(index, context, formkey, nameeditcontroller0, data);
                                     },
+                                    child: bottomsheetlist(
+                                      icon: Icons.edit,
+                                      title: 'Rename',
+                                      buttonpress: () {
+                                        Navigator.of(context).pop();
+
+                                        editPlaylist(index, context, formkey, nameeditcontroller0, data);
+                                      },
+                                    ),
                                   ),
                                   const SizedBox(height: 20),
-                                  bottomsheetlist(
-                                    title: 'Delete Playlist',
-                                    icon: Icons.delete,
-                                    buttonpress: () {
-                                      Navigator.of(context).pop();
+                                  InkWell(
+                                    onTap: () {
 
-                                      deletePlaylist(context, musiclist, index);
+                                      Navigator.of(context).pop();
+                                  
+                                        deletePlaylist(context, musiclist, index);
+                                      
                                     },
+                                    child: bottomsheetlist(
+                                      title: 'Delete Playlist',
+                                      icon: Icons.delete,
+                                      buttonpress: () {
+                                        Navigator.of(context).pop();
+                                  
+                                        deletePlaylist(context, musiclist, index);
+                                      },
+                                    ),
                                   ),
                                 ],
                               ),
