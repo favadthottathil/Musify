@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/screens/playing_screen/now_playing.dart';
@@ -32,11 +33,11 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
           valueListenable: RecentController.recentSongsNotifier,
           builder: (context, List<SongModel> recent, child) {
             if (recent.isEmpty) {
-              return const Center(
+              return  Center(
                 child: Text(
                   'No Recent Songs',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     color: Colors.white,
                   ),
                 ),
@@ -72,7 +73,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                         : recentsong.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: const EdgeInsets.only(left: 35),
+                        padding:  EdgeInsets.only(left: 35.w),
                         child: Column(
                           children: [
                             InkWell(
@@ -96,40 +97,40 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                                 );
                               },
                               child: Container(
-                                height: 80,
-                                width: 80,
-                                decoration: const BoxDecoration(
+                                height: 80.h,
+                                width: 80.w,
+                                decoration:  BoxDecoration(
                                   borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
+                                    Radius.circular(10.r),
                                   ),
                                 ),
                                 child: QueryArtworkWidget(
                                   id: recentsong[index].id,
                                   type: ArtworkType.AUDIO,
                                   artworkFit: BoxFit.fitHeight,
-                                  nullArtworkWidget: const Icon(
+                                  nullArtworkWidget:  Icon(
                                     Icons.music_note,
-                                    size: 70,
+                                    size: 70.sp,
                                     color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
+                             SizedBox(height: 10.h),
                             Text(
                               recentsong[index].displayNameWOExt.substring(0, 10),
-                              style: const TextStyle(
+                              style:  TextStyle(
                                 color: Colors.white,
-                                fontSize: 15,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               recentsong[index].artist!.substring(0, 9).toString(),
-                              style: const TextStyle(
+                              style:  TextStyle(
                                 color: Colors.white30,
-                                fontSize: 13,
+                                fontSize: 13.sp,
                               ),
                             )
                           ],

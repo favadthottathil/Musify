@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
@@ -61,7 +62,7 @@ class _PlaylistListviewState extends State<PlaylistListview> {
                 child: Row(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(15.r),
                       child: Container(
                         height: 70,
                         width: 70,
@@ -79,7 +80,7 @@ class _PlaylistListviewState extends State<PlaylistListview> {
                         Text(
                           data.name,
                           maxLines: 1,
-                          style: const TextStyle(fontSize: 25, color: Colors.white),
+                          style:  TextStyle(fontSize: 25.sp, color: Colors.white),
                         ),
                         const SizedBox(height: 10),
                       ],
@@ -186,7 +187,7 @@ class _PlaylistListviewState extends State<PlaylistListview> {
                   filled: true,
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(25.r),
                   ),
                 ),
                 style: const TextStyle(

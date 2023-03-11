@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_application/DB/model_db.dart';
@@ -38,15 +39,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: 'Itim',
+    return ScreenUtilInit(
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Itim',
+        ),
+        home: const Splash(),
       ),
-      home: const Splash(),
-      routes: {
-        "settings": (context) => const Settings(),
-      },
+      designSize: const Size(393, 852),
     );
   }
 }

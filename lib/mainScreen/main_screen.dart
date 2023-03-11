@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/mainScreen/first_main.dart';
@@ -20,10 +21,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double sliverAppBarHeight = 0;
-  double tabbarHeight = 0;
-  double miniPlayerHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -31,17 +28,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         backgroundColor: mainColor,
         appBar: AppBar(
-          leadingWidth: mediaQuery.size.width * 0.1,
+          leadingWidth: 50.w,
           elevation: 0,
           backgroundColor: mainColor,
           leading: Padding(
-            padding: const EdgeInsets.only(left: 8),
+            padding: EdgeInsets.only(left: 8.w),
             child: InkWell(
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const Settings(),
@@ -81,8 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 return <Widget>[
                   SliverAppBar(
                     backgroundColor: Colors.transparent,
-                    collapsedHeight: mediaQuery.size.height * 0.4,
-                    expandedHeight: mediaQuery.size.height * 0.4,
+                    collapsedHeight: 320.h,
+                    expandedHeight: 310.h,
                     flexibleSpace: const MainFirst(),
                   ),
                   SliverPersistentHeader(
@@ -95,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         indicator: BoxDecoration(
                           color: Colors.deepPurple,
                           borderRadius: BorderRadius.all(
-                            Radius.circular(mediaQuery.size.width * 0.02),
+                            Radius.circular(10.r),
                           ),
                         ),
                       ),
@@ -112,8 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              bottom: 0,
-              left: 12,
+              bottom: 0.h,
+              left: 12.w,
               child: Column(
                 children: [
                   if (GetAllSongController.audioPlayer.currentIndex != null)
@@ -142,7 +138,7 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
       color: const Color.fromARGB(218, 3, 16, 56),
       child: tabBar,
     );

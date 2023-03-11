@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
 import 'package:music_application/controller/most_played.dart';
@@ -44,16 +45,16 @@ class _MostlyPlayedAllState extends State<MostlyPlayedAll> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30),
+                    child:  Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.sp),
                   ),
                   const SizedBox(width: 10),
-                  const Text(
+                   Text(
                     'Mostly played',
-                    style: TextStyle(fontSize: 35, color: Colors.white),
+                    style: TextStyle(fontSize: 35.sp, color: Colors.white),
                   ),
                 ],
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 40.h),
               FutureBuilder(
                 future: Mostlycontroller.getMostlyPlayed(),
                 builder: (context, item) {
@@ -61,10 +62,10 @@ class _MostlyPlayedAllState extends State<MostlyPlayedAll> {
                     valueListenable: Mostlycontroller.mostPlayedSongsNotifier,
                     builder: (BuildContext context, List<SongModel> mostly, child) {
                       if (mostly.isEmpty) {
-                        return const Center(
+                        return  Center(
                           child: Text(
-                            'No Mostly Songs?',
-                            style: TextStyle(fontSize: 30, color: Colors.white),
+                            'No Mostly Songs',
+                            style: TextStyle(fontSize: 30.sp, color: Colors.white),
                           ),
                         );
                       } else {
@@ -86,7 +87,7 @@ class _MostlyPlayedAllState extends State<MostlyPlayedAll> {
                             if (item.data!.isEmpty) {
                               return const Center(
                                 child: Text(
-                                  'No Mostly Songs!!!',
+                                  'No Mostly Songs',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               );

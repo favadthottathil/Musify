@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music_application/DB/model_db.dart';
 
@@ -25,10 +26,10 @@ class _PlayListMainState extends State<PlayListMain> {
       builder: (context, value, child) {
         return Container(
           child: Hive.box<SongsDB>('playlist').isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
                     'No Playlist',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white, fontSize: 30.sp),
                   ),
                 )
               : ListView.builder(
@@ -57,30 +58,26 @@ class _PlayListMainState extends State<PlayListMain> {
                                 );
                               },
                               child: Container(
-                                margin: const EdgeInsets.all(10),
-                                height: 140,
-                                width: 140,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage('Assets/img/favad.jpg'),
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(30),
-                                  ),
-                                ),
+                                margin: EdgeInsets.all(10.r),
+                                height: 140.h,
+                                width: 140.h,
+                                decoration: BoxDecoration(
+                                    image: const DecorationImage(
+                                      image: AssetImage('Assets/img/favad.jpg'),
+                                      fit: BoxFit.fitHeight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(30.r)),
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 30),
+                              margin: EdgeInsets.only(left: 30.w),
                               child: Center(
                                 child: Text(
                                   data.name,
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 25,
+                                    fontSize: 25.sp,
                                     color: Colors.white,
                                   ),
                                 ),

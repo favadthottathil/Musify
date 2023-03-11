@@ -241,22 +241,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.5"
-  dialogs:
-    dependency: "direct main"
-    description:
-      name: dialogs
-      sha256: "93f5fd23cfbe09e57a15bf43a0208b50232a9db3c718f0d8f8e94118e38c14e5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.7"
-  dio:
-    dependency: "direct main"
-    description:
-      name: dio
-      sha256: "3709d74615bba5e443eb141f6a7f4bcc4788f8fae6f743edadfb79c2a8e6287e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -339,6 +323,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "0a122936b450324cbdfd51be0819cc6fcebb093eb65585e9cd92263f7a1a8a39"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.7.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -573,14 +565,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  mailer:
-    dependency: "direct main"
-    description:
-      name: mailer
-      sha256: dae17f4c6a360de380fe6c3981f806fa8df69c94533bd6f347075e4f14417bf2
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.0.0"
   matcher:
     dependency: transitive
     description:
@@ -970,14 +954,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  transparent_image:
-    dependency: "direct main"
-    description:
-      name: transparent_image
-      sha256: e8991d955a2094e197ca24c645efec2faf4285772a4746126ca12875e54ca02f
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   typed_data:
     dependency: transitive
     description:

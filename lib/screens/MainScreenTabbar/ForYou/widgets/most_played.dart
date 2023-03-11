@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/controller/most_played.dart';
 import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/recently_played.dart';
 import 'package:on_audio_query/on_audio_query.dart';
@@ -38,10 +39,10 @@ class _MostPlayedState extends State<MostPlayed> {
           valueListenable: Mostlycontroller.mostPlayedSongsNotifier,
           builder: (context, mostly, child) {
             if (mostly.isEmpty) {
-              return const Center(
+              return Center(
                 child: Text(
-                  'No Mostly Songs?',
-                  style: TextStyle(fontSize: 30, color: Colors.white),
+                  'No Mostly Songs',
+                  style: TextStyle(fontSize: 16.sp, color: Colors.white),
                 ),
               );
             } else {
@@ -63,7 +64,7 @@ class _MostPlayedState extends State<MostPlayed> {
                   if (item.data!.isEmpty) {
                     return const Center(
                       child: Text(
-                        'No Mostly Songs!!!',
+                        'No Mostly Songs',
                         style: TextStyle(color: Colors.white),
                       ),
                     );
@@ -78,46 +79,42 @@ class _MostPlayedState extends State<MostPlayed> {
                         : mostlySongs.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: const EdgeInsets.only(left: 10),
-                        height: 100,
-                        width: 130,
-                        decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(left: 10.w),
+                        height: 100.h,
+                        width: 130.w,
+                        decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(10.r)),
                         child: Padding(
                           padding: const EdgeInsets.all(13),
                           child: Column(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.only(top: 20.h),
                                 child: QueryArtworkWidget(
                                   id: mostlySongs[index].id,
                                   type: ArtworkType.AUDIO,
-                                  artworkHeight: 90,
-                                  artworkWidth: 90,
-                                  nullArtworkWidget: const Padding(
-                                    padding: EdgeInsets.only(left: 7, top: 6),
+                                  artworkHeight: 90.h,
+                                  artworkWidth: 90.w,
+                                  nullArtworkWidget: Padding(
+                                    padding: EdgeInsets.only(left: 7.w, top: 6.h),
                                     child: Icon(
                                       Icons.music_note,
                                       color: Colors.white,
-                                      size: 85,
+                                      size: 85.sp,
                                     ),
                                   ),
                                 ),
                               ),
-                              // Container(
-                              //   width: 90,
-                              //   height: 90,
-                              // ),
                               const SizedBox(height: 18),
                               SizedBox(
-                                height: 15,
-                                width: 100,
+                                height: 15.h,
+                                width: 100.w,
                                 child: Text(
                                   mostlySongs[index].displayNameWOExt,
                                   maxLines: 1,
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.white),
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp, color: Colors.white),
                                 ),
                               ),
-                              const SizedBox(height: 10),
+                              SizedBox(height: 10.h),
                             ],
                           ),
                         ),

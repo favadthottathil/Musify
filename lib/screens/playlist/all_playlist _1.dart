@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
@@ -31,9 +32,9 @@ class _AllPlaylistState extends State<AllPlaylist> {
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(218, 3, 16, 56),
             elevation: 0,
-            title: const Text(
+            title:  Text(
               'PlayList',
-              style: TextStyle(fontSize: 35, color: Colors.white),
+              style: TextStyle(fontSize: 35.sp, color: Colors.white),
             ),
             leading: IconButton(
               onPressed: () {
@@ -51,7 +52,7 @@ class _AllPlaylistState extends State<AllPlaylist> {
                 },
                 child: const Icon(Ionicons.add_circle_outline, color: Colors.white, size: 40),
               ),
-              const SizedBox(width: 10),
+               SizedBox(width: 10.w),
             ],
           ),
           body: SizedBox(

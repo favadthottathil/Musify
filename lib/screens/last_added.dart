@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/screens/playing_screen/now_playing.dart';
@@ -74,19 +75,19 @@ class _LastAddedSongsState extends State<LastAddedSongs> {
                       padding: const EdgeInsets.all(8),
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30.r),
                           color: Colors.black54,
                         ),
                         child: ListTile(
                           leading: QueryArtworkWidget(
                             id: song.id,
                             type: ArtworkType.AUDIO,
-                            nullArtworkWidget: const Padding(
-                              padding: EdgeInsets.only(left: 7, top: 6),
+                            nullArtworkWidget:  Padding(
+                              padding: EdgeInsets.only(left: 7.w, top: 6.h),
                               child: Icon(
                                 Icons.music_note,
                                 color: Colors.white,
-                                size: 30,
+                                size: 30.sp,
                               ),
                             ),
                           ),

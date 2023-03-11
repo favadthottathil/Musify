@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/screens/MainScreenTabbar/AllSongs/all_songs.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
@@ -52,31 +53,31 @@ class _LastAddedState extends State<LastAdded> {
                 QueryArtworkWidget(
                   id: song.id,
                   type: ArtworkType.AUDIO,
-                  artworkWidth: 80,
-                  artworkHeight: 80,
-                  nullArtworkWidget: const Icon(
+                  artworkWidth: 80.w,
+                  artworkHeight: 80.h,
+                  nullArtworkWidget:  Icon(
                     Icons.music_note,
-                    size: 70,
+                    size: 70.sp,
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
-                  height: 20,
-                  width: 100,
+                  height: 20.h,
+                  width: 100.w,
                   child: Text(
                     song.displayNameWOExt,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       color: Colors.white,
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 const SizedBox(height: 4),
                 SizedBox(
-                  height: 15,
-                  width: 70,
+                  height: 15.h,
+                  width: 70.w,
                   child: Text(
                     song.artist.toString(),
                     style: const TextStyle(

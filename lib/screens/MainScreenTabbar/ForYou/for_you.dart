@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/screens/most_played/most_played.dart';
 import 'package:music_application/screens/last_added.dart';
 
@@ -13,8 +14,6 @@ class ForYou extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,7 +21,7 @@ class ForYou extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
-              height: 30,
+              height: 30.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -41,16 +40,16 @@ class ForYou extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           SizedBox(
-            height: mediaQuery.size.height * 0.2,
+            height: 180.h,
             child: const RecentlyPlayed(),
           ),
           const SizedBox(height: 20),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: SizedBox(
-              height: 30,
+              height: 30.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -69,16 +68,16 @@ class ForYou extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
-          const SizedBox(
-            height: 200,
-            child: MostPlayed(),
+          SizedBox(height: 20.h),
+          SizedBox(
+            height: 180.h,
+            child: const MostPlayed(),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: SizedBox(
-              height: 30,
+              height: 30.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -96,12 +95,11 @@ class ForYou extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20.h),
           SizedBox(
-            height: mediaQuery.size.height * 0.2,
+            height: 180.h,
             child: const LastAdded(),
           ),
-          const SizedBox(height: 20),
         ],
       ),
     );

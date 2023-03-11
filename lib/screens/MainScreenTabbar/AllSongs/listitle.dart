@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/controller/most_played.dart';
 import 'package:music_application/controller/recent_song.dart';
@@ -36,22 +37,22 @@ class _ListtileState extends State<Listtiles> {
       itemBuilder: (context, index) {
         allsongs.addAll(widget.songModel);
         return Padding(
-          padding: const EdgeInsets.all(8),
+          padding:  EdgeInsets.all(8.r),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(30.r),
               color: Colors.white10,
             ),
             child: ListTile(
               leading: QueryArtworkWidget(
                 id: widget.songModel[index].id,
                 type: ArtworkType.AUDIO,
-                nullArtworkWidget: const Padding(
-                  padding: EdgeInsets.only(left: 7, top: 6),
-                  child: Icon(
+                nullArtworkWidget:  Padding(
+                  padding: EdgeInsets.only(left: 7.w, top: 6.h),
+                  child:  Icon(
                     Icons.music_note,
                     color: Colors.white,
-                    size: 30,
+                    size: 30.sp,
                   ),
                 ),
               ),
@@ -65,7 +66,7 @@ class _ListtileState extends State<Listtiles> {
                 maxLines: 1,
               ),
               subtitle: Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding:  EdgeInsets.only(top: 8.h),
                 child: Text(
                   widget.songModel[index].artist.toString(),
                   style: const TextStyle(color: Colors.white54),
@@ -95,7 +96,7 @@ class _ListtileState extends State<Listtiles> {
                                 modelsheet(context, widget.songModel[index], formkey);
                               },
                             ),
-                            const SizedBox(height: 20),
+                             SizedBox(height: 20.h),
                             ValueListenableBuilder(
                               valueListenable: FavoriteDb.favoriteSongs,
                               builder: (context, data, child) {
@@ -115,10 +116,10 @@ class _ListtileState extends State<Listtiles> {
                                         ),
                                         backgroundColor: const Color.fromARGB(218, 3, 16, 56),
                                         duration: const Duration(seconds: 1),
-                                        margin: const EdgeInsets.symmetric(horizontal: 84, vertical: 40),
+                                        margin:  EdgeInsets.symmetric(horizontal: 84.w, vertical: 40.h),
                                         behavior: SnackBarBehavior.floating,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
+                                          borderRadius: BorderRadius.circular(5.r),
                                         ),
                                       ));
                                     } else {
@@ -134,10 +135,10 @@ class _ListtileState extends State<Listtiles> {
                                           ),
                                           backgroundColor: const Color.fromARGB(218, 3, 16, 56),
                                           duration: const Duration(seconds: 1),
-                                          margin: const EdgeInsets.symmetric(horizontal: 84, vertical: 40),
+                                          margin:  EdgeInsets.symmetric(horizontal: 84.w, vertical: 40.h),
                                           behavior: SnackBarBehavior.floating,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(5),
+                                            borderRadius: BorderRadius.circular(5.r),
                                           ),
                                         ),
                                       );

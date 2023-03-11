@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
 
@@ -45,7 +46,7 @@ class _SplashState extends State<Splash> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: mediaQuery.size.width * 0.5,
+                height: 400.h,
                 child: Lottie.asset(
                   'animation/102416-music-animation-lottie.json',
                   fit: BoxFit.fill,
@@ -55,10 +56,10 @@ class _SplashState extends State<Splash> {
                 animatedTexts: [
                   TypewriterAnimatedText(
                     'Musicly..',
-                    textStyle: const TextStyle(
-                      fontSize: 40,
+                    textStyle: TextStyle(
+                      fontSize: 30.sp,
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(218, 3, 16, 56),
+                      color: const Color.fromARGB(218, 3, 16, 56),
                     ),
                     speed: const Duration(milliseconds: 400),
                   )

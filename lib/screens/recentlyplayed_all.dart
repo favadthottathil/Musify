@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
 import 'package:music_application/controller/recent_song.dart';
@@ -43,12 +44,12 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30),
+                    child: Icon(Icons.arrow_back_ios, color: Colors.white, size: 30.sp),
                   ),
-                  const SizedBox(width: 10),
-                  const Text(
+                  SizedBox(width: 10.w),
+                  Text(
                     'Recently played',
-                    style: TextStyle(fontSize: 35, color: Colors.white),
+                    style: TextStyle(fontSize: 35.sp, color: Colors.white),
                   ),
                 ],
               ),
@@ -60,10 +61,10 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
                     valueListenable: RecentController.recentSongsNotifier,
                     builder: (BuildContext context, List<SongModel> recent, child) {
                       if (recent.isEmpty) {
-                        return const Center(
+                        return Center(
                           child: Text(
-                            'No Recent Songs?',
-                            style: TextStyle(fontSize: 30, color: Colors.white),
+                            'No Recent Songs',
+                            style: TextStyle(fontSize: 23.sp, color: Colors.white),
                           ),
                         );
                       } else {
@@ -85,7 +86,7 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
                             if (item.data!.isEmpty) {
                               return const Center(
                                 child: Text(
-                                  'No Recently Songs!!!',
+                                  'No Recently Songs',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               );
