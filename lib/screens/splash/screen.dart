@@ -46,7 +46,7 @@ class _SplashState extends State<Splash> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 400.h,
+                height: 300.h,
                 child: Lottie.asset(
                   'animation/102416-music-animation-lottie.json',
                   fit: BoxFit.fill,
@@ -57,7 +57,7 @@ class _SplashState extends State<Splash> {
                   TypewriterAnimatedText(
                     'Musicly..',
                     textStyle: TextStyle(
-                      fontSize: 30.sp,
+                      fontSize: 40.sp,
                       fontWeight: FontWeight.bold,
                       color: const Color.fromARGB(218, 3, 16, 56),
                     ),

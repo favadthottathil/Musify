@@ -46,91 +46,89 @@ class _PlaylistAddState extends State<PlaylistAdd> {
               child: Text('No Song Avaialable'),
             );
           }
-          return SingleChildScrollView(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                // final data = songlist.values.toList()[index];
-                // imagechanger = Random().nextInt(6) + 1;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: QueryArtworkWidget(
-                          id: item.data![index].id,
-                          type: ArtworkType.AUDIO,
-                          artworkWidth: 50,
-                          artworkHeight: 50,
-                          keepOldArtwork: true,
-                          // artworkBorder: BorderRadius.circular(3),
-                          nullArtworkWidget: Container(
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: Colors.black54),
-                            width: 50,
-                            height: 50,
-                            child: const Icon(
-                              Icons.music_note,
-                              color: Colors.white,
-                            ),
+          return ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              // final data = songlist.values.toList()[index];
+              // imagechanger = Random().nextInt(6) + 1;
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: QueryArtworkWidget(
+                        id: item.data![index].id,
+                        type: ArtworkType.AUDIO,
+                        artworkWidth: 50,
+                        artworkHeight: 50,
+                        keepOldArtwork: true,
+                        // artworkBorder: BorderRadius.circular(3),
+                        nullArtworkWidget: Container(
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(6), color: Colors.black54),
+                          width: 50,
+                          height: 50,
+                          child: const Icon(
+                            Icons.music_note,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.data![index].displayNameWOExt,
-                            maxLines: 1,
-                            style: const TextStyle(fontSize: 15, color: Colors.white),
+                    ),
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.data![index].displayNameWOExt,
+                          maxLines: 1,
+                          style: const TextStyle(fontSize: 15, color: Colors.white),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          item.data![index].artist.toString(),
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            item.data![index].artist.toString(),
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Container(
-                        child: !widget.playlist.isvalue(item.data![index].id)
-                            ? IconButton(
-                                onPressed: () {
-                                  GetAllSongController.songscopy = item.data!;
-                                  setState(() {
-                                    playlistNotifier.addListener(() {});
-                                    songAddToPlaylist(item.data![index]);
-                                    PlaylistDb.playlistNotifier.notifyListeners();
-                                  });
-                                },
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ))
-                            : IconButton(
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      songdeleteFromPlaylist(item.data![index]);
-                                    },
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.remove,
-                                  color: Colors.white,
-                                ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Container(
+                      child: !widget.playlist.isvalue(item.data![index].id)
+                          ? IconButton(
+                              onPressed: () {
+                                GetAllSongController.songscopy = item.data!;
+                                setState(() {
+                                  playlistNotifier.addListener(() {});
+                                  songAddToPlaylist(item.data![index]);
+                                  PlaylistDb.playlistNotifier.notifyListeners();
+                                });
+                              },
+                              icon: const Icon(
+                                Icons.add,
+                                color: Colors.white,
+                              ))
+                          : IconButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    songdeleteFromPlaylist(item.data![index]);
+                                  },
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.remove,
+                                color: Colors.white,
                               ),
-                      )
-                    ],
-                  ),
-                );
-              },
-              itemCount: item.data!.length,
-            ),
+                            ),
+                    )
+                  ],
+                ),
+              );
+            },
+            itemCount: item.data!.length,
           );
         },
       ),

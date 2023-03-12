@@ -70,14 +70,14 @@ class _PlayListMainState extends State<PlayListMain> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 30.w),
+                              margin: EdgeInsets.only(left: 25.w),
                               child: Center(
                                 child: Text(
                                   data.name,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 25.sp,
+                                    fontSize: 20.sp,
                                     color: Colors.white,
                                   ),
                                 ),

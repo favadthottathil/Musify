@@ -50,65 +50,63 @@ class _FeedbackFormState extends State<FeedbackForm> {
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(30),
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
-                TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    helperText: 'Enter Your Name',
-                    helperStyle: const TextStyle(color: Colors.white, fontSize: 17),
-                    hintText: 'Name',
-                    hintStyle: const TextStyle(fontSize: 20),
-                    filled: true,
-                    fillColor: Colors.white54,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
+        body: Padding(
+          padding: const EdgeInsets.all(30),
+          child: ListView(
+            children: [
+              const SizedBox(height: 30),
+              TextFormField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  helperText: 'Enter Your Name',
+                  helperStyle: const TextStyle(color: Colors.white, fontSize: 17),
+                  hintText: 'Name',
+                  hintStyle: const TextStyle(fontSize: 20),
+                  filled: true,
+                  fillColor: Colors.white54,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-                const SizedBox(height: 30),
-                TextFormField(
-                  maxLines: 4,
-                  controller: feedbackController,
-                  decoration: InputDecoration(
-                    helperText: 'Enter Your Feedback',
-                    helperStyle: const TextStyle(color: Colors.white, fontSize: 17),
-                    hintText: 'feedback....',
-                    hintStyle: const TextStyle(fontSize: 20),
-                    filled: true,
-                    fillColor: Colors.white54,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide.none,
-                    ),
+              ),
+              const SizedBox(height: 30),
+              TextFormField(
+                maxLines: 4,
+                controller: feedbackController,
+                decoration: InputDecoration(
+                  helperText: 'Enter Your Feedback',
+                  helperStyle: const TextStyle(color: Colors.white, fontSize: 17),
+                  hintText: 'feedback....',
+                  hintStyle: const TextStyle(fontSize: 20),
+                  filled: true,
+                  fillColor: Colors.white54,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
                   ),
                 ),
-                const SizedBox(height: 30),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    // String feedback = feedbackController.text;
-                    // sendEmail(feedback);
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton.icon(
+                onPressed: () {
+                  // String feedback = feedbackController.text;
+                  // sendEmail(feedback);
 
-                    sendEmail();
+                  sendEmail();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.black,
-                        content: Text('successfull'),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.send),
-                  label: const Text('Send feedback'),
-                ),
-              ],
-            ),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.black,
+                      content: Text('successfull'),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.send),
+                label: const Text('Send feedback'),
+              ),
+            ],
           ),
         ));
   }

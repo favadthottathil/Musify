@@ -80,33 +80,29 @@ class _MostPlayedState extends State<MostPlayed> {
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         margin: EdgeInsets.only(left: 10.w),
-                        height: 100.h,
+                        height: 130.h,
                         width: 130.w,
                         decoration: BoxDecoration(color: Colors.white10, borderRadius: BorderRadius.circular(10.r)),
                         child: Padding(
                           padding: const EdgeInsets.all(13),
                           child: Column(
                             children: [
-                              Padding(
-                                padding: EdgeInsets.only(top: 20.h),
-                                child: QueryArtworkWidget(
-                                  id: mostlySongs[index].id,
-                                  type: ArtworkType.AUDIO,
-                                  artworkHeight: 90.h,
-                                  artworkWidth: 90.w,
-                                  nullArtworkWidget: Padding(
-                                    padding: EdgeInsets.only(left: 7.w, top: 6.h),
-                                    child: Icon(
-                                      Icons.music_note,
-                                      color: Colors.white,
-                                      size: 85.sp,
-                                    ),
+                              QueryArtworkWidget(
+                                id: mostlySongs[index].id,
+                                type: ArtworkType.AUDIO,
+                                artworkHeight: 90.h,
+                                artworkWidth: 90.w,
+                                nullArtworkWidget: Padding(
+                                  padding: EdgeInsets.only(left: 7.w, top: 6.h),
+                                  child: Icon(
+                                    Icons.music_note,
+                                    color: Colors.white,
+                                    size: 85.sp,
                                   ),
                                 ),
                               ),
                               const SizedBox(height: 18),
                               SizedBox(
-                                height: 15.h,
                                 width: 100.w,
                                 child: Text(
                                   mostlySongs[index].displayNameWOExt,

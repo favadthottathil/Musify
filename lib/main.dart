@@ -5,7 +5,6 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:music_application/DB/model_db.dart';
 import 'package:music_application/DB/user_db.dart';
 import 'package:music_application/provider/songmodel_provider.dart';
-import 'package:music_application/screens/settings/settings.dart';
 import 'package:music_application/screens/splash/screen.dart';
 import 'package:provider/provider.dart';
 

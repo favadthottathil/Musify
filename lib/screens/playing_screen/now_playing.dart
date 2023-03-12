@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/screens/playing_screen/player_controll.dart';
@@ -32,7 +33,7 @@ class _NowPlayingState extends State<NowPlaying> {
 
   int large = 0;
 
-
+  // List<AudioSource> songList = [];
 
   int currentindex = 0;
 
@@ -164,7 +165,7 @@ class _NowPlayingState extends State<NowPlaying> {
                   ],
                 ),
               ),
-              SizedBox(height: mediaQuery.size.height * 0.1),
+              SizedBox(height: 30.h),
               PlayingControlls(count: widget.count, firstsong: firstsong, lastsong: lastsong, favsongmodel: widget.songModel[currentindex]),
             ]),
           ),
