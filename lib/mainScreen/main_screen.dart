@@ -33,17 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: mainColor,
         appBar: AppBar(
-          leadingWidth: 50.w,
           elevation: 0,
           backgroundColor: mainColor,
-          leading: Padding(
-            padding: EdgeInsets.only(left: 8.w),
-            child: InkWell(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const Settings(),
-              )),
-              child: const Icon(Ionicons.settings_outline),
-            ),
+          leading: InkWell(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const Settings(),
+            )),
+            child: const Icon(Ionicons.settings_outline),
           ),
           actions: [
             AppBarButton(
@@ -72,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             NestedScrollView(
               physics: const NeverScrollableScrollPhysics(),
-              floatHeaderSlivers: true,
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return <Widget>[
                   SliverAppBar(

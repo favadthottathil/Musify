@@ -41,7 +41,7 @@ class _NowPlayingState extends State<NowPlaying> {
   void initState() {
     GetAllSongController.audioPlayer.currentIndexStream.listen((index) {
       if (index != null) {
-        GetAllSongController.currentIndexes = index;
+        GetAllSongController.CurrentIndexes = index;
         if (mounted) {
           setState(() {
             large = widget.count - 1;

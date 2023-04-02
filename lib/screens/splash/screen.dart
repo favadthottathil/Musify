@@ -33,8 +33,6 @@ class _SplashState extends State<Splash> {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       body: Container(
-        width: double.infinity,
-        height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('Assets/img/splash(2)(1).jpg'),

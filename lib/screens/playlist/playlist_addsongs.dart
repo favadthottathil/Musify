@@ -170,7 +170,7 @@ class _PlaylistAddState extends State<PlaylistAdd> {
         textAlign: TextAlign.center,
         style: TextStyle(color: Colors.white),
       ),
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
     ScaffoldMessenger.of(context).showSnackBar(removeplaylist);
   }

@@ -6,7 +6,7 @@ class GetAllSongController {
   static AudioPlayer audioPlayer = AudioPlayer();
   static List<SongModel> songscopy = [];
   static List<SongModel> playingsong = [];
-  static int currentIndexes = -1;
+  static int CurrentIndexes = -1;
   static ConcatenatingAudioSource createSongList(List<SongModel> elements) {
     List<AudioSource> songList = [];
     playingsong = elements;
