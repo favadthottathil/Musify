@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: mainColor,
         appBar: AppBar(
+<<<<<<< HEAD
           leadingWidth: 50,
           elevation: 0,
           backgroundColor: mainColor,
@@ -44,6 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
               )),
               child: const Icon(Ionicons.settings_outline),
             ),
+=======
+          elevation: 0,
+          backgroundColor: mainColor,
+          leading: InkWell(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const Settings(),
+            )),
+            child: const Icon(Ionicons.settings_outline),
+>>>>>>> 70af4ee... bug fixed
           ),
           actions: [
             AppBarButton(
@@ -72,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             NestedScrollView(
               physics: const NeverScrollableScrollPhysics(),
-              floatHeaderSlivers: true,
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return <Widget>[
                   SliverAppBar(
