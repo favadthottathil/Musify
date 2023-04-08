@@ -1,59 +1,58 @@
-import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:music_application/DB/model_db.dart';
-import 'package:music_application/controller/favourites_con.dart';
-import 'package:music_application/screens/splash/screen.dart';
+// import 'package:flutter/material.dart';
+// import 'package:hive_flutter/adapters.dart';
+// import 'package:music_application/DB/model_db.dart';
+// import 'package:music_application/screens/splash/screen.dart';
 
-class PlaylistDb extends ChangeNotifier {
-  static ValueNotifier<List<SongsDB>> playlistNotifier = ValueNotifier([]);
+// class PlaylistDb extends ChangeNotifier {
+//   static ValueNotifier<List<SongsDB>> playlistNotifier = ValueNotifier([]);
 
-  static final playlist = Hive.box<SongsDB>('playlist');
+//   static final playlist = Hive.box<SongsDB>('playlist');
 
-  static Future<void> addPlaylist(SongsDB value) async {
-    final playlistDb = Hive.box<SongsDB>('playlist');
-    await playlistDb.add(value);
-    playlistNotifier.value.add(value);
-  }
+//   static Future<void> addPlaylist(SongsDB value) async {
+//     final playlistDb = Hive.box<SongsDB>('playlist');
+//     await playlistDb.add(value);
+//     playlistNotifier.value.add(value);
+//   }
 
-  static Future<void> getplaylist() async {
-    final playlistDb = Hive.box<SongsDB>('playlist');
-    playlistNotifier.value.clear();
-    playlistNotifier.value.addAll(playlistDb.values);
+//   static Future<void> getplaylist() async {
+//     final playlistDb = Hive.box<SongsDB>('playlist');
+//     playlistNotifier.value.clear();
+//     playlistNotifier.value.addAll(playlistDb.values);
 
-    playlistNotifier.notifyListeners();
-  }
+//     playlistNotifier.notifyListeners();
+//   }
 
-  static Future<void> deletePlaylist(int index) async {
-    final playlistDb = Hive.box<SongsDB>('playlist');
-    await playlistDb.deleteAt(index);
-    getplaylist();
-  }
+//   static Future<void> deletePlaylist(int index) async {
+//     final playlistDb = Hive.box<SongsDB>('playlist');
+//     await playlistDb.deleteAt(index);
+//     getplaylist();
+//   }
 
-  static Future<void> editlist(int index, SongsDB value) async {
-    final playlistDb = Hive.box<SongsDB>('playlist');
-    await playlistDb.putAt(index, value);
-    getplaylist();
-  }
+//   static Future<void> editlist(int index, SongsDB value) async {
+//     final playlistDb = Hive.box<SongsDB>('playlist');
+//     await playlistDb.putAt(index, value);
+//     getplaylist();
+//   }
 
-  static Future<void> reset(context) async {
-    final playlistdb = Hive.box<SongsDB>('playlist');
+//   static Future<void> reset(context) async {
+//     final playlistdb = Hive.box<SongsDB>('playlist');
 
-    final favorites = Hive.box<int>('Favorite');
+//     final favorites = Hive.box<int>('Favorite');
 
-    final recent = Hive.box('recentSongNotifier');
+//     final recent = Hive.box('recentSongNotifier');
 
-    final mostly = Hive.box('MostSongNotifier');
+//     final mostly = Hive.box('MostSongNotifier');
 
-    await playlistdb.clear();
+//     await playlistdb.clear();
 
-    await favorites.clear();
+//     await favorites.clear();
 
-    await recent.clear();
+//     await recent.clear();
 
-    await mostly.clear();
+//     await mostly.clear();
 
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => const Splash(),
-    ));
-  }
-}
+//     Navigator.of(context).pushReplacement(MaterialPageRoute(
+//       builder: (context) => const Splash(),
+//     ));
+//   }
+// }

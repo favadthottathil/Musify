@@ -1,45 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_application/controller/favourites_con.dart';
+import 'package:music_application/providers/allsongs_provider.dart';
+import 'package:music_application/providers/fovourite_provider.dart';
 import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
-class AllSongs extends StatefulWidget {
-  const AllSongs({
+List<SongModel> startsongs = [];
+
+class AllSongs extends StatelessWidget {
+  AllSongs({
     super.key,
   });
 
-  @override
-  State<AllSongs> createState() => _AllSongsState();
-}
+  List<SongModel> allsongs = [];
 
-List<SongModel> allsongs = [];
-
-class _AllSongsState extends State<AllSongs> {
   final OnAudioQuery audioQuery = OnAudioQuery();
 
   final AudioPlayer audioPlayer = AudioPlayer();
 
   @override
-  void initState() {
-    super.initState();
-
-    requestper();
-  }
-
-  void requestper() async {
-    bool permissionStatus = await audioQuery.permissionsStatus();
-    if (!permissionStatus) {
-      await audioQuery.permissionsRequest();
-    }
-    setState(() {});
-    Permission.storage.request();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<AllSongsProvider>(context, listen: false).requestper();
+    });
     return FutureBuilder<List<SongModel>>(
       future: audioQuery.querySongs(
         sortType: null,
@@ -56,9 +41,13 @@ class _AllSongsState extends State<AllSongs> {
         if (items.data!.isEmpty) {
           return const Center(child: Text("No Songs Found!!"));
         }
-        allsongs = items.data!;
-        if (!FavoriteDb.isInitialized) {
-          FavoriteDb.initialize(items.data!);
+        startsongs = items.data!;
+        // if (!FavoriteDb.isInitialized) {
+        //   FavoriteDb.initialize(items.data!);
+        // }
+
+        if (Provider.of<FavouriteProvider>(context, listen: false).isInitialized) {
+          Provider.of<FavouriteProvider>(context, listen: false).initialize(items.data!);
         }
 
         GetAllSongController.songscopy = items.data!;

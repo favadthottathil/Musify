@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/controller/favourites_con.dart';
+import 'package:music_application/providers/fovourite_provider.dart';
 import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class Favourites extends StatefulWidget {
+class Favourites extends StatelessWidget {
   const Favourites({super.key});
 
-  @override
-  State<Favourites> createState() => _FavouritesState();
-}
-
-class _FavouritesState extends State<Favourites> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,10 +39,9 @@ class _FavouritesState extends State<Favourites> {
             ),
             SizedBox(
               height: 600,
-              child: ValueListenableBuilder(
-                valueListenable: FavoriteDb.favoriteSongs,
-                builder: (ctx, List<SongModel> favorite, Widget? child) {
-                  if (favorite.isEmpty) {
+              child: Consumer<FavouriteProvider>(
+                builder: (ctx, FavouriteProvider favorite, child) {
+                  if (favorite.favoriteSongs.isEmpty) {
                     return const Center(
                       child: Text(
                         'No Favorite Songs',
@@ -53,9 +49,9 @@ class _FavouritesState extends State<Favourites> {
                       ),
                     );
                   } else {
-                    final temp = favorite.reversed.toList();
-                    favorite = temp.toSet().toList();
-                    return Listtiles(songModel: favorite);
+                    final temp = favorite.favoriteSongs.reversed.toList();
+                    List<SongModel> favorites = temp.toSet().toList();
+                    return Listtiles(songModel: favorites);
                   }
                 },
               ),

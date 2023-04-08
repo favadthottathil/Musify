@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/most_played/most_played.dart';
 import 'package:music_application/screens/last_added.dart';
-
 import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/last_added.dart';
 import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/most_played.dart';
 import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/recently_played.dart';
 import 'package:music_application/screens/recentlyplayed_all.dart';
 import 'package:music_application/widgets/mainscreen_widgets/name_button.dart';
+import 'package:sizer/sizer.dart';
 
 class ForYou extends StatelessWidget {
   const ForYou({super.key});
@@ -20,9 +20,9 @@ class ForYou extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 2.h),
             child: SizedBox(
-              height: 30,
+              height: 4.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -32,7 +32,7 @@ class ForYou extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const RecentlyPlayedAll(),
+                          builder: (context) => RecentlyPlayedAll(),
                         ),
                       );
                     },
@@ -41,16 +41,16 @@ class ForYou extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 2.h),
           SizedBox(
             height: mediaQuery.size.height * 0.2,
-            child: const RecentlyPlayed(),
+            child: RecentlyPlayed(),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 1.h),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 2.h),
             child: SizedBox(
-              height: 30,
+              height: 4.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -60,7 +60,7 @@ class ForYou extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MostlyPlayedAll(),
+                          builder: (context) => MostlyPlayedAll(),
                         ),
                       );
                     },
@@ -69,16 +69,16 @@ class ForYou extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
-          const SizedBox(
-            height: 200,
+          SizedBox(height: 2.h),
+          SizedBox(
+            height: 25.h,
             child: MostPlayed(),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 2.h),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 3.h),
             child: SizedBox(
-              height: 30,
+              height: 3.h,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -88,7 +88,7 @@ class ForYou extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LastAddedSongs(),
+                            builder: (context) => const LastAddedSongs(),
                           ));
                     },
                   )
@@ -96,12 +96,12 @@ class ForYou extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 2.h),
           SizedBox(
             height: mediaQuery.size.height * 0.2,
-            child: const LastAdded(),
+            child: LastAdded(),
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 2.h),
         ],
       ),
     );

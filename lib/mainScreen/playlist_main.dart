@@ -1,21 +1,15 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music_application/DB/model_db.dart';
 
 import 'package:music_application/playlist/playlist_single_3.dart';
-import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/recently_played.dart';
+import 'package:sizer/sizer.dart';
 
-class PlayListMain extends StatefulWidget {
-  const PlayListMain({super.key});
+class PlayListMain extends StatelessWidget {
+  PlayListMain({super.key});
 
-  @override
-  State<PlayListMain> createState() => _PlayListMainState();
-}
-
-class _PlayListMainState extends State<PlayListMain> {
   bool isrecent = true;
+
   dynamic recetlength;
 
   @override
@@ -25,10 +19,10 @@ class _PlayListMainState extends State<PlayListMain> {
       builder: (context, value, child) {
         return Container(
           child: Hive.box<SongsDB>('playlist').isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
                     'No Playlist',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: TextStyle(color: Colors.white, fontSize: 20.sp),
                   ),
                 )
               : ListView.builder(
@@ -57,9 +51,9 @@ class _PlayListMainState extends State<PlayListMain> {
                                 );
                               },
                               child: Container(
-                                margin: const EdgeInsets.all(10),
-                                height: 140,
-                                width: 140,
+                                margin: EdgeInsets.all(1.h),
+                                height: 20.h,
+                                width: 20.h,
                                 decoration: const BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage('Assets/img/favad.jpg'),
@@ -73,14 +67,14 @@ class _PlayListMainState extends State<PlayListMain> {
                               ),
                             ),
                             Container(
-                              margin: const EdgeInsets.only(left: 30),
+                              margin: EdgeInsets.only(left: 7.h),
                               child: Center(
                                 child: Text(
                                   data.name,
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 25,
+                                    fontSize: 19.sp,
                                     color: Colors.white,
                                   ),
                                 ),

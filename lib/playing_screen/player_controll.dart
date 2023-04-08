@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:music_application/controller/favourites_con.dart';
 import 'package:music_application/controller/song_controller.dart';
-import 'package:music_application/playlist/all_playlist%20_1.dart';
 import 'package:music_application/playlist/playlist_allsngAdd.dart';
+import 'package:music_application/providers/fovourite_provider.dart';
+import 'package:music_application/providers/nowplaying_provider.dart';
+import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
 import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class PlayingControlls extends StatefulWidget {
-  const PlayingControlls({super.key, required this.count, required this.firstsong, required this.lastsong, required this.favsongmodel});
+class PlayingControlls extends StatelessWidget {
+  PlayingControlls({super.key, required this.count, required this.firstsong, required this.lastsong, required this.favsongmodel});
 
   final int count;
   final bool firstsong;
   final bool lastsong;
   final SongModel favsongmodel;
 
-  @override
-  State<PlayingControlls> createState() => _PlayingControllsState();
-}
-
-class _PlayingControllsState extends State<PlayingControlls> {
-  bool _isplaying = true;
   bool? shuffle = false;
 
   @override
@@ -56,90 +52,93 @@ class _PlayingControllsState extends State<PlayingControlls> {
             AppBarButton(
                 iconData: Icons.playlist_add,
                 buttonAction: () {
-                  modelsheet(context, widget.favsongmodel, formkey);
+                  modelsheet(context, favsongmodel, formkey);
                   // Navigator.pop(context);
                 },
                 color: Colors.white),
-            AppBarButton(
-                iconData: FavoriteDb.isFavor(widget.favsongmodel) ? Icons.favorite : Icons.favorite_border,
-                buttonAction: () {
-                  if (FavoriteDb.isFavor(widget.favsongmodel)) {
-                    FavoriteDb.delete(widget.favsongmodel.id);
+            Consumer<FavouriteProvider>(builder: (context, favourite, child) {
+              return AppBarButton(
+                  iconData: favourite.isFavor(favsongmodel) ? Icons.favorite : Icons.favorite_border,
+                  buttonAction: () {
+                    if (favourite.isFavor(favsongmodel)) {
+                      favourite.delete(favsongmodel.id);
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Center(
-                          child: Center(
-                            child: Text(
-                              'Song Removed From Favourite',
-                              maxLines: 1,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Center(
+                            child: Center(
+                              child: Text(
+                                'Song Removed From Favourite',
+                                maxLines: 1,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
-                        ),
-                        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
-                        duration: const Duration(seconds: 1),
-                        margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                      ),
-                    );
-                  } else {
-                    FavoriteDb.add(widget.favsongmodel);
-                    // const addfav = SnackBar(
-                    //   content: Text('Song Added'),
-                    //   duration: Duration(seconds: 1),
-                    // );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Center(
-                          child: Center(
-                            child: Text(
-                              'Song Added To Favourite',
-                              maxLines: 1,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                          backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+                          duration: const Duration(seconds: 1),
+                          margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        backgroundColor: const Color.fromARGB(218, 3, 16, 56),
-                        duration: const Duration(seconds: 1),
-                        margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
-                        behavior: SnackBarBehavior.floating,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                      );
+                    } else {
+                      favourite.add(favsongmodel);
+                      // const addfav = SnackBar(
+                      //   content: Text('Song Added'),
+                      //   duration: Duration(seconds: 1),
+                      // );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Center(
+                            child: Center(
+                              child: Text(
+                                'Song Added To Favourite',
+                                maxLines: 1,
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          backgroundColor: const Color.fromARGB(218, 3, 16, 56),
+                          duration: const Duration(seconds: 1),
+                          margin: EdgeInsets.only(bottom: mediaQuery.size.height * 0.9, left: 90, right: 75),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
-                      ),
-                    );
-                  }
-                  FavoriteDb.favoriteSongs.notifyListeners();
-                },
-                color: Colors.white),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  shuffle == false ? GetAllSongController.audioPlayer.setShuffleModeEnabled(true) : GetAllSongController.audioPlayer.setShuffleModeEnabled(false);
-                });
+                      );
+                    }
+                  },
+                  color: Colors.white);
+            }),
+            Consumer<NowPlayingProvider>(
+              builder: (context, value, child) {
+                return IconButton(
+                  onPressed: () {
+                    shuffle == false ? value.shuffleOn() : value.shuffleOff();
+                  },
+                  icon: StreamBuilder<bool>(
+                    stream: GetAllSongController.audioPlayer.shuffleModeEnabledStream,
+                    builder: (context, data) {
+                      shuffle = data.data ?? false;
+
+                      if (shuffle!) {
+                        return const Icon(
+                          Icons.shuffle_rounded,
+                          color: Colors.white,
+                        );
+                      } else {
+                        return const Icon(
+                          Icons.shuffle_rounded,
+                          color: Colors.white60,
+                        );
+                      }
+                    },
+                  ),
+                );
               },
-              icon: StreamBuilder<bool>(
-                stream: GetAllSongController.audioPlayer.shuffleModeEnabledStream,
-                builder: (context, data) {
-                  shuffle = data.data ?? false;
-
-                  if (shuffle!) {
-                    return const Icon(
-                      Icons.shuffle_rounded,
-                      color: Colors.white,
-                    );
-                  } else {
-                    return const Icon(
-                      Icons.shuffle_rounded,
-                      color: Colors.white60,
-                    );
-                  }
-                },
-              ),
             )
           ],
         ),
@@ -147,7 +146,7 @@ class _PlayingControllsState extends State<PlayingControlls> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            widget.firstsong
+            firstsong
                 ? const IconButton(
                     onPressed: null,
                     icon: Icon(
@@ -168,35 +167,33 @@ class _PlayingControllsState extends State<PlayingControlls> {
                       size: 40,
                     ),
                   ),
-            Container(
-              height: 80,
-              width: 80,
-              decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-              child: Center(
-                  child: Padding(
-                padding: const EdgeInsets.only(right: 30, bottom: 25),
-                child: IconButton(
-                    onPressed: () {
-                      if (mounted) {
-                        setState(() {
-                          if (GetAllSongController.audioPlayer.playing) {
-                            GetAllSongController.audioPlayer.pause();
-                          } else {
-                            GetAllSongController.audioPlayer.play();
-                          }
-                          _isplaying = !_isplaying;
-                        });
-                      }
-                    },
-                    icon: Icon(
-                      _isplaying ? Icons.pause : Icons.play_arrow,
-                      size: 60,
-                      color: const Color.fromARGB(218, 3, 16, 56),
-                    )),
-              )),
-            ),
+            Consumer<NowPlayingProvider>(builder: (context, value, child) {
+              return Container(
+                height: 80,
+                width: 80,
+                decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                child: Center(
+                    child: Padding(
+                  padding: const EdgeInsets.only(right: 30, bottom: 25),
+                  child: IconButton(
+                      onPressed: () {
+                        if (GetAllSongController.audioPlayer.playing) {
+                          value.songPause();
+                        } else {
+                          value.songPlay();
+                        }
+                        value.playPause();
+                      },
+                      icon: Icon(
+                        value.isPlaying() ? Icons.pause : Icons.play_arrow,
+                        size: 60,
+                        color: const Color.fromARGB(218, 3, 16, 56),
+                      )),
+                )),
+              );
+            }),
 
-            widget.lastsong
+            lastsong
                 ? const IconButton(
                     icon: Icon(
                       Icons.skip_next_rounded,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/playlist/all_playlist%20_1.dart';
 import 'package:music_application/mainScreen/playlist_main.dart';
+import 'package:sizer/sizer.dart';
 
 import '../widgets/mainscreen_widgets/name_button.dart';
 
@@ -12,23 +13,23 @@ class MainFirst extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 2.h),
           child: Text(
             'Musicly',
             style: TextStyle(
-              fontSize: 30,
+              fontSize: 30.sp,
               color: Colors.white,
               fontWeight: FontWeight.bold,
               letterSpacing: 1,
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 2.h),
         SizedBox(
-          height: 25,
+          height: 4.h,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 3.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -38,7 +39,7 @@ class MainFirst extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AllPlaylist(),
+                          builder: (context) => AllPlaylist(),
                         ));
                   },
                 ),
@@ -46,9 +47,9 @@ class MainFirst extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 10),
-        const SizedBox(
-          height: 200,
+        SizedBox(height: 1.h),
+        SizedBox(
+          height: 26.h,
           child: PlayListMain(),
         ),
       ],

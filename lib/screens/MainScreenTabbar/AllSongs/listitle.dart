@@ -1,42 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/controller/favourites_con.dart';
-import 'package:music_application/controller/most_played.dart';
-import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playlist/playlist_allsngAdd.dart';
-import 'package:music_application/provider/songmodel_provider.dart';
+import 'package:music_application/providers/fovourite_provider.dart';
+import 'package:music_application/providers/mostlyplayed_provider.dart';
+import 'package:music_application/providers/recentsongs_provider.dart';
+import 'package:music_application/songmodel_provider/songmodel_provider.dart';
 import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 import '../../../playing_screen/now_playing.dart';
 
-class Listtiles extends StatefulWidget {
-  const Listtiles({super.key, required this.songModel, this.recentLength, this.isRecent = false});
+class Listtiles extends StatelessWidget {
+  Listtiles({super.key, required this.songModel, this.recentLength, this.isRecent = false});
 
   final List<SongModel> songModel;
   final dynamic recentLength;
   final bool isRecent;
 
-  @override
-  State<Listtiles> createState() => _ListtileState();
-}
-
-final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
-TextEditingController namecontroller1 = TextEditingController();
-
-class _ListtileState extends State<Listtiles> {
   List<SongModel> allsongs = [];
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: widget.isRecent ? widget.recentLength : widget.songModel.length,
+      itemCount: isRecent ? recentLength : songModel.length,
       itemBuilder: (context, index) {
-        allsongs.addAll(widget.songModel);
+        allsongs.addAll(songModel);
         return Padding(
-          padding: const EdgeInsets.all(8),
+          padding: EdgeInsets.all(1.h),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
@@ -44,11 +36,11 @@ class _ListtileState extends State<Listtiles> {
             ),
             child: ListTile(
               leading: QueryArtworkWidget(
-                id: widget.songModel[index].id,
+                id: songModel[index].id,
                 type: ArtworkType.AUDIO,
-                nullArtworkWidget: const Padding(
-                  padding: EdgeInsets.only(left: 7, top: 6),
-                  child: Icon(
+                nullArtworkWidget: Padding(
+                  padding: EdgeInsets.only(left: 1.h, top: 1.h),
+                  child: const Icon(
                     Icons.music_note,
                     color: Colors.white,
                     size: 30,
@@ -56,7 +48,7 @@ class _ListtileState extends State<Listtiles> {
                 ),
               ),
               title: Text(
-                widget.songModel[index].displayNameWOExt,
+                songModel[index].displayNameWOExt,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
@@ -65,9 +57,9 @@ class _ListtileState extends State<Listtiles> {
                 maxLines: 1,
               ),
               subtitle: Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding: EdgeInsets.only(top: 1.h),
                 child: Text(
-                  widget.songModel[index].artist.toString(),
+                  songModel[index].artist.toString(),
                   style: const TextStyle(color: Colors.white54),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
@@ -92,19 +84,18 @@ class _ListtileState extends State<Listtiles> {
                               icon: Icons.playlist_add,
                               title: 'Add to Playlist',
                               buttonpress: () {
-                                modelsheet(context, widget.songModel[index], formkey);
+                                modelsheet(context, songModel[index], formkey);
                               },
                             ),
-                            const SizedBox(height: 20),
-                            ValueListenableBuilder(
-                              valueListenable: FavoriteDb.favoriteSongs,
-                              builder: (context, data, child) {
+                            SizedBox(height: 2.h),
+                            Consumer<FavouriteProvider>(
+                              builder: (context, favourite, child) {
                                 return bottomsheetlist(
-                                  title: FavoriteDb.isFavor(widget.songModel[index]) ? 'remove from favourite' : 'add to favorite',
+                                  title: favourite.isFavor(songModel[index]) ? 'remove from favourite' : 'add to favorite',
                                   icon: Icons.favorite,
                                   buttonpress: () {
-                                    if (FavoriteDb.isFavor(widget.songModel[index])) {
-                                      FavoriteDb.delete(widget.songModel[index].id);
+                                    if (favourite.isFavor(songModel[index])) {
+                                      favourite.delete(songModel[index].id);
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                         content: const Center(
                                           child: Text(
@@ -122,7 +113,7 @@ class _ListtileState extends State<Listtiles> {
                                         ),
                                       ));
                                     } else {
-                                      FavoriteDb.add(widget.songModel[index]);
+                                      favourite.add(songModel[index]);
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
                                           content: const Center(
@@ -142,7 +133,7 @@ class _ListtileState extends State<Listtiles> {
                                         ),
                                       );
                                     }
-                                    FavoriteDb.favoriteSongs.notifyListeners();
+                                    // favourite.favoriteSongs.notifyListeners();
                                     Navigator.pop(context);
                                   },
                                 );
@@ -157,23 +148,23 @@ class _ListtileState extends State<Listtiles> {
               ),
               onTap: () {
                 GetAllSongController.audioPlayer.setAudioSource(
-                  GetAllSongController.createSongList(widget.songModel),
+                  GetAllSongController.createSongList(songModel),
                   initialIndex: index,
                 );
 
-                RecentController.addRecent(widget.songModel[index].id);
+                Provider.of<RecentProvider>(context, listen: false).addRecent(songModel[index].id);
 
-                Mostlycontroller.addMostlyPlayed(
-                  widget.songModel[index].id,
+                Provider.of<MostlyPlayedProvider>(context, listen: false).addMostlyPlayed(
+                  songModel[index].id,
                 );
 
-                context.read<SongModelProvider>().setId(widget.songModel[index].id);
+                context.read<SongModelProvider>().setId(songModel[index].id);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => NowPlaying(
-                      songModel: widget.songModel,
-                      count: widget.songModel.length,
+                      songModel: songModel,
+                      count: songModel.length,
                     ),
                   ),
                 );
@@ -185,3 +176,7 @@ class _ListtileState extends State<Listtiles> {
     );
   }
 }
+
+final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
+TextEditingController namecontroller1 = TextEditingController();

@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class FeedbackForm extends StatefulWidget {
-  const FeedbackForm({super.key});
+class FeedbackForm extends StatelessWidget {
+   FeedbackForm({super.key});
 
-  @override
-  State<FeedbackForm> createState() => _FeedbackFormState();
-}
-
-class _FeedbackFormState extends State<FeedbackForm> {
   final formkey = GlobalKey<FormState>();
 
   final feedbackController = TextEditingController();

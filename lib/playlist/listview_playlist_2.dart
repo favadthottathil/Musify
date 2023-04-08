@@ -1,43 +1,29 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
-import 'package:music_application/DB/playlist_db.dart';
 import 'package:music_application/playlist/playlist_single_3.dart';
-import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/last_added.dart';
+import 'package:music_application/providers/playlist_provider.dart';
 import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
-import 'package:music_application/widgets/playlist_widgets/custombottom_sheet.dart';
+import 'package:provider/provider.dart';
 
-class PlaylistListview extends StatefulWidget {
-  const PlaylistListview({
+class PlaylistListview extends StatelessWidget {
+  PlaylistListview({
     super.key,
     required this.musicList,
   });
 
   final Box<SongsDB> musicList;
 
-  @override
-  State<PlaylistListview> createState() => _PlaylistListviewState();
-}
-
-class _PlaylistListviewState extends State<PlaylistListview> {
   TextEditingController nameeditcontroller0 = TextEditingController();
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        final data = widget.musicList.values.toList()[index];
+        final data = musicList.values.toList()[index];
 
         // print('favad ====  ${data.songid} ${data.name}');
 
@@ -137,7 +123,7 @@ class _PlaylistListviewState extends State<PlaylistListview> {
           },
         );
       },
-      itemCount: widget.musicList.length,
+      itemCount: musicList.length,
     );
   }
 
@@ -207,7 +193,7 @@ class _PlaylistListviewState extends State<PlaylistListview> {
               ),
               SimpleDialogOption(
                 onPressed: () {
-                  updateplaylistname(index, formkey, namecontroller);
+                  updateplaylistname(index, formkey, namecontroller, context);
                   Navigator.of(context).pop();
                 },
                 child: const Text(
@@ -226,14 +212,14 @@ class _PlaylistListviewState extends State<PlaylistListview> {
     );
   }
 
-  void updateplaylistname(index, formkey, playlistnamectrl) {
+  void updateplaylistname(index, formkey, playlistnamectrl, context) {
     if (formkey.currentState!.validate()) {
       final names = playlistnamectrl.text.trim();
       if (names.isEmpty) {
         return;
       } else {
         final playlistnam = SongsDB(name: names, songid: []);
-        PlaylistDb.editlist(index, playlistnam);
+        Provider.of<PlayListProvider>(context, listen: false).editlist(index, playlistnam);
       }
     }
   }

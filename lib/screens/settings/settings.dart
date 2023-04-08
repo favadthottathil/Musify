@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:music_application/DB/playlist_db.dart';
-import 'package:music_application/mainScreen/main_screen.dart';
+import 'package:music_application/providers/playlist_provider.dart';
 import 'package:music_application/screens/settings/widgets/about_us.dart';
 import 'package:music_application/screens/settings/widgets/feedback_form.dart';
 import 'package:music_application/screens/settings/widgets/privacy&policy.dart';
@@ -10,15 +8,11 @@ import 'package:music_application/screens/settings/widgets/scan_music.dart';
 import 'package:music_application/screens/settings/widgets/settings_tile.dart';
 import 'package:music_application/screens/settings/widgets/sleep_tiimer.dart';
 import 'package:music_application/screens/settings/widgets/termofuse.dart';
+import 'package:provider/provider.dart';
 
-class Settings extends StatefulWidget {
+class Settings extends StatelessWidget {
   const Settings({super.key});
 
-  @override
-  State<Settings> createState() => _SettingsState();
-}
-
-class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +43,7 @@ class _SettingsState extends State<Settings> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ScanMusic(),
+                      builder: (context) => ScanMusic(),
                     ));
               },
             ),
@@ -79,7 +73,7 @@ class _SettingsState extends State<Settings> {
                             child: const Text('NO')),
                         ElevatedButton(
                             onPressed: () {
-                              PlaylistDb.reset(context);
+                              Provider.of<PlayListProvider>(context, listen: false).reset(context);
                             },
                             child: const Text('Yes'))
                       ],
@@ -95,7 +89,7 @@ class _SettingsState extends State<Settings> {
               ontap: () {
                 showDialog(
                   context: context,
-                  builder: (context) => const SleepTimer(),
+                  builder: (context) => SleepTimer(),
                 );
               },
             ),
@@ -107,7 +101,7 @@ class _SettingsState extends State<Settings> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const FeedbackForm(),
+                        builder: (context) => FeedbackForm(),
                       ));
                 }),
             const SizedBox(height: 10),

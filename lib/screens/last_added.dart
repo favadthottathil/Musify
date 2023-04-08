@@ -1,42 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playing_screen/now_playing.dart';
-import 'package:music_application/provider/songmodel_provider.dart';
+import 'package:music_application/providers/lastadded_provider.dart';
+import 'package:music_application/providers/recentsongs_provider.dart';
+import 'package:music_application/songmodel_provider/songmodel_provider.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
-class LastAddedSongs extends StatefulWidget {
-  LastAddedSongs({super.key});
+class LastAddedSongs extends StatelessWidget {
+  const LastAddedSongs({super.key});
 
-  @override
-  State<LastAddedSongs> createState() => _LastAddedSongsState();
-}
+  // @override
+  // void initState() {
+  //   super.initState();
 
-class _LastAddedSongsState extends State<LastAddedSongs> {
-  List<SongModel> lastPlayedSongs = [];
-
-  List<SongModel> allsongs = [];
-
-  @override
-  void initState() {
-    super.initState();
-
-    songsLastPlayed();
-  }
-
-  Future<void> songsLastPlayed() async {
-    OnAudioQuery audioQuery = OnAudioQuery();
-
-    lastPlayedSongs = await audioQuery.querySongs(sortType: SongSortType.DATE_ADDED);
-    setState(() {
-      allsongs = lastPlayedSongs;
-    });
-  }
+  //   songsLastPlayed();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final lastAddedProvider = Provider.of<LastAddedProvider>(context, listen: false);
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(218, 3, 16, 56),
       body: SingleChildScrollView(
@@ -62,13 +46,13 @@ class _LastAddedSongsState extends State<LastAddedSongs> {
                     ),
                   ],
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: allsongs.length,
+                  itemCount: lastAddedProvider.allsongs.length,
                   itemBuilder: (context, index) {
-                    SongModel song = allsongs.reversed.toList()[index];
-                    List<SongModel> listofsongs = allsongs.reversed.toList();
+                    SongModel song = lastAddedProvider.allsongs.reversed.toList()[index];
+                    List<SongModel> listofsongs = lastAddedProvider.allsongs.reversed.toList();
 
                     return Padding(
                       padding: const EdgeInsets.all(8),
@@ -114,7 +98,7 @@ class _LastAddedSongsState extends State<LastAddedSongs> {
                               initialIndex: index,
                             );
 
-                            RecentController.addRecent(listofsongs[index].id);
+                            Provider.of<RecentProvider>(context, listen: false).addRecent(listofsongs[index].id);
 
                             // MostlyPlayedfunctions.addToMostPlayed(widget.songModel[index]);
 

@@ -4,7 +4,10 @@ import 'package:music_application/controller/most_played.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playlist/playlist_allsngAdd.dart';
-import 'package:music_application/provider/songmodel_provider.dart';
+import 'package:music_application/providers/fovourite_provider.dart';
+import 'package:music_application/providers/mostlyplayed_provider.dart';
+import 'package:music_application/providers/recentsongs_provider.dart';
+import 'package:music_application/songmodel_provider/songmodel_provider.dart';
 import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
@@ -96,15 +99,14 @@ class _SearchTileState extends State<SearchTile> {
                               },
                             ),
                             const SizedBox(height: 20),
-                            ValueListenableBuilder(
-                              valueListenable: FavoriteDb.favoriteSongs,
-                              builder: (context, data, child) {
+                            Consumer<FavouriteProvider>(
+                              builder: (context, favourite, child) {
                                 return bottomsheetlist(
-                                  title: FavoriteDb.isFavor(widget.songModel[index]) ? 'remove from favourite' : 'add to favorite',
+                                  title: favourite.isFavor(widget.songModel[index]) ? 'remove from favourite' : 'add to favorite',
                                   icon: Icons.favorite,
                                   buttonpress: () {
-                                    if (FavoriteDb.isFavor(widget.songModel[index])) {
-                                      FavoriteDb.delete(widget.songModel[index].id);
+                                    if (favourite.isFavor(widget.songModel[index])) {
+                                      favourite.delete(widget.songModel[index].id);
                                       // const remove = SnackBar(
                                       //   content: Text('Song Removed'),
                                       //   duration: Duration(seconds: 1),
@@ -127,7 +129,7 @@ class _SearchTileState extends State<SearchTile> {
                                         ),
                                       ));
                                     } else {
-                                      FavoriteDb.add(widget.songModel[index]);
+                                      favourite.add(widget.songModel[index]);
                                       // const addfav = SnackBar(
                                       //   content: Text('Song Added'),
                                       //   duration: Duration(seconds: 1),
@@ -151,7 +153,7 @@ class _SearchTileState extends State<SearchTile> {
                                         ),
                                       );
                                     }
-                                    FavoriteDb.favoriteSongs.notifyListeners();
+
                                     Navigator.pop(context);
                                   },
                                 );
@@ -170,9 +172,9 @@ class _SearchTileState extends State<SearchTile> {
                   initialIndex: index,
                 );
 
-                RecentController.addRecent(widget.songModel[index].id);
+                Provider.of<RecentProvider>(context,listen: false).addRecent(widget.songModel[index].id);
 
-                Mostlycontroller.addMostlyPlayed(
+                Provider.of<MostlyPlayedProvider>(context,listen: false).addMostlyPlayed(
                   widget.songModel[index].id,
                 );
 

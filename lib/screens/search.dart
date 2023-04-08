@@ -1,32 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/main.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
-import 'package:music_application/screens/MainScreenTabbar/AllSongs/all_songs.dart';
-import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
+import 'package:music_application/providers/search_provider.dart';
 import 'package:music_application/widgets/search_tile.dart';
-import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class Search extends StatefulWidget {
+class Search extends StatelessWidget {
   const Search({super.key});
 
-  @override
-  State<Search> createState() => _SearchState();
-}
+  // @override
+  // void initState() {
+  //   songsLoading();
 
-List<SongModel> allsongs = [];
-List<SongModel> foundSongs = [];
-final AudioQuery = OnAudioQuery();
-
-class _SearchState extends State<Search> {
-  @override
-  void initState() {
-    songsLoading();
-
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    var searchProvider = Provider.of<SearchProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      searchProvider.songsLoading();
+    });
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: const Color.fromARGB(218, 3, 16, 56),
@@ -66,29 +59,31 @@ class _SearchState extends State<Search> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: SizedBox(
-                        height: 40,
-                        width: mediaQuery.size.width * 0.5,
-                        child: TextFormField(
-                          style: const TextStyle(color: Colors.white),
-                          onChanged: (value) => updateList(value),
-                          decoration: InputDecoration(
-                            filled: true,
-                            hintText: 'Search the music',
-                            hintStyle: TextStyle(
-                              color: Colors.white.withOpacity(0.5),
+                    Consumer<SearchProvider>(builder: (context, provider, child) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: SizedBox(
+                          height: 40,
+                          width: mediaQuery.size.width * 0.5,
+                          child: TextFormField(
+                            style: const TextStyle(color: Colors.white),
+                            onChanged: (value) => provider.updateList(value),
+                            decoration: InputDecoration(
+                              filled: true,
+                              hintText: 'Search the music',
+                              hintStyle: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                              ),
+                              border: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                  borderSide: BorderSide.none),
                             ),
-                            border: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15),
-                                ),
-                                borderSide: BorderSide.none),
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                     Padding(
                       padding: const EdgeInsets.only(left: 110),
                       child: Icon(
@@ -100,7 +95,27 @@ class _SearchState extends State<Search> {
                   ],
                 ),
               ),
-              SearchTile(songModel: foundSongs)
+              Consumer<SearchProvider>(builder: (context, value, child) {
+                if (value.foundSongs.isEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      SizedBox(height: 300),
+                      Center(
+                        child: Text(
+                          'NO SONGS FOUND',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return SearchTile(songModel: value.foundSongs);
+                }
+              })
             ],
           ),
         ),
@@ -108,31 +123,31 @@ class _SearchState extends State<Search> {
     );
   }
 
-  void songsLoading() async {
-    allsongs = await AudioQuery.querySongs(
-      sortType: null,
-      orderType: OrderType.ASC_OR_SMALLER,
-      uriType: UriType.EXTERNAL,
-      ignoreCase: true,
-    );
-    setState(() {
-      foundSongs = allsongs;
-    });
-  }
+  // void songsLoading() async {
+  //   allsongs = await audioQuery.querySongs(
+  //     sortType: null,
+  //     orderType: OrderType.ASC_OR_SMALLER,
+  //     uriType: UriType.EXTERNAL,
+  //     ignoreCase: true,
+  //   );
+  //   setState(() {
+  //     foundSongs = allsongs;
+  //   });
+  // }
 
-  void updateList(String enteredText) {
-    List<SongModel> results = [];
-    if (enteredText.isEmpty) {
-      results = allsongs;
-    } else {
-      results = allsongs
-          .where(
-            (element) => element.displayNameWOExt.trim().contains(enteredText.trim()),
-          )
-          .toList();
-    }
-    setState(() {
-      foundSongs = results;
-    });
-  }
+  // void updateList(String enteredText) {
+  //   List<SongModel> results = [];
+  //   if (enteredText.isEmpty) {
+  //     results = allsongs;
+  //   } else {
+  //     results = allsongs
+  //         .where(
+  //           (element) => element.displayNameWOExt.trim().contains(enteredText.trim()),
+  //         )
+  //         .toList();
+  //   }
+  //   setState(() {
+  //     foundSongs = results;
+  //   });
+  // }
 }

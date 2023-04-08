@@ -6,10 +6,9 @@ import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playing_screen/now_playing.dart';
 import 'package:music_application/playlist/playlist_addsongs.dart';
 import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
-import 'package:music_application/widgets/playlist_widgets/shuffle_button.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class Playlist extends StatefulWidget {
+class Playlist extends StatelessWidget {
   const Playlist({
     super.key,
     required this.playlist,
@@ -20,20 +19,14 @@ class Playlist extends StatefulWidget {
   final int index;
 
   @override
-  State<Playlist> createState() => _PlaylistState();
-}
-
-class _PlaylistState extends State<Playlist> {
-  @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     late List<SongModel> songPlaylist;
-    bool? shuffle = false;
 
     return ValueListenableBuilder(
       valueListenable: Hive.box<SongsDB>('playlist').listenable(),
       builder: (BuildContext context, Box<SongsDB> music, child) {
-        songPlaylist = listplaylist(music.values.toList()[widget.index].songid);
+        songPlaylist = listplaylist(music.values.toList()[index].songid);
         // print('findex $index');
         return Container(
           width: double.infinity,
@@ -78,7 +71,7 @@ class _PlaylistState extends State<Playlist> {
                                 color: Colors.white),
                             const SizedBox(height: 80),
                             Text(
-                              widget.playlist.name,
+                              playlist.name,
                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 40, color: Colors.white),
                             ),
                           ],
@@ -98,7 +91,7 @@ class _PlaylistState extends State<Playlist> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PlaylistAdd(playlist: widget.playlist),
+                                      builder: (context) => PlaylistAdd(playlist: playlist),
                                     ),
                                   );
                                 },
@@ -122,83 +115,7 @@ class _PlaylistState extends State<Playlist> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     InkWell(
-                    //       onTap: () {
-                    //         // GetAllSongController.audioPlayer.setAudioSource(GetAllSongController.createSongList(songPlaylist), initialIndex: index);
-
-                    //         // context.read<SongModelProvider>().setId(songPlaylist[index].id);
-
-                    //         // Navigator.push(
-                    //         //   context,
-                    //         //   MaterialPageRoute(
-                    //         //     builder: (context) => NowPlaying(
-                    //         //       songModel: songPlaylist,
-                    //         //       count: songPlaylist.length,
-                    //         //     ),
-                    //         //   ),
-                    //         // );
-                    //       },
-                    //       child: InkWell(
-                    //         onTap: () {
-                    //           GetAllSongController.audioPlayer.setAudioSource(GetAllSongController.createSongList(songPlaylist));
-
-                    //           // context.read<SongModelProvider>().setId(songPlaylist[index].id);
-
-                    //           Navigator.push(
-                    //             context,
-                    //             MaterialPageRoute(
-                    //               builder: (context) => NowPlaying(
-                    //                 songModel: songPlaylist,
-                    //                 count: songPlaylist.length,
-                    //               ),
-                    //             ),
-                    //           );
-                    //         },
-                    //         child: const CustomButtomPlaylist(
-                    //           buttonname: 'PLAY',
-                    //           color: Colors.red,
-                    //           icon: Icons.play_arrow,
-                    //           buttonborer: true,
-                    //           iconcolor: Colors.black,
-                    //           textcolor: Colors.black,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     // InkWell(
-                    //     //   onTap: () {
-                    //     //     GetAllSongController.audioPlayer.setAudioSource(GetAllSongController.createSongList(songPlaylist));
-
-                    //     //     // context.read<SongModelProvider>().setId(songPlaylist[index].id);
-
-                    //     //     Navigator.push(
-                    //     //       context,
-                    //     //       MaterialPageRoute(
-                    //     //         builder: (context) => NowPlaying(
-                    //     //           songModel: songPlaylist,
-                    //     //           count: songPlaylist.length,
-                    //     //         ),
-                    //     //       ),
-                    //     //     );
-
-                    //     //     setState(() {
-                    //     //       shuffle == false ? GetAllSongController.audioPlayer.setShuffleModeEnabled(true) : GetAllSongController.audioPlayer.setShuffleModeEnabled(false);
-                    //     //     });
-                    //     //   },
-                    //     //   child: const CustomButtomPlaylist(
-                    //     //     color: Colors.transparent,
-                    //     //     icon: Icons.shuffle,
-                    //     //     buttonname: 'SHUFFLE',
-                    //     //     iconcolor: Colors.white,
-                    //     //     textcolor: Colors.white,
-                    //     //   ),
-                    //     // )
-                    //   ],
-                    // ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 30),
                     songPlaylist.isEmpty
                         ? const Center(
                             child: Text(
@@ -314,7 +231,7 @@ class _PlaylistState extends State<Playlist> {
   }
 
   void songDeleteFromPlaylist(SongModel data, context) {
-    widget.playlist.deletedata(data.id);
+    playlist.deletedata(data.id);
 
     final removePlaylist = SnackBar(
       shape: RoundedRectangleBorder(

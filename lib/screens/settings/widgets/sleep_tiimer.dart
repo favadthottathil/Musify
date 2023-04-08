@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:music_application/controller/song_controller.dart';
+import 'package:music_application/providers/sleeptimer_provider.dart';
+import 'package:provider/provider.dart';
 
 class SleepTimer extends StatefulWidget {
   const SleepTimer({super.key});
@@ -10,12 +12,6 @@ class SleepTimer extends StatefulWidget {
 }
 
 class _SleepTimerState extends State<SleepTimer> {
-  int sleepTimerDuraction = 0;
-
-  int duration = 0;
-
-  Timer? sleepTimer;
-
   // handleDuractionChanged(double value) {
   //   setState(() {
   //     duration = value.toInt();
@@ -43,20 +39,22 @@ class _SleepTimerState extends State<SleepTimer> {
             style: TextStyle(color: Colors.white),
           ),
           const SizedBox(height: 20),
-          Slider(
-            value: duration.toDouble(),
-            min: 0,
-            max: 60,
-            onChanged: (value) {
-              setState(() {
-                duration = value.toInt();
-              });
-            },
-          ),
-          Text(
-            '$duration minutes',
-            style: const TextStyle(color: Colors.white),
-          )
+          Consumer<SleepTimerProvider>(builder: (context, timeprovider, child) {
+            return Slider(
+              value: timeprovider.duration.toDouble(),
+              min: 0,
+              max: 60,
+              onChanged: (value) {
+                timeprovider.setDuration(value.toInt());
+              },
+            );
+          }),
+          Consumer<SleepTimerProvider>(builder: (context, value, child) {
+            return Text(
+              '${value.duration} minutes',
+              style: const TextStyle(color: Colors.white),
+            );
+          })
         ],
       ),
       actions: <Widget>[
@@ -71,8 +69,9 @@ class _SleepTimerState extends State<SleepTimer> {
         ),
         TextButton(
             onPressed: () {
+              Provider.of<SleepTimerProvider>(context, listen: false).startSleepTimer();
+              int duration = Provider.of<SleepTimerProvider>(context, listen: false).duration;
               if (duration > 0) {
-                startsSleepTimer(duration);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     backgroundColor: const Color.fromARGB(218, 3, 16, 56),
@@ -87,8 +86,7 @@ class _SleepTimerState extends State<SleepTimer> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                   ),
                 );
-              }else{
-
+              } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     backgroundColor: const Color.fromARGB(218, 3, 16, 56),
@@ -103,10 +101,6 @@ class _SleepTimerState extends State<SleepTimer> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                   ),
                 );
-
-
-
-
               }
               Navigator.pop(context);
             },
@@ -116,36 +110,5 @@ class _SleepTimerState extends State<SleepTimer> {
             ))
       ],
     );
-  }
-
-  void startsSleepTimer(int duration) {
-    // cancel existing sleep timer
-
-    sleepTimer?.cancel();
-
-    // Start a new sleep timer with the specified duraction
-
-    sleepTimer = Timer(Duration(minutes: duration), () {
-      // pause the music and reset the sleep timer when it expires
-
-      GetAllSongController.audioPlayer.pause();
-
-      resetSleepTimer();
-    });
-    setState(() {
-      sleepTimerDuraction = duration;
-    });
-  }
-
-  resetSleepTimer() {
-    // cancel the existing sleep timer
-
-    sleepTimer?.cancel();
-
-    sleepTimer = null;
-
-    setState(() {
-      sleepTimerDuraction = 0;
-    });
   }
 }

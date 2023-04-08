@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/controller/favourites_con.dart';
+import 'package:music_application/providers/recentsongs_provider.dart';
 import 'package:music_application/screens/MainScreenTabbar/AllSongs/listitle.dart';
-import 'package:music_application/controller/recent_song.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
-class RecentlyPlayedAll extends StatefulWidget {
-  const RecentlyPlayedAll({super.key});
+class RecentlyPlayedAll extends StatelessWidget {
+  RecentlyPlayedAll({super.key});
 
-  @override
-  State<RecentlyPlayedAll> createState() => _RecentlyPlayedAllState();
-}
-
-class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
   final OnAudioQuery audioQuery = OnAudioQuery();
 
   static List<SongModel> recentsong = [];
 
-  @override
-  void initState() {
-    init();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   init();
+  //   super.initState();
+  // }
 
-  Future init() async {
-    await RecentController.getRecent();
-  }
+  // Future init() async {
+  //   await RecentController.getRecent();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +28,7 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
       backgroundColor: const Color.fromARGB(218, 3, 16, 56),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(2.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -45,21 +41,20 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
                     },
                     child: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 30),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 1.h),
                   const Text(
                     'Recently played',
                     style: TextStyle(fontSize: 35, color: Colors.white),
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 5.h),
               FutureBuilder(
-                future: RecentController.getRecent(),
+                future: Provider.of<RecentProvider>(context, listen: false).getRecent(),
                 builder: (context, item) {
-                  return ValueListenableBuilder(
-                    valueListenable: RecentController.recentSongsNotifier,
-                    builder: (BuildContext context, List<SongModel> recent, child) {
-                      if (recent.isEmpty) {
+                  return Consumer<RecentProvider>(
+                    builder: (BuildContext context, recent, child) {
+                      if (recent.recentSongsNotifier.isEmpty) {
                         return const Center(
                           child: Text(
                             'No Recent Songs?',
@@ -67,7 +62,7 @@ class _RecentlyPlayedAllState extends State<RecentlyPlayedAll> {
                           ),
                         );
                       } else {
-                        final temp = recent.reversed.toList();
+                        final temp = recent.recentSongsNotifier.reversed.toList();
                         recentsong = temp.toSet().toList();
                         return FutureBuilder<List<SongModel>>(
                           future: audioQuery.querySongs(

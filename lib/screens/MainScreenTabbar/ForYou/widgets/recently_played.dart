@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playing_screen/now_playing.dart';
-import 'package:music_application/provider/songmodel_provider.dart';
-import 'package:music_application/screens/search.dart';
+import 'package:music_application/providers/recentsongs_provider.dart';
+import 'package:music_application/songmodel_provider/songmodel_provider.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:provider/provider.dart';
 
-class RecentlyPlayed extends StatefulWidget {
-  const RecentlyPlayed({super.key});
+class RecentlyPlayed extends StatelessWidget {
+  RecentlyPlayed({super.key});
 
-  @override
-  State<RecentlyPlayed> createState() => _RecentlyPlayedState();
-}
-
-class _RecentlyPlayedState extends State<RecentlyPlayed> {
   static List<SongModel> recentsong = [];
 
   dynamic recentLength;
@@ -26,12 +21,11 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: RecentController.getRecent(),
+      future: Provider.of<RecentProvider>(context, listen: false).getRecent(),
       builder: (context, items) {
-        return ValueListenableBuilder(
-          valueListenable: RecentController.recentSongsNotifier,
-          builder: (context, List<SongModel> recent, child) {
-            if (recent.isEmpty) {
+        return Consumer<RecentProvider>(
+          builder: (context, recent, child) {
+            if (recent.recentSongsNotifier.isEmpty) {
               return const Center(
                 child: Text(
                   'No Recent Songs',
@@ -42,7 +36,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                 ),
               );
             } else {
-              final temp = recent.reversed.toList();
+              final temp = recent.recentSongsNotifier.reversed.toList();
               recentsong = temp.toSet().toList();
 
               return FutureBuilder<List<SongModel>>(
@@ -82,7 +76,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                                   initialIndex: index,
                                 );
 
-                                RecentController.addRecent(recentsong[index].id);
+                                Provider.of<RecentProvider>(context, listen: false).addRecent(recentsong[index].id);
 
                                 context.read<SongModelProvider>().setId(recentsong[index].id);
                                 Navigator.push(
@@ -126,7 +120,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              recentsong[index].artist!.substring(0, 9).toString(),
+                              recentsong[index].artist!.toString(),
                               style: const TextStyle(
                                 color: Colors.white30,
                                 fontSize: 13,

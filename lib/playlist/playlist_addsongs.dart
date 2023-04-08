@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:music_application/DB/model_db.dart';
-import 'package:music_application/DB/playlist_db.dart';
 import 'package:music_application/controller/song_controller.dart';
+import 'package:music_application/providers/playlist_provider.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 
-class PlaylistAdd extends StatefulWidget {
-  const PlaylistAdd({super.key, required this.playlist});
+class PlaylistAdd extends StatelessWidget {
+  PlaylistAdd({super.key, required this.playlist});
 
   final SongsDB playlist;
 
-  @override
-  State<PlaylistAdd> createState() => _PlaylistAddState();
-}
-
-class _PlaylistAddState extends State<PlaylistAdd> {
   bool isplaying = true;
   final OnAudioQuery audioQuery = OnAudioQuery();
-
-  var playlistNotifier = PlaylistDb.playlistNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -96,35 +90,31 @@ class _PlaylistAddState extends State<PlaylistAdd> {
                         ],
                       ),
                       const Spacer(),
-                      Container(
-                        child: !widget.playlist.isvalue(item.data![index].id)
-                            ? IconButton(
-                                onPressed: () {
-                                  GetAllSongController.songscopy = item.data!;
-                                  setState(() {
-                                    playlistNotifier.addListener(() {});
-                                    songAddToPlaylist(item.data![index]);
-                                    PlaylistDb.playlistNotifier.notifyListeners();
-                                  });
-                                },
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ))
-                            : IconButton(
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      songdeleteFromPlaylist(item.data![index]);
-                                    },
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.remove,
-                                  color: Colors.white,
+                      Consumer<PlayListProvider>(builder: (context, playlistprovider, child) {
+                        return Container(
+                          child: !playlist.isvalue(item.data![index].id)
+                              ? IconButton(
+                                  onPressed: () {
+                                    GetAllSongController.songscopy = item.data!;
+
+                                    playlistprovider.songAddToPlaylist(item.data![index], playlist, context);
+                                    // PlaylistDb.playlistNotifier.notifyListeners();
+                                  },
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ))
+                              : IconButton(
+                                  onPressed: () {
+                                    playlistprovider.songdeleteFromPlaylist(item.data![index], playlist, context);
+                                  },
+                                  icon: const Icon(
+                                    Icons.remove,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                      )
+                        );
+                      })
                     ],
                   ),
                 );
@@ -137,43 +127,43 @@ class _PlaylistAddState extends State<PlaylistAdd> {
     );
   }
 
-  void songAddToPlaylist(SongModel data) {
-    widget.playlist.add(data.id);
-    // print('songs added to playlsit === ${data.id}');
-    final addedToPlaylist = SnackBar(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
-      ),
-      width: 250,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.black,
-      content: const Text(
-        'Song added to Playlist',
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white),
-      ),
-      duration: const Duration(seconds: 2),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(addedToPlaylist);
-  }
+  // void songAddToPlaylist(SongModel data) {
+  //   playlist.add(data.id);
+  //   // print('songs added to playlsit === ${data.id}');
+  //   final addedToPlaylist = SnackBar(
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.circular(25),
+  //     ),
+  //     width: 250,
+  //     behavior: SnackBarBehavior.floating,
+  //     backgroundColor: Colors.black,
+  //     content: const Text(
+  //       'Song added to Playlist',
+  //       textAlign: TextAlign.center,
+  //       style: TextStyle(color: Colors.white),
+  //     ),
+  //     duration: const Duration(seconds: 2),
+  //   );
+  //   ScaffoldMessenger.of(context).showSnackBar(addedToPlaylist);
+  // }
 
-  void songdeleteFromPlaylist(SongModel data) {
-    widget.playlist.deletedata(data.id);
-    final removeplaylist = SnackBar(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
-      ),
-      width: 250,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.black,
-      content: const Text(
-        'Song Removed from Playlist',
-        maxLines: 1,
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.white),
-      ),
-      duration: Duration(seconds: 2),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(removeplaylist);
-  }
+  // void songdeleteFromPlaylist(SongModel data) {
+  //   widget.playlist.deletedata(data.id);
+  //   final removeplaylist = SnackBar(
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.circular(25),
+  //     ),
+  //     width: 250,
+  //     behavior: SnackBarBehavior.floating,
+  //     backgroundColor: Colors.black,
+  //     content: const Text(
+  //       'Song Removed from Playlist',
+  //       maxLines: 1,
+  //       textAlign: TextAlign.center,
+  //       style: TextStyle(color: Colors.white),
+  //     ),
+  //     duration: Duration(seconds: 2),
+  //   );
+  //   ScaffoldMessenger.of(context).showSnackBar(removeplaylist);
+  // }
 }

@@ -3,10 +3,11 @@ import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/playing_screen/player_controll.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:sizer/sizer.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class NowPlaying extends StatefulWidget {
-  const NowPlaying({
+  NowPlaying({
     super.key,
     required this.songModel,
     this.count = 0,
@@ -25,15 +26,16 @@ class NowPlaying extends StatefulWidget {
 
 class _NowPlayingState extends State<NowPlaying> {
   Duration _duration = const Duration();
+
   Duration _position = const Duration();
 
   bool firstsong = false;
+
   bool lastsong = false;
 
   int large = 0;
 
   // List<AudioSource> songList = [];
-
   int currentindex = 0;
 
   @override
@@ -81,7 +83,12 @@ class _NowPlayingState extends State<NowPlaying> {
           elevation: 0,
           leading: InkWell(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                  (route) => false);
             },
             child: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -104,34 +111,35 @@ class _NowPlayingState extends State<NowPlaying> {
                   artworkWidth: mediaQuery.size.width * 0.6,
                   artworkBorder: BorderRadius.circular(15),
                   artworkFit: BoxFit.cover,
-                  nullArtworkWidget: const Icon(
+                  nullArtworkWidget: Icon(
                     Icons.music_note,
-                    size: 200,
+                    size: 25.h,
+                    color: Colors.white,
                   ),
                 ),
               ),
-              const SizedBox(height: 35),
+              SizedBox(height: 1.h),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 60),
+                padding: EdgeInsets.symmetric(horizontal: 2.h),
                 child: TextScroll(
                   widget.songModel[currentindex].displayNameWOExt,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 15.sp,
                   ),
                   textAlign: TextAlign.center,
                   mode: TextScrollMode.endless,
                 ),
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 1.h),
               Text(
                 widget.songModel[currentindex].artist.toString() == "<unknown>" ? "Unkown Artist" : widget.songModel[currentindex].artist.toString(),
                 style: const TextStyle(
                   color: Colors.white54,
                 ),
               ),
-              const SizedBox(height: 35),
+              SizedBox(height: 3.h),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Slider(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/playing_screen/now_playing.dart';
+import 'package:music_application/providers/recentsongs_provider.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:provider/provider.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class MiniPlayer extends StatefulWidget {
@@ -24,9 +25,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
   void initState() {
     GetAllSongController.audioPlayer.currentIndexStream.listen((index) {
       if (index != null && mounted) {
-        setState(() {
-          index == 0 ? firstSong = true : firstSong = false;
-        });
+        setState(
+          () {
+            index == 0 ? firstSong = true : firstSong = false;
+          },
+        );
       }
     });
 
@@ -91,12 +94,13 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
                         return Padding(
                           padding: const EdgeInsets.only(left: 5),
-                          child: SizedBox(
-                            height: 20,
-                            width: 250,
-                            child: TextScroll(
-                              GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].displayNameWOExt,
-                              style: const TextStyle(color: Colors.white),
+                          child: Center(
+                            child: SizedBox(
+                              height: 20,
+                              child: TextScroll(
+                                GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].displayNameWOExt,
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         );
@@ -112,7 +116,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                             children: [
                               IconButton(
                                 onPressed: () async {
-                                  RecentController.addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
+                                  Provider.of<RecentProvider>(context, listen: false).addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
 
                                   if (GetAllSongController.audioPlayer.hasPrevious) {
                                     await GetAllSongController.audioPlayer.seekToPrevious();
@@ -156,7 +160,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                               const SizedBox(width: 10),
                               IconButton(
                                 onPressed: () async {
-                                  RecentController.addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
+                                  Provider.of<RecentProvider>(context, listen: false).addRecent(GetAllSongController.playingsong[GetAllSongController.audioPlayer.currentIndex!].id);
 
                                   if (GetAllSongController.audioPlayer.hasNext) {
                                     await GetAllSongController.audioPlayer.seekToNext();

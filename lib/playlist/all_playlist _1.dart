@@ -2,24 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:music_application/DB/model_db.dart';
-import 'package:music_application/DB/playlist_db.dart';
 import 'package:music_application/playlist/listview_playlist_2.dart';
+import 'package:music_application/providers/playlist_provider.dart';
+import 'package:music_application/widgets/search_tile.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
-class AllPlaylist extends StatefulWidget {
-  const AllPlaylist({super.key});
+class AllPlaylist extends StatelessWidget {
+  AllPlaylist({super.key});
 
-  @override
-  State<AllPlaylist> createState() => _AllPlaylistState();
-}
-
-final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-TextEditingController namecontroller1 = TextEditingController();
-
-class _AllPlaylistState extends State<AllPlaylist> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  TextEditingController namecontroller1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +24,9 @@ class _AllPlaylistState extends State<AllPlaylist> {
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(218, 3, 16, 56),
             elevation: 0,
-            title: const Text(
+            title: Text(
               'PlayList',
-              style: TextStyle(fontSize: 35, color: Colors.white),
+              style: TextStyle(fontSize: 25.sp, color: Colors.white),
             ),
             leading: IconButton(
               onPressed: () {
@@ -176,7 +169,7 @@ Future newplaylist(BuildContext context, formkey) {
 Future<void> addButtonPressed(context) async {
   final name = namecontroller1.text.trim();
   final playlist = SongsDB(name: name, songid: []);
-  final datas = PlaylistDb.playlist.values.map((e) => e.name.trim()).toList();
+  final datas = Provider.of<PlayListProvider>(context, listen: false).playlist.values.map((e) => e.name.trim()).toList();
   if (name.isEmpty) {
     return;
   } else if (datas.contains(playlist.name)) {
@@ -184,19 +177,19 @@ Future<void> addButtonPressed(context) async {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
-        width: 100,
+        width: 180,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(milliseconds: 750),
         backgroundColor: Colors.black,
         content: const Text(
           'playlist already exist',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white, fontSize: 18),
+          style: TextStyle(color: Colors.white, fontSize: 13),
         ));
     ScaffoldMessenger.of(context).showSnackBar(snackbar3);
     Navigator.of(context).pop();
   } else {
-    PlaylistDb.addPlaylist(playlist);
+    Provider.of<PlayListProvider>(context, listen: false).addPlaylist(playlist);
     final snackbar4 = SnackBar(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
