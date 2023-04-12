@@ -1,34 +1,32 @@
-import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:music_application/mainScreen/main_screen.dart';
+import 'package:music_application/providers/splash_provider.dart';
+import 'package:provider/provider.dart';
 
-class Splash extends StatefulWidget {
+class Splash extends StatelessWidget {
   const Splash({super.key});
 
-  @override
-  State<Splash> createState() => _SplashState();
-}
+  // @override
+  // void initState() {
+  //   super.initState();
 
-class _SplashState extends State<Splash> {
-  @override
-  void initState() {
-    super.initState();
-
-    Timer(
-      const Duration(seconds: 4),
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ),
-      ),
-    );
-  }
+  //   Timer(
+  //     const Duration(seconds: 4),
+  //     () => Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => const HomeScreen(),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<SplashScreenProvider>(context,listen: false).splashInit(context);
+    });
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
       body: Container(

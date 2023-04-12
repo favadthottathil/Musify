@@ -12,6 +12,7 @@ import 'package:music_application/providers/recentsongs_provider.dart';
 import 'package:music_application/providers/scanmusic_provider.dart';
 import 'package:music_application/providers/search_provider.dart';
 import 'package:music_application/providers/sleeptimer_provider.dart';
+import 'package:music_application/providers/splash_provider.dart';
 import 'package:music_application/songmodel_provider/songmodel_provider.dart';
 import 'package:music_application/screens/settings/settings.dart';
 import 'package:music_application/screens/splash/screen.dart';
@@ -78,6 +79,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => SearchProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SplashScreenProvider(),
         )
       ],
       child: Sizer(builder: (context, orientation, deviceType) {

@@ -5,6 +5,7 @@ import 'package:music_application/playlist/playlist_single_3.dart';
 import 'package:music_application/providers/playlist_provider.dart';
 import 'package:music_application/widgets/bottomsheet/bottomsheet%20_ist.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class PlaylistListview extends StatelessWidget {
   PlaylistListview({
@@ -31,7 +32,7 @@ class PlaylistListview extends StatelessWidget {
           valueListenable: Hive.box<SongsDB>('playlist').listenable(),
           builder: (BuildContext context, Box<SongsDB> musiclist, Widget? child) {
             return Padding(
-              padding: const EdgeInsets.all(10),
+              padding: EdgeInsets.all(1.h),
               child: InkWell(
                 onTap: () {
                   Navigator.push(
@@ -49,8 +50,8 @@ class PlaylistListview extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(15),
                       child: Container(
-                        height: 70,
-                        width: 70,
+                        height: 10.h,
+                        width: 10.h,
                         decoration: const BoxDecoration(
                             image: DecorationImage(
                           image: AssetImage('Assets/img/favad.jpg'),
@@ -58,16 +59,16 @@ class PlaylistListview extends StatelessWidget {
                         )),
                       ),
                     ),
-                    const SizedBox(width: 25),
+                    SizedBox(width: 5.h),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           data.name,
                           maxLines: 1,
-                          style: const TextStyle(fontSize: 25, color: Colors.white),
+                          style: TextStyle(fontSize: 20.sp, color: Colors.white),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 1.h),
                         // const Text(
                         //   'Instrumental',
                         //   style: TextStyle(fontSize: 15, color: Colors.white),
@@ -95,7 +96,7 @@ class PlaylistListview extends StatelessWidget {
                                       editPlaylist(index, context, formkey, nameeditcontroller0, data);
                                     },
                                   ),
-                                  const SizedBox(height: 20),
+                                  SizedBox(height: 2.h),
                                   bottomsheetlist(
                                     title: 'Delete Playlist',
                                     icon: Icons.delete,
@@ -137,18 +138,18 @@ class PlaylistListview extends StatelessWidget {
         ),
         backgroundColor: Colors.black,
         children: [
-          const SimpleDialogOption(
+          SimpleDialogOption(
             child: Text(
               'Edit playlist name',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: 18,
+                fontSize: 3.h,
               ),
             ),
           ),
-          const SizedBox(height: 10),
+          SizedBox(height: 1.h),
           SimpleDialogOption(
             child: Form(
               key: formkey,
@@ -163,9 +164,9 @@ class PlaylistListview extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 3.h,
                   fontWeight: FontWeight.w700,
                 ),
                 validator: (value) {
@@ -178,7 +179,7 @@ class PlaylistListview extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 1.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -186,9 +187,9 @@ class PlaylistListview extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text(
+                child: Text(
                   'Cancel',
-                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                  style: TextStyle(color: Colors.white, fontSize: 2.h, fontWeight: FontWeight.w600),
                 ),
               ),
               SimpleDialogOption(
@@ -196,11 +197,11 @@ class PlaylistListview extends StatelessWidget {
                   updateplaylistname(index, formkey, namecontroller, context);
                   Navigator.of(context).pop();
                 },
-                child: const Text(
+                child: Text(
                   'Update',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 2.h,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -230,15 +231,15 @@ class PlaylistListview extends StatelessWidget {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.black,
-          title: const Text(
+          title: Text(
             'Delete Playlist',
-            style: TextStyle(color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600),
+            style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w600),
           ),
-          content: const Text(
+          content: Text(
             'Are you sure you want to delete this playlist?',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 15,
+              fontSize: 10.sp,
             ),
           ),
           actions: [
@@ -246,11 +247,11 @@ class PlaylistListview extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text(
+              child: Text(
                 'No',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 10.sp,
                 ),
               ),
             ),
@@ -274,11 +275,11 @@ class PlaylistListview extends StatelessWidget {
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
-              child: const Text(
+              child: Text(
                 'Yes',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15,
+                  fontSize: 10.sp,
                 ),
               ),
             ),

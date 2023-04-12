@@ -43,7 +43,7 @@ class Settings extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ScanMusic(),
+                      builder: (context) => const ScanMusic(),
                     ));
               },
             ),
@@ -89,7 +89,7 @@ class Settings extends StatelessWidget {
               ontap: () {
                 showDialog(
                   context: context,
-                  builder: (context) => SleepTimer(),
+                  builder: (context) => const SleepTimer(),
                 );
               },
             ),

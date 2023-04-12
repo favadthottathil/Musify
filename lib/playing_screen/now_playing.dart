@@ -7,7 +7,7 @@ import 'package:sizer/sizer.dart';
 import 'package:text_scroll/text_scroll.dart';
 
 class NowPlaying extends StatefulWidget {
-  NowPlaying({
+  const NowPlaying({
     super.key,
     required this.songModel,
     this.count = 0,

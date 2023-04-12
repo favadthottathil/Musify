@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/controller/favourites_con.dart';
-import 'package:music_application/controller/most_played.dart';
-import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playlist/playlist_allsngAdd.dart';
 import 'package:music_application/providers/fovourite_provider.dart';
@@ -172,9 +169,9 @@ class _SearchTileState extends State<SearchTile> {
                   initialIndex: index,
                 );
 
-                Provider.of<RecentProvider>(context,listen: false).addRecent(widget.songModel[index].id);
+                Provider.of<RecentProvider>(context, listen: false).addRecent(widget.songModel[index].id);
 
-                Provider.of<MostlyPlayedProvider>(context,listen: false).addMostlyPlayed(
+                Provider.of<MostlyPlayedProvider>(context, listen: false).addMostlyPlayed(
                   widget.songModel[index].id,
                 );
 

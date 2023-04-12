@@ -44,17 +44,17 @@ class AllPlaylist extends StatelessWidget {
                 },
                 child: const Icon(Ionicons.add_circle_outline, color: Colors.white, size: 40),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 1.h),
             ],
           ),
           body: SizedBox(
             height: double.infinity,
             width: double.infinity,
             child: Hive.box<SongsDB>('playlist').isEmpty
-                ? const Center(
+                ? Center(
                     child: Text(
                       'No Playlist',
-                      style: TextStyle(color: Colors.white, fontSize: 30),
+                      style: TextStyle(color: Colors.white, fontSize: 25.sp),
                     ),
                   )
                 : PlaylistListview(
@@ -98,6 +98,7 @@ Future newplaylist(BuildContext context, formkey) {
             key: formkey,
             child: TextFormField(
               controller: namecontroller1,
+              maxLength: 8,
               decoration: InputDecoration(
                 counterStyle: const TextStyle(
                   color: Colors.white,

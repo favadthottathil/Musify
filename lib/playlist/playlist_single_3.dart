@@ -7,6 +7,7 @@ import 'package:music_application/playing_screen/now_playing.dart';
 import 'package:music_application/playlist/playlist_addsongs.dart';
 import 'package:music_application/widgets/mainscreen_widgets/appbar_icons.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:sizer/sizer.dart';
 
 class Playlist extends StatelessWidget {
   const Playlist({
@@ -58,28 +59,28 @@ class Playlist extends StatelessWidget {
                     SizedBox(
                       height: mediaQuery.size.height * 0.3,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 2.h),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const SizedBox(height: 40),
+                            SizedBox(height: 4.h),
                             AppBarButton(
                                 iconData: Icons.arrow_back_ios,
                                 buttonAction: () {
                                   Navigator.pop(context);
                                 },
                                 color: Colors.white),
-                            const SizedBox(height: 80),
+                            SizedBox(height: 10.h),
                             Text(
                               playlist.name,
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 40, color: Colors.white),
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 33.sp, color: Colors.white),
                             ),
                           ],
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(2.h),
                       child: Column(
                         children: [
                           Row(
@@ -97,13 +98,13 @@ class Playlist extends StatelessWidget {
                                 },
                                 child: Wrap(
                                   crossAxisAlignment: WrapCrossAlignment.center,
-                                  children: const [
-                                    Icon(
+                                  children: [
+                                    const Icon(
                                       Icons.add,
                                       color: Colors.white,
                                     ),
-                                    SizedBox(width: 5),
-                                    Text(
+                                    SizedBox(width: 1.h),
+                                    const Text(
                                       'Add Song',
                                       style: TextStyle(color: Colors.white),
                                     )
@@ -115,12 +116,12 @@ class Playlist extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    SizedBox(height: 3.h),
                     songPlaylist.isEmpty
-                        ? const Center(
+                        ? Center(
                             child: Text(
                               'Playlist Empty??',
-                              style: TextStyle(color: Colors.white, fontSize: 30),
+                              style: TextStyle(color: Colors.white, fontSize: 25.sp),
                             ),
                           )
                         : ListView.builder(
@@ -128,7 +129,7 @@ class Playlist extends StatelessWidget {
                             itemCount: songPlaylist.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(1.h),
                                 child: InkWell(
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -138,22 +139,22 @@ class Playlist extends StatelessWidget {
                                         child: QueryArtworkWidget(
                                           id: songPlaylist[index].id,
                                           type: ArtworkType.AUDIO,
-                                          artworkWidth: 50,
-                                          artworkHeight: 50,
+                                          artworkWidth: 7.h,
+                                          artworkHeight: 7.h,
                                           keepOldArtwork: true,
-                                          nullArtworkWidget: const SizedBox(
-                                            height: 50,
-                                            width: 50,
-                                            child: Icon(
+                                          nullArtworkWidget: SizedBox(
+                                            height: 7.h,
+                                            width: 7.h,
+                                            child: const Icon(
                                               Icons.music_note,
                                               color: Colors.white,
                                             ),
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 1.h),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 25),
+                                        padding: EdgeInsets.only(left: 2.h),
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           mainAxisAlignment: MainAxisAlignment.center,
@@ -161,9 +162,9 @@ class Playlist extends StatelessWidget {
                                             Text(
                                               songPlaylist[index].displayNameWOExt,
                                               maxLines: 1,
-                                              style: const TextStyle(
+                                              style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 13,
+                                                fontSize: 10.sp,
                                                 color: Colors.white,
                                               ),
                                             ),

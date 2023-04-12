@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/controller/most_played.dart';
 import 'package:music_application/providers/mostlyplayed_provider.dart';
 import 'package:music_application/screens/MainScreenTabbar/ForYou/widgets/recently_played.dart';
 import 'package:on_audio_query/on_audio_query.dart';

@@ -1,17 +1,11 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/providers/sleeptimer_provider.dart';
 import 'package:provider/provider.dart';
 
-class SleepTimer extends StatefulWidget {
+class SleepTimer extends StatelessWidget {
   const SleepTimer({super.key});
 
-  @override
-  State<SleepTimer> createState() => _SleepTimerState();
-}
 
-class _SleepTimerState extends State<SleepTimer> {
   // handleDuractionChanged(double value) {
   //   setState(() {
   //     duration = value.toInt();

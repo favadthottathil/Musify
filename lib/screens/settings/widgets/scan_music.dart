@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:music_application/mainScreen/main_screen.dart';
 import 'package:music_application/providers/scanmusic_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class ScanMusic extends StatelessWidget {
   const ScanMusic({super.key});
@@ -42,11 +43,11 @@ class ScanMusic extends StatelessWidget {
                       ? Center(
                           child: Lottie.asset(
                             'animation/99946-searching.json',
-                            height: 250,
+                            height: 20.h,
                           ),
                         )
                       : const SizedBox(),
-                  const SizedBox(height: 300),
+                  SizedBox(height: 15.h),
                   Center(
                     child: GestureDetector(
                       onTap: () {
@@ -55,8 +56,8 @@ class ScanMusic extends StatelessWidget {
                         // scanSuccess();
                       },
                       child: Container(
-                        height: 50,
-                        width: 200,
+                        height: 5.h,
+                        width: 40.w,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           color: Colors.orange[900],
@@ -90,27 +91,27 @@ class ScanMusic extends StatelessWidget {
                   Center(
                     child: Lottie.asset(
                       'animation/1708-success.json',
-                      height: 300,
+                      height: 20.h,
                       repeat: false,
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: 4.h),
                   Center(
                     child: RichText(
                       text: TextSpan(
                         children: [
                           TextSpan(
                             text: '${value.allsong} ',
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 35, 244, 45),
-                              fontSize: 25,
+                            style:  TextStyle(
+                              color: const Color.fromARGB(255, 35, 244, 45),
+                              fontSize: 20.sp,
                             ),
                           ),
-                          const TextSpan(
+                           TextSpan(
                             text: 'Songs added to Music Player',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 19,
+                              fontSize: 16.sp,
                             ),
                           )
                         ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_application/controller/recent_song.dart';
 import 'package:music_application/controller/song_controller.dart';
 import 'package:music_application/playing_screen/now_playing.dart';
 import 'package:music_application/providers/recentsongs_provider.dart';
